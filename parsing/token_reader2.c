@@ -1,5 +1,20 @@
 #include "../parsing.h"
 
+int	handle_quotes(int i, char *str, char del)
+{
+	int	j;
+
+	j = 0;
+	if (str[i + j] == del)
+	{
+		j++;
+		while (str[i + j] != del && str[i + j])
+			j++;
+		j++;
+	}
+	return (j);
+}
+
 int	add_node(char *str, t_tokens token, t_lexer **lexer_list)
 {
 	t_lexer	*node;

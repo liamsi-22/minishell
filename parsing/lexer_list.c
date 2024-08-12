@@ -8,11 +8,11 @@ t_lexer	*ft_lexernew(char *str, int token)
 	new_element = (t_lexer *)malloc(sizeof(t_lexer));
 	if (!new_element)
 		return (0);
-	new_element->str = str;
+	new_element->word = str;
 	new_element->token = token;
 	new_element->i = i++;
 	new_element->next = NULL;
-	new_element->prev = NULL;
+	new_element->prv = NULL;
 	return (new_element);
 }
 
@@ -29,5 +29,5 @@ void	ft_lexeradd_back(t_lexer **lst, t_lexer *new)
 	while (tmp->next != NULL)
 		tmp = tmp->next;
 	tmp->next = new;
-	new->prev = tmp;
+	new->prv = tmp;
 }

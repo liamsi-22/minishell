@@ -6,6 +6,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+
 
 # define READLINE_MSG	"\033[1;36mminishell\033[34m$ \033[0m"
 # define HEREDOC_MSG	"\033[1;34m> \033[0m"
@@ -84,6 +87,7 @@ void	ft_lexeradd_back(t_lexer **lst, t_lexer *new);
 t_lexer	*ft_lexernew(char *str, int token);
 int	count_quotes(char *line);
 int	find_matching_quote(char *line, int i, int *num_del, int del);
+int	handle_quotes(int i, char *str, char del);
 
 
 
