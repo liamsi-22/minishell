@@ -32,11 +32,20 @@ typedef struct s_lexer
 	struct	s_lexer	*prv;
 }	t_lexer;
 
+typedef struct s_parser_tools
+{
+	t_lexer			*lexer_list;
+	t_lexer			*redirections;
+	int				num_redirections;
+	struct s_tools	*tools;
+}	t_parser_tools;
+
 typedef	struct	s_tools
 {
 	char	*args;
 	char **env;
 	t_lexer	*lexer_list;
+	struct s_simple_cmds	*simple_cmds;
 	char *pwd;
 	char *old_pwd;
 	char **paths;
@@ -45,6 +54,17 @@ typedef	struct	s_tools
 	bool	reset;
 	int		pipes;
 }	t_tools;
+
+typedef struct s_simple_cmds
+{
+	char					**str;
+	int						(*builtin)(t_tools *, struct s_simple_cmds *);
+	int						num_redirections;
+	char					*hd_file_name;
+	t_lexer					*redirections;
+	struct s_simple_cmds	*next;
+	struct s_simple_cmds	*prev;
+}	t_simple_cmds;
 
 typedef struct s_heredoc
 {
@@ -89,6 +109,23 @@ int	count_quotes(char *line);
 int	find_matching_quote(char *line, int i, int *num_del, int del);
 int	handle_quotes(int i, char *str, char del);
 
-
+//hado homa li tzado tkhadmo nhar 21/08
+int	parser(t_tools *tools);
+void	count_pipes(t_lexer *lexer_list, t_tools *tools);
+int	parser_double_token_error(t_tools *tools, t_lexer *lexer_list, t_tokens token);
+void	ft_lexerclear(t_lexer **lst);
+void	ft_lexerdelone(t_lexer **lst, int key);
+void	ft_lexerdel_first(t_lexer **lst);
+t_lexer	*ft_lexerclear_one(t_lexer **lst);
+int	handle_pipe_errors(t_tools *tools, t_tokens token);
+void	parser_error(int error, t_tools *tools, t_lexer *lexer_list);
+t_parser_tools	init_parser_tools(t_lexer *lexer_list, t_tools *tools);
+void	ft_simple_cmdsadd_back(t_simple_cmds **lst, t_simple_cmds *new);
+t_simple_cmds	*initialize_cmd(t_parser_tools *parser_tools);
+void	rm_redirections(t_parser_tools *parser_tools);
+int	count_args(t_lexer *lexer_list);
+void	*ft_calloc(size_t count, size_t size);
+t_simple_cmds	*ft_simple_cmdsnew(char **str, int num_redirections, t_lexer *redirections);
+int	add_new_redirection(t_lexer *tmp, t_parser_tools *parser_tools);
 
 #endif
