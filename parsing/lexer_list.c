@@ -1,22 +1,22 @@
 #include "../parsing.h"
 
-t_lexer	*ft_lexernew(char *str, int token)
+t_lexer	*lexer_new(char *str, int token)
 {
-	t_lexer		*new_element;
+	t_lexer		*new_lexer_node;
 	static int	i = 0;
 
-	new_element = (t_lexer *)malloc(sizeof(t_lexer));
-	if (!new_element)
+	new_lexer_node = (t_lexer *)malloc(sizeof(t_lexer));
+	if (!new_lexer_node)
 		return (0);
-	new_element->word = str;
-	new_element->token = token;
-	new_element->i = i++;
-	new_element->next = NULL;
-	new_element->prv = NULL;
-	return (new_element);
+	new_lexer_node->word = str;
+	new_lexer_node->token = token;
+	new_lexer_node->i = i++;
+	new_lexer_node->next = NULL;
+	new_lexer_node->prv = NULL;
+	return (new_lexer_node);
 }
 
-void	ft_lexeradd_back(t_lexer **lst, t_lexer *new)
+void	lexer_addback(t_lexer **lst, t_lexer *new)
 {
 	t_lexer	*tmp;
 

@@ -18,15 +18,15 @@ int	count_args(t_lexer *lexer_list)
 
 void	parser_error(int error, t_tools *tools, t_lexer *lexer_list)
 {
-	ft_lexerclear(&lexer_list);
+	lexer_clear(&lexer_list);
 	ft_error(error, tools);
 }
 
-int	handle_pipe_errors(t_tools *tools, t_tokens token)
+int	pipe_error(t_tools *tools, t_tokens token)
 {
 	if (token == PIPE)
 	{
-		parser_double_token_error(tools, tools->lexer_list,
+		doubl_token_error(tools, tools->lexer_list,
 			tools->lexer_list->token);
 		return (EXIT_FAILURE);
 	}
@@ -38,7 +38,7 @@ int	handle_pipe_errors(t_tools *tools, t_tokens token)
 	return (EXIT_SUCCESS);
 }
 
-int	parser_double_token_error(t_tools *tools, t_lexer *lexer_list,
+int	doubl_token_error(t_tools *tools, t_lexer *lexer_list,
 	t_tokens token)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token ",
@@ -55,7 +55,7 @@ int	parser_double_token_error(t_tools *tools, t_lexer *lexer_list,
 		ft_putstr_fd("'|'\n", STDERR_FILENO);
 	else
 		ft_putstr_fd("\n", STDERR_FILENO);
-	ft_lexerclear(&lexer_list);
+	lexer_clear(&lexer_list);
 	reset_tools(tools);
 	return (EXIT_FAILURE);
 }

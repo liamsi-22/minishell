@@ -14,15 +14,15 @@ char	*find_path(char **envp)
 	return (ft_strdup("\0"));
 }
 
-int	parse_envp(t_tools *tools)
+int	init_path(t_tools *tools)
 {
-	char	*path_from_envp;
+	char	*env_path;
 	int		i;
 	char	*tmp;
 
-	path_from_envp = find_path(tools->env);
-	tools->paths = ft_split(path_from_envp, ':');
-	free(path_from_envp);
+	env_path = find_path(tools->env);
+	tools->paths = ft_split(env_path, ':');
+	free(env_path);
 	i = 0;
 	while (tools->paths[i])
 	{
@@ -38,11 +38,11 @@ int	parse_envp(t_tools *tools)
 	return (0);
 }
 
-int	initiate_tools(t_tools *tools)
+int	init_tools(t_tools *tools)
 {
 	t_heredoc	g_heredoc;
 
-	//tools->simple_cmds = NULL;
+	tools->simple_cmds = NULL;
 	tools->lexer_list = NULL;
 	tools->reset = false;
 	tools->pid = NULL;
@@ -50,7 +50,7 @@ int	initiate_tools(t_tools *tools)
 	g_heredoc.stop_heredoc = 0;
 	g_heredoc.in_cmd = 0;
 	g_heredoc.in_heredoc = 0;
-	parse_envp(tools);
+	init_path(tools);
     // init_signals();
 	return (1);
 }

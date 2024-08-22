@@ -1,6 +1,6 @@
 #include "../parsing.h"
 
-t_lexer	*ft_lexerclear_one(t_lexer **lst)
+t_lexer	*cleare_node(t_lexer **lst)
 {
 	if ((*lst)->word)
 	{
@@ -12,18 +12,18 @@ t_lexer	*ft_lexerclear_one(t_lexer **lst)
 	return (NULL);
 }
 
-void	ft_lexerdel_first(t_lexer **lst)
+void	clear_first_node(t_lexer **lst)
 {
-	t_lexer	*node;
+	t_lexer	*tmp;
 
-	node = *lst;
-	*lst = node->next;
-	ft_lexerclear_one(&node);
+	tmp = *lst;
+	*lst = tmp->next;
+	cleare_node(&tmp);
 	if (*lst)
 		(*lst)->prv = NULL;
 }
 
-void	ft_lexerdelone(t_lexer **lst, int key)
+void	clear_lexer_node(t_lexer **lst, int key)
 {
 	t_lexer	*node;
 	t_lexer	*prv;
@@ -33,7 +33,7 @@ void	ft_lexerdelone(t_lexer **lst, int key)
 	node = start;
 	if ((*lst)->i == key)
 	{
-		ft_lexerdel_first(lst);
+		clear_first_node(lst);
 		return ;
 	}
 	while (node && node->i != key)
@@ -47,11 +47,11 @@ void	ft_lexerdelone(t_lexer **lst, int key)
 		prv->next = NULL;
 	if (prv->next)
 		prv->next->prv = prv;
-	ft_lexerclear_one(&node);
+	cleare_node(&node);
 	*lst = start;
 }
 
-void	ft_lexerclear(t_lexer **lst)
+void	lexer_clear(t_lexer **lst)
 {
 	t_lexer	*tmp;
 
@@ -67,7 +67,7 @@ void	ft_lexerclear(t_lexer **lst)
 	}
 	*lst = NULL;
 }
-void	ft_simple_cmdsadd_back(t_simple_cmds **lst, t_simple_cmds *new)
+void	add_cmdback(t_simple_cmds **lst, t_simple_cmds *new)
 {
 	t_simple_cmds	*tmp;
 

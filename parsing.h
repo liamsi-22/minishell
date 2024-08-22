@@ -1,13 +1,13 @@
 #ifndef PARSING_H
 #define PARSING_H
 
+#include <readline/readline.h>
+#include <readline/history.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 
 
 # define READLINE_MSG	"\033[1;36mminishell\033[34m$ \033[0m"
@@ -89,43 +89,44 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 
-int	parse_envp(t_tools *tools);
+int	init_path(t_tools *tools);
 int	find_pwd(t_tools *tools);
-int	initiate_tools(t_tools *tools);
-int	count_quotes(char *line);
+int	init_tools(t_tools *tools);
+int	handle_quotes(char *line);
 int	ft_error(int error, t_tools *tools);
 int minishell_loop(t_tools *tools);
 int	reset_tools(t_tools *tools);
-int	token_reader(t_tools *tools);
-int	handle_token(char *str, int i, t_lexer **lexer_list);
+int	init_lexer(t_tools *tools);
+int	read_token(char *str, int i, t_lexer **lexer_list);
 t_tokens	check_token(int c);
 int	skip_spaces(char *str, int i);
 int	is_whitespace(char c);
-int	read_words(int i, char *str, t_lexer **lexer_list);
-int	add_node(char *str, t_tokens token, t_lexer **lexer_list);
-void	ft_lexeradd_back(t_lexer **lst, t_lexer *new);
-t_lexer	*ft_lexernew(char *str, int token);
-int	count_quotes(char *line);
+int	read_word(int i, char *str, t_lexer **lexer_list);
+int	add_lexer_node(char *str, t_tokens token, t_lexer **lexer_list);
+void	lexer_addback(t_lexer **lst, t_lexer *new);
+t_lexer	*lexer_new(char *str, int token);
+int	handle_quotes(char *line);
 int	find_matching_quote(char *line, int i, int *num_del, int del);
-int	handle_quotes(int i, char *str, char del);
+int	skip_quotes(int i, char *str, char del);
 
 //hado homa li tzado tkhadmo nhar 21/08
 int	parser(t_tools *tools);
 void	count_pipes(t_lexer *lexer_list, t_tools *tools);
-int	parser_double_token_error(t_tools *tools, t_lexer *lexer_list, t_tokens token);
-void	ft_lexerclear(t_lexer **lst);
-void	ft_lexerdelone(t_lexer **lst, int key);
-void	ft_lexerdel_first(t_lexer **lst);
-t_lexer	*ft_lexerclear_one(t_lexer **lst);
-int	handle_pipe_errors(t_tools *tools, t_tokens token);
+int	doubl_token_error(t_tools *tools, t_lexer *lexer_list, t_tokens token);
+void	lexer_clear(t_lexer **lst);
+void	clear_cmd(t_simple_cmds **lst);
+void	clear_lexer_node(t_lexer **lst, int key);
+void	clear_first_node(t_lexer **lst);
+t_lexer	*cleare_node(t_lexer **lst);
+int	pipe_error(t_tools *tools, t_tokens token);
 void	parser_error(int error, t_tools *tools, t_lexer *lexer_list);
 t_parser_tools	init_parser_tools(t_lexer *lexer_list, t_tools *tools);
-void	ft_simple_cmdsadd_back(t_simple_cmds **lst, t_simple_cmds *new);
-t_simple_cmds	*initialize_cmd(t_parser_tools *parser_tools);
-void	rm_redirections(t_parser_tools *parser_tools);
+void	add_cmdback(t_simple_cmds **lst, t_simple_cmds *new);
+t_simple_cmds	*init_cmd(t_parser_tools *parser_tools);
+void	handle_redirections(t_parser_tools *parser_tools);
 int	count_args(t_lexer *lexer_list);
 void	*ft_calloc(size_t count, size_t size);
-t_simple_cmds	*ft_simple_cmdsnew(char **str, int num_redirections, t_lexer *redirections);
-int	add_new_redirection(t_lexer *tmp, t_parser_tools *parser_tools);
+t_simple_cmds	*creat_newcmd(char **str, int num_redirections, t_lexer *redirections);
+int	add_newredirection(t_lexer *tmp, t_parser_tools *parser_tools);
 
 #endif

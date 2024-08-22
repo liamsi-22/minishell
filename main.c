@@ -1,4 +1,4 @@
-#include "parsing.h"
+#include "./parsing.h"
 
 int	find_pwd(t_tools *tools)
 {
@@ -32,6 +32,6 @@ int main(int ac,char **av,char **env)
     i = 0;
     tools.env = ft_arrdup(env);
     find_pwd(&tools);
-    initiate_tools(&tools);
+    init_tools(&tools);
     minishell_loop(&tools);
 }

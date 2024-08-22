@@ -34,33 +34,33 @@ t_tokens	check_token(int c)
 	return (0);
 }
 
-int	handle_token(char *str, int i, t_lexer **lexer_list)
+int	read_token(char *str, int i, t_lexer **lexer_list)
 {
 	t_tokens	token;
 
 	token = check_token(str[i]);
 	if (token == GREAT && check_token(str[i + 1]) == GREAT)
 	{
-		if (!add_node(NULL, GREAT_GREAT, lexer_list))
+		if (!add_lexer_node(NULL, GREAT_GREAT, lexer_list))
 			return (-1);
 		return (2);
 	}
 	else if (token == LESS && check_token(str[i + 1]) == LESS)
 	{
-		if (!add_node(NULL, LESS_LESS, lexer_list))
+		if (!add_lexer_node(NULL, LESS_LESS, lexer_list))
 			return (-1);
 		return (2);
 	}
 	else if (token)
 	{
-		if (!add_node(NULL, token, lexer_list))
+		if (!add_lexer_node(NULL, token, lexer_list))
 			return (-1);
 		return (1);
 	}	
 	return (0);
 }
 
-int	token_reader(t_tools *tools)
+int	init_lexer(t_tools *tools)
 {
 	int		i;
 	int		j;
@@ -71,9 +71,9 @@ int	token_reader(t_tools *tools)
 		j = 0;
 		i += skip_spaces(tools->args, i);
 		if (check_token(tools->args[i]))
-			j = handle_token(tools->args, i, &tools->lexer_list);
+			j = read_token(tools->args, i, &tools->lexer_list);
 		else
-			j = read_words(i, tools->args, &tools->lexer_list);
+			j = read_word(i, tools->args, &tools->lexer_list);
 		if (j < 0)
 			return (0);
 		i += j;

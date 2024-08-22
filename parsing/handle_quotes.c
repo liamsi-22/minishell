@@ -13,23 +13,23 @@ int	find_matching_quote(char *line, int i, int *num_del, int del)
 	return (j - i);
 }
 
-int	count_quotes(char *line)
+int	handle_quotes(char *line)
 {
 	int	i;
-	int	s;
-	int	d;
+	int	num_sgl_quote;
+	int	num_dbl_quote;
 
-	s = 0;
-	d = 0;
+	num_sgl_quote = 0;
+	num_dbl_quote = 0;
 	i = -1;
 	while (line[++i])
 	{
 		if (line[i] == 34)
-			i += find_matching_quote(line, i, &d, 34);
+			i += find_matching_quote(line, i, &num_dbl_quote, 34);
 		if (line[i] == 39)
-			i += find_matching_quote(line, i, &s, 39);
+			i += find_matching_quote(line, i, &num_sgl_quote, 39);
 	}
-	if ((d > 0 && d % 2 != 0) || (s > 0 && s % 2 != 0))
+	if ((num_dbl_quote > 0 && num_dbl_quote % 2 != 0) || (num_sgl_quote > 0 && num_sgl_quote % 2 != 0))
 		return (0);
 	return (1);
 }

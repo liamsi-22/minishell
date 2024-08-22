@@ -1,13 +1,35 @@
 #include "../parsing.h"
 
+void	clear_cmd(t_simple_cmds **lst)
+{
+	t_simple_cmds	*tmp;
+	t_lexer			*redirect_tmp;
+
+	if (!*lst)
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		redirect_tmp = (*lst)->redirections;
+		lexer_clear(&redirect_tmp);
+		if ((*lst)->str)
+			free_arr((*lst)->str);
+		if ((*lst)->hd_file_name)
+			free((*lst)->hd_file_name);
+		free(*lst);
+		*lst = tmp;
+	}
+	*lst = NULL;
+}
+
 int	reset_tools(t_tools *tools)
 {
-	//ft_simple_cmdsclear(&tools->simple_cmds);
+	clear_cmd(&tools->simple_cmds);
 	free(tools->args);
 	if (tools->pid)
 		free(tools->pid);
 	free_arr(tools->paths);
-	initiate_tools(tools);
+	init_tools(tools);
 	tools->reset = true;
 	minishell_loop(tools);
 	return (1);
@@ -29,11 +51,11 @@ int minishell_loop(t_tools *tools)
     if (tools->args[0] == '\0')
 		return (reset_tools(tools));
     add_history(tools->args);
-    if (!count_quotes(tools->args))
+    if (!handle_quotes(tools->args))
 		return (ft_error(2, tools));
-    if (!token_reader(tools))
+    if (!init_lexer(tools))
 		return (ft_error(1, tools));
-    //parser(tools);
+    parser(tools);
 	//prepare_executor(tools);
 	reset_tools(tools);
     return (1);
