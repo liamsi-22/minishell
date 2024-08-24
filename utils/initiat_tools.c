@@ -40,16 +40,16 @@ int	init_path(t_tools *tools)
 
 int	init_tools(t_tools *tools)
 {
-	t_heredoc	g_heredoc;
+	//t_heredoc	g_heredoc;
 
 	tools->simple_cmds = NULL;
 	tools->lexer_list = NULL;
 	tools->reset = false;
 	tools->pid = NULL;
 	tools->heredoc = false;
-	g_heredoc.stop_heredoc = 0;
-	g_heredoc.in_cmd = 0;
-	g_heredoc.in_heredoc = 0;
+	// g_heredoc.stop_heredoc = 0;
+	// g_heredoc.in_cmd = 0;
+	// g_heredoc.in_heredoc = 0;
 	init_path(tools);
     // init_signals();
 	return (1);

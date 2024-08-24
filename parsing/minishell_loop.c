@@ -38,9 +38,8 @@ int	reset_tools(t_tools *tools)
 int minishell_loop(t_tools *tools)
 {
     char *tmp;
-	t_simple_cmds	*top = tools->simple_cmds->;
 
-    tools->args = readline("minishell --> ");
+    tools->args = readline(READLINE_MSG);
     tmp = ft_strtrim(tools->args, " ");
     free(tools->args);
     tools->args = tmp;
@@ -57,16 +56,7 @@ int minishell_loop(t_tools *tools)
     if (!init_lexer(tools))
 		return (ft_error(1, tools));
     parser(tools);
-	while (top)
-	{
-		while (top->str)
-		{
-			printf("%s -- \n", top->(*str));
-			top->str++;
-		}
-		top = top->next;
-	}
 	//prepare_executor(tools);
-	//reset_tools(tools);
+	reset_tools(tools);
     return (1);
 }

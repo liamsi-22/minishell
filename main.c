@@ -22,14 +22,12 @@ int main(int ac,char **av,char **env)
 {
     t_tools tools;
 
+	(void)av;
     if(ac != 1)
     {
         printf("This program does not accept arguments\n");
         exit(0);
     }
-    int i;
-
-    i = 0;
     tools.env = ft_arrdup(env);
     find_pwd(&tools);
     init_tools(&tools);
