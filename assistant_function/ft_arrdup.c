@@ -1,6 +1,6 @@
 #include "../parsing.h"
 
-static void	*ft_calloc(size_t count, size_t size)
+void	*ft_calloc(size_t count, size_t size)
 {
 	int		*ret;
 

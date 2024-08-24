@@ -16,7 +16,7 @@ int	parser(t_tools *tools)
 			clear_lexer_node(&tools->lexer_list, tools->lexer_list->i);
 		if (pipe_error(tools, tools->lexer_list->token))
 			return (EXIT_FAILURE);
-		parser_tool = init_parser_tool(tools->lexer_list, tools);
+		parser_tool = init_parser_tools(tools->lexer_list, tools);
 		node = init_cmd(&parser_tool);
 		if (!node)
 			parser_error(0, tools, parser_tool.lexer_list);
