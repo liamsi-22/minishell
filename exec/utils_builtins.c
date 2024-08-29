@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   utils_builtins.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: fpolycar <fpolycar@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/03/24 16:04:47 by fpolycar      #+#    #+#                 */
-/*   Updated: 2022/04/18 16:45:01 by fpolycar      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   utils_builtins.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/24 16:04:47 by fpolycar          #+#    #+#             */
+/*   Updated: 2024/08/29 18:11:48 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,32 @@ void	change_path(t_tools *tools)
 	free(tools->old_pwd);
 	tools->old_pwd = tmp;
 	free(tools->pwd);
-	tools->pwd = getcwd(NULL, sizeof(NULL));
+	tools->pwd = getcwd(NULL, 0);
 }
+
+// void change_path(t_tools *tools)
+// {
+//     char *tmp;
+
+//     tmp = ft_strdup(tools->pwd);
+//     if (tmp == NULL)
+//     {
+//         // Handle error: strdup failed
+//         return;
+//     }
+
+//     free(tools->old_pwd);
+//     tools->old_pwd = tmp;
+
+//     free(tools->pwd);
+//     tools->pwd = getcwd(NULL, 0);
+//     if (tools->pwd == NULL)
+//     {
+//         // Handle error: getcwd failed
+//         tools->pwd = ft_strdup(tools->old_pwd); // Revert to old path if getcwd fails
+//     }
+// }
+
 
 char	*delete_quotes_value(char *str)
 {
