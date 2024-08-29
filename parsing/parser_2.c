@@ -1,4 +1,5 @@
 #include "../parsing.h"
+#include "../global_header.h"
 
 int	add_newredirection(t_lexer *tmp, t_parser_tools *parser_tools)
 {
@@ -47,7 +48,7 @@ t_simple_cmds	*creat_newcmd(char **str,
 	if (!new_cmd)
 		return (0);
 	new_cmd->str = str;
-	//new_cmd->builtin = builtin_arr(str[0]);
+	new_cmd->builtin = builtin_arr(str[0]);
 	new_cmd->hd_file_name = NULL;
 	new_cmd->num_redirections = num_redirections;
 	new_cmd->redirections = redirections;

@@ -8,7 +8,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-
+#include <fcntl.h>
+#include <sys/wait.h>
+#include <sys/types.h>
 
 # define READLINE_MSG	"\033[1;36mminishell\033[34m$ \033[0m"
 # define HEREDOC_MSG	"\033[1;34m> \033[0m"
@@ -66,13 +68,6 @@ typedef struct s_simple_cmds
 	struct s_simple_cmds	*prev;
 }	t_simple_cmds;
 
-typedef struct s_heredoc
-{
-	int	error_num;
-	int	stop_heredoc;
-	int	in_cmd;
-	int	in_heredoc;
-}	t_heredoc;
 
 char	**ft_arrdup(char **arr);
 void	free_arr(char **arr);
@@ -128,5 +123,31 @@ int	count_args(t_lexer *lexer_list);
 void	*ft_calloc(size_t count, size_t size);
 t_simple_cmds	*creat_newcmd(char **str, int num_redirections, t_lexer *redirections);
 int	add_newredirection(t_lexer *tmp, t_parser_tools *parser_tools);
+
+int	export_error(char *c);
+char	*delete_quotes(char *str, char c);
+char	*ft_itoa(int n);
+int	ft_isdigit(int c);
+void	ft_simple_cmdsclear(t_simple_cmds **lst);
+int	prepare_executor(t_tools *tools);
+int	mini_cd(t_tools *tools, t_simple_cmds *simple_cmd);
+int	mini_echo(t_tools *tools, t_simple_cmds *simple_cmd);
+int	mini_env(t_tools *tools, t_simple_cmds *simple_cmd);
+int	mini_exit(t_tools *tools, t_simple_cmds *simple_cmd);
+int	mini_export(t_tools *tools, t_simple_cmds *simple_cmd);
+int	mini_pwd(t_tools *tools, t_simple_cmds *simple_cmd);
+int	mini_unset(t_tools *tools, t_simple_cmds *simple_cmd);
+int	check_valid_identifier(char c);
+char	*delete_quotes_value(char *str);
+size_t	equal_sign(char *str);
+void	change_path(t_tools *tools);
+char	*expander_str(t_tools *tools, char *str);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char	*ft_itoa(int n);
+int	ft_atoi(const char *str);
+
+
+
+
 
 #endif

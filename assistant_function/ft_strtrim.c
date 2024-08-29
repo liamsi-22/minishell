@@ -1,6 +1,6 @@
 #include "../parsing.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+size_t	ft_strllcpy(char *dst, const char *src, size_t size)
 {
 	size_t	srcsize;
 	size_t	i;
@@ -59,6 +59,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	dup = (char *)malloc(end - start + 2);
 	if (dup == NULL)
 		return (NULL);
-	ft_strlcpy(dup, s1 + start, end - start + 2);
+	ft_strllcpy(dup, s1 + start, end - start + 2);
 	return (dup);
 }
