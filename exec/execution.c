@@ -191,8 +191,7 @@ int	handle_outfile(t_lexer *redirection)
 	return (EXIT_SUCCESS);
 }
 
-int	create_heredoc(t_lexer *heredoc, bool quotes,
-	t_tools *tools, char *file_name)
+int	create_heredoc(t_lexer *heredoc, bool quotes, t_tools *tools, char *file_name)
 {
 	int		fd;
 	char	*line;

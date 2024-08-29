@@ -124,6 +124,8 @@ void	*ft_calloc(size_t count, size_t size);
 t_simple_cmds	*creat_newcmd(char **str, int num_redirections, t_lexer *redirections);
 int	add_newredirection(t_lexer *tmp, t_parser_tools *parser_tools);
 
+//executor functions
+
 int	export_error(char *c);
 char	*delete_quotes(char *str, char c);
 char	*ft_itoa(int n);
@@ -145,9 +147,26 @@ char	*expander_str(t_tools *tools, char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_itoa(int n);
 int	ft_atoi(const char *str);
-
-
-
-
+int	cmd_not_found(char *str);
+int	after_dol_lenght(char *str, int j);
+int	check_append_outfile(t_lexer *redirections);
+char	*char_to_str(char c);
+int	loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j);
+int	question_mark(char **tmp);
+int	handle_digit_after_dollar(int j, char *str);
+int	handle_infile(char *file);
+int	handle_outfile(t_lexer *redirection);
+int	create_heredoc(t_lexer *heredoc, bool quotes, t_tools *tools, char *file_name);
+char	*detect_dollar_sign(t_tools *tools, char *str);
+size_t	dollar_sign(char *str);
+int	find_cmd(t_simple_cmds *cmd, t_tools *tools);
+int	check_redirections(t_simple_cmds *cmd);
+int	ft_heredoc(t_tools *tools, t_lexer *heredoc, char *file_name);
+char	*generate_heredoc_filename(void);
+char	**expander(t_tools *tools, char **str);
+void	handle_cmd(t_simple_cmds *cmd, t_tools *tools);
+int	send_heredoc(t_tools *tools, t_simple_cmds *cmd);
+t_simple_cmds	*call_expander(t_tools *tools, t_simple_cmds *cmd);
+void	single_cmd(t_simple_cmds *cmd, t_tools *tools);
 
 #endif
