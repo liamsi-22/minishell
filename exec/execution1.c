@@ -1,8 +1,7 @@
 #include "../parsing.h"
 #include "../global_header.h"
 
-t_heredoc g_global;
-// = {0, 0, 0, 0}; // Define and initialize the global variable
+t_heredoc g_global = {0, 0, 0, 0}; // Define and initialize the global variable
 
 int	export_error(char *c)
 {
@@ -477,13 +476,13 @@ int	prepare_executor(t_tools *tools)
 	g_global.in_cmd = 1;
 	if (tools->pipes == 0)
 		single_cmd(tools->simple_cmds, tools);
-	// else
-	// {
-	// 	tools->pid = ft_calloc(sizeof(int), tools->pipes + 2);
-	// 	if (!tools->pid)
-	// 		return (ft_error(1, tools));
-	// 	executor(tools);
-	// }
+	else
+	{
+		tools->pid = ft_calloc(sizeof(int), tools->pipes + 2);
+		if (!tools->pid)
+			return (ft_error(1, tools));
+		executor(tools);
+	}
 	g_global.in_cmd = 0;
 	return (EXIT_SUCCESS);
 }
