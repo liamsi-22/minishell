@@ -21,9 +21,7 @@ char	**whileloop_del_var(char **arr, char **rtn, char *str)
 	j = 0;
 	while (arr[i] != NULL)
 	{
-		if (!(ft_strncmp(arr[i], str, equal_sign(arr[i]) - 1) == 0
-				&& str[equal_sign(arr[i])] == '\0'
-				&& arr[i][ft_strlen(str)] == '='))
+		if (!(ft_strncmp(arr[i], str, equal_sign(arr[i]) - 1) == 0 && str[equal_sign(arr[i]) - 1] == '\0' && arr[i][ft_strlen(str)] == '='))
 		{
 			rtn[j] = ft_strdup(arr[i]);
 			if (rtn[j] == NULL)
@@ -35,6 +33,7 @@ char	**whileloop_del_var(char **arr, char **rtn, char *str)
 		}	
 		i++;
 	}
+	rtn[j] = NULL;
 	return (rtn);
 }
 
