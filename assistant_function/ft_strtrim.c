@@ -37,13 +37,13 @@ char	*ft_strchr(char const *str, int c)
 		return (NULL);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set, char const *set1)
 {
 	size_t	start;
 	size_t	end;
 	char	*dup;
 
-	if (!s1 || !set)
+	if (!s1 || !set || !set1)
 		return (NULL);
 	start = 0;
 	if (!s1[start])
@@ -51,10 +51,10 @@ char	*ft_strtrim(char const *s1, char const *set)
 		dup = ft_strdup("");
 		return (dup);
 	}
-	while (s1[start] && ft_strchr(set, s1[start]) != NULL)
+	while (s1[start] && (ft_strchr(set, s1[start]) != NULL || ft_strchr(set1, s1[start]) != NULL))
 		start++;
 	end = ft_strlen(s1);
-	while (end > start && ft_strchr(set, s1[end]) != NULL)
+	while (end > start && (ft_strchr(set, s1[end]) != NULL || ft_strchr(set1, s1[end]) != NULL))
 		end--;
 	dup = (char *)malloc(end - start + 2);
 	if (dup == NULL)
