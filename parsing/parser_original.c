@@ -14,8 +14,8 @@ int	parser(t_tools *tools)
 	{
 		if (tools->lexer_list && tools->lexer_list->token == PIPE)
 			clear_lexer_node(&tools->lexer_list, tools->lexer_list->i);
-		if (pipe_error(tools, tools->lexer_list->token))
-			return (EXIT_FAILURE);
+		if (pipe_error(tools))
+				return (EXIT_FAILURE);
 		parser_tool = init_parser_tools(tools->lexer_list, tools);
 		node = init_cmd(&parser_tool);
 		if (!node)
@@ -25,14 +25,6 @@ int	parser(t_tools *tools)
 		else
 			add_cmdback(&tools->simple_cmds, node);
 		tools->lexer_list = parser_tool.lexer_list;
-		// if (tools->lexer_list)
-		// {
-		// 	if (tools->lexer_list->token == PIPE && tools->lexer_list->next == NULL)
-		// 	{
-		// 		write(1, "fuck it i'm out of here",23);
-		// 		exit(1);
-		// 	}
-		// }
 	}
 	return (EXIT_SUCCESS);
 }

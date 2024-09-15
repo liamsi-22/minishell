@@ -22,17 +22,17 @@ void	parser_error(int error, t_tools *tools, t_lexer *lexer_list)
 	ft_error(error, tools);
 }
 
-int	pipe_error(t_tools *tools, t_tokens token)
+int	pipe_error(t_tools *tools)
 {
-	if (token == PIPE)
-	{
-		doubl_token_error(tools, tools->lexer_list,
-			tools->lexer_list->token);
-		return (EXIT_FAILURE);
-	}
 	if (!tools->lexer_list)
 	{
 		parser_error(0, tools, tools->lexer_list);
+		return (EXIT_FAILURE);
+	}
+	if (tools->lexer_list && tools->lexer_list->token == PIPE)
+	{
+		doubl_token_error(tools, tools->lexer_list,
+			tools->lexer_list->token);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
