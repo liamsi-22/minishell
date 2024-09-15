@@ -78,7 +78,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char    **ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_strtrim(char const *s1, char const *set);
+char	*ft_strtrim(char const *s1, char const *set, char const *set1);
 
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putstr_fd(char *s, int fd);

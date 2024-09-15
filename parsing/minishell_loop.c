@@ -40,7 +40,7 @@ int minishell_loop(t_tools *tools)
     char *tmp;
 
     tools->args = readline(READLINE_MSG);
-    tmp = ft_strtrim(tools->args, " ");
+    tmp = ft_strtrim(tools->args, " ", "\t");
     free(tools->args);
     tools->args = tmp;
     if (!tools->args)
