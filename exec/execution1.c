@@ -347,7 +347,7 @@ char	*expander_str(t_tools *tools, char *str)
 	char	*tmp;
 
 	tmp = NULL;
-	if (str[dollar_sign(str) - 2] != '\'' && dollar_sign(str) != 0
+	if (dollar_sign(str) != 0 && str[dollar_sign(str) - 2] != '\''
 		&& str[dollar_sign(str)] != '\0')
 	{
 		tmp = detect_dollar_sign(tools, str);
@@ -368,7 +368,7 @@ char	**expander(t_tools *tools, char **str)
 	tmp = NULL;
 	while (str[i] != NULL)
 	{
-		if (str[i][dollar_sign(str[i]) - 2] != '\'' && dollar_sign(str[i]) != 0
+		if (dollar_sign(str[i]) != 0 && str[i][dollar_sign(str[i]) - 2] != '\''
 			&& str[i][dollar_sign(str[i])] != '\0')
 		{
 			tmp = detect_dollar_sign(tools, str[i]);
@@ -398,7 +398,7 @@ void	handle_cmd(t_simple_cmds *cmd, t_tools *tools)
 		exit_code = cmd->builtin(tools, cmd);
 		exit(exit_code);
 	}
-	else if (cmd->str[0][0] != '\0')
+	else if (cmd->str[0] && cmd->str[0][0] != '\0') // added cmd->str[0] &&
 		exit_code = find_cmd(cmd, tools);
 	exit(exit_code);
 }
