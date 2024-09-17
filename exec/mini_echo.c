@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   mini_echo.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/02/16 10:47:40 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/04/19 15:10:51 by maiadegraaf   ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../parsing.h"
 
 void	print_lines(int i, char **str, int out)

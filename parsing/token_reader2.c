@@ -10,7 +10,8 @@ int	skip_quotes(int i, char *str, char del)
 		j++;
 		while (str[i + j] != del && str[i + j])
 			j++;
-		j++;
+		if (str[i + j] == del)
+			j++;
 	}
 	return (j);
 }
@@ -33,9 +34,9 @@ int	read_word(int i, char *str, t_lexer **lexer_list)
 	j = 0;
 	while (str[i + j] && !(check_token(str[i + j])))
 	{
-		j += skip_quotes(i + j, str, 34);
-		j += skip_quotes(i + j, str, 39);
-		if (is_whitespace(str[i + j]))
+		if (str[i + j] == 34 || str[i + j] == 39)  // Double or single quotes
+			j += skip_quotes(i + j, str, str[i + j]);
+		else if (is_whitespace(str[i + j]))
 			break ;
 		else
 			j++;
@@ -44,4 +45,3 @@ int	read_word(int i, char *str, t_lexer **lexer_list)
 		return (-1);
 	return (j);
 }
-

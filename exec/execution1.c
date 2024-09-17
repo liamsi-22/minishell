@@ -77,7 +77,6 @@ size_t	equal_sign(char *str)
 	}
 	return (0);
 }
-
 int	check_append_outfile(t_lexer *redirections)
 {
 	int	fd;
@@ -358,6 +357,51 @@ char	*expander_str(t_tools *tools, char *str)
 	str = delete_quotes(str, '\'');
 	return (str);
 }
+
+// char **expander(t_tools *tools, char **str)
+// {
+//     int i;
+//     char *tmp;
+
+//     i = 0;
+//     tmp = NULL;
+//     while (str[i] != NULL)
+//     {
+//         // Safely handle dollar signs
+//         if (dollar_sign(str[i]) != 0 && str[i][dollar_sign(str[i]) - 2] != '\''
+//             && str[i][dollar_sign(str[i])] != '\0')
+//         {
+//             tmp = detect_dollar_sign(tools, str[i]);
+//             if (tmp == NULL)
+//             {
+//                 // Handle case where detect_dollar_sign fails
+//                 return NULL;
+//             }
+//             free(str[i]);
+//             str[i] = tmp;  // Replace with new string
+//         }
+
+//         // Make sure str[0] is valid and non-empty before using ft_strncmp
+//         if (str[0] != NULL && ft_strlen(str[0]) > 0 && ft_strncmp(str[0], "export", ft_strlen(str[0]) - 1) != 0)
+//         {
+//             tmp = delete_quotes(str[i], '\"');
+//             if (tmp != NULL)
+//             {
+//                 free(str[i]);
+//                 str[i] = tmp;
+//             }
+            
+//             tmp = delete_quotes(str[i], '\'');
+//             if (tmp != NULL)
+//             {
+//                 free(str[i]);
+//                 str[i] = tmp;
+//             }
+//         }
+//         i++;
+//     }
+//     return str;
+// }
 
 char	**expander(t_tools *tools, char **str)
 {
