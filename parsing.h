@@ -79,6 +79,8 @@ char    **ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 char *ft_strtrim(const char *s);
+char *ft_strncpy(char *dest, char *src, int n);
+
 
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putstr_fd(char *s, int fd);
@@ -127,7 +129,7 @@ int	add_newredirection(t_lexer *tmp, t_parser_tools *parser_tools);
 //executor functions
 
 int	export_error(char *c);
-char	*delete_quotes(char *str, char c);
+char	*delete_quotes(char *str);
 char	*ft_itoa(int n);
 int	ft_isdigit(int c);
 void	ft_simple_cmdsclear(t_simple_cmds **lst);

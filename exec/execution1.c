@@ -16,25 +16,62 @@ int	export_error(char *c)
 	return (EXIT_FAILURE);
 }
 
-char	*delete_quotes(char *str, char c)
-{
-	int	i;
-	int	j;
+char *delete_quotes(char *str) {
+    int i = 0;
+    int j = 0;
+    char *sub;
+    char *final_str = ft_strdup("");
+    char cc = '\0';  // Initialize cc to avoid undefined behavior
 
-	i = 0;
-	j = 0;
-	while (str[i])
+    while (str[i])
 	{
-		if (str[i] == c)
+		if (str[i] != '\'' && str[i] != '"')
 		{
-			j = 0;
-			while (str[i + j] == c)
-				j++;
-			ft_strlcpy(&str[i], &str[i + j], strlen(str) - i);
+			j = i;
+			while (str[i] && str[i] != '\'' && str[i] != '"')
+				i++;
+			// Allocate memory for sub and copy the substring
+			sub = malloc(i - j + 1);
+			if (!sub)
+				return NULL;
+			ft_strncpy(sub, &str[j], i - j);
+			sub[i - j] = '\0';  // Null-terminate the substring
+
+			// Join the current substring with the final result string
+			char *temp = final_str;
+			final_str = ft_strjoin(final_str, sub);
+			free(temp);  // Free the old final_str
+			free(sub);  // Free the current substring
 		}
-		i++;
-	}
-	return (str);
+		else 
+		{
+			cc = str[i];  // Store the quote character
+			i++;  // Move past the opening quote
+
+			j = i;
+			while (str[i] && str[i] != cc)
+				i++;
+			// Allocate memory for sub and copy the substring
+			sub = malloc(i - j + 1);
+			if (!sub)
+				return NULL;
+			ft_strncpy(sub, &str[j], i - j);
+			sub[i - j] = '\0';  // Null-terminate the substring
+
+			// Join the current substring with the final result string
+			char *temp = final_str;
+			final_str = ft_strjoin(final_str, sub);
+			free(temp);  // Free the old final_str
+			free(sub);  // Free the current substring
+
+			// If we encounter the closing quote, skip it
+			if (str[i] == cc && str[i])
+				i++;
+		}
+    }
+	free(str);
+	str = final_str;
+    return (str);  // Return the joined result string
 }
 
 int	cmd_not_found(char *str)
@@ -319,8 +356,8 @@ int	ft_heredoc(t_tools *tools, t_lexer *heredoc, char *file_name)
 		quotes = true;
 	else
 		quotes = false;
-	delete_quotes(heredoc->word, '\"');
-	delete_quotes(heredoc->word, '\'');
+	delete_quotes(heredoc->word);
+	delete_quotes(heredoc->word);
 	g_global.stop_heredoc = 0;
 	g_global.in_heredoc = 1;
 	sl = create_heredoc(heredoc, quotes, tools, file_name);
@@ -353,55 +390,10 @@ char	*expander_str(t_tools *tools, char *str)
 		free(str);
 		str = tmp;
 	}
-	str = delete_quotes(str, '\"');
-	str = delete_quotes(str, '\'');
+	str = delete_quotes(str);
+	str = delete_quotes(str);
 	return (str);
 }
-
-// char **expander(t_tools *tools, char **str)
-// {
-//     int i;
-//     char *tmp;
-
-//     i = 0;
-//     tmp = NULL;
-//     while (str[i] != NULL)
-//     {
-//         // Safely handle dollar signs
-//         if (dollar_sign(str[i]) != 0 && str[i][dollar_sign(str[i]) - 2] != '\''
-//             && str[i][dollar_sign(str[i])] != '\0')
-//         {
-//             tmp = detect_dollar_sign(tools, str[i]);
-//             if (tmp == NULL)
-//             {
-//                 // Handle case where detect_dollar_sign fails
-//                 return NULL;
-//             }
-//             free(str[i]);
-//             str[i] = tmp;  // Replace with new string
-//         }
-
-//         // Make sure str[0] is valid and non-empty before using ft_strncmp
-//         if (str[0] != NULL && ft_strlen(str[0]) > 0 && ft_strncmp(str[0], "export", ft_strlen(str[0]) - 1) != 0)
-//         {
-//             tmp = delete_quotes(str[i], '\"');
-//             if (tmp != NULL)
-//             {
-//                 free(str[i]);
-//                 str[i] = tmp;
-//             }
-            
-//             tmp = delete_quotes(str[i], '\'');
-//             if (tmp != NULL)
-//             {
-//                 free(str[i]);
-//                 str[i] = tmp;
-//             }
-//         }
-//         i++;
-//     }
-//     return str;
-// }
 
 char	**expander(t_tools *tools, char **str)
 {
@@ -419,11 +411,9 @@ char	**expander(t_tools *tools, char **str)
 			free(str[i]);
 			str[i] = tmp;
 		}
+
 		if (ft_strncmp(str[0], "export", ft_strlen(str[0]) - 1) != 0)
-		{
-			str[i] = delete_quotes(str[i], '\"');
-			str[i] = delete_quotes(str[i], '\'');
-		}
+			str[i] = delete_quotes(str[i]);
 		i++;
 	}
 	return (str);

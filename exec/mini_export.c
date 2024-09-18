@@ -7,9 +7,9 @@ int	variable_exist(t_tools *tools, char *str)
 
 	i = 0;
 	if (str[equal_sign(str)] == '\"')
-		delete_quotes(str, '\"');
+		delete_quotes(str);
 	if (str[equal_sign(str)] == '\'')
-		delete_quotes(str, '\'');
+		delete_quotes(str);
 	while (tools->env[i])
 	{
 		if (ft_strncmp(tools->env[i],
@@ -75,9 +75,9 @@ char	**add_var(char **arr, char *str)
 
 	i = 0;
 	if (str[equal_sign(str)] == '\"')
-		delete_quotes(str, '\"');
+		delete_quotes(str);
 	if (str[equal_sign(str)] == '\'')
-		delete_quotes(str, '\'');
+		delete_quotes(str);
 	while (arr[i] != NULL)
 		i++;
 	rtn = ft_calloc(sizeof(char *), i + 2);
