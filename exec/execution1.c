@@ -378,19 +378,39 @@ char	*generate_heredoc_filename(void)
 	return (file_name);
 }
 
+int	is_paire(char *str)
+{
+	int	i;
+	int	x;
+
+	i = 0;
+	x = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'')
+			x++;
+		if (str[i] == '$')
+			break;
+		i++;
+	}
+	return (x);
+}
+
 char	*expander_str(t_tools *tools, char *str)
 {
 	char	*tmp;
 
 	tmp = NULL;
-	if (dollar_sign(str) != 0 && str[dollar_sign(str) - 2] != '\''
-		&& str[dollar_sign(str)] != '\0')
+	int x = dollar_sign(str) - 2;
+	if (dollar_sign(str) != 0 && str[dollar_sign(str)] != '\0')
 	{
-		tmp = detect_dollar_sign(tools, str);
-		free(str);
-		str = tmp;
+		if (x < 0 || str[0] == '"' || str[dollar_sign(str) - 2] != '\'' && is_paire(str) % 2 == 0)
+		{
+			tmp = detect_dollar_sign(tools, str);
+			free(str);
+			str = tmp;
+		}
 	}
-	str = delete_quotes(str);
 	str = delete_quotes(str);
 	return (str);
 }
@@ -404,14 +424,16 @@ char	**expander(t_tools *tools, char **str)
 	tmp = NULL;
 	while (str[i] != NULL)
 	{
-		if (dollar_sign(str[i]) != 0 && str[i][dollar_sign(str[i]) - 2] != '\''
-			&& str[i][dollar_sign(str[i])] != '\0')
+		int x = dollar_sign(str[i]) - 2;
+		if (dollar_sign(str[i]) != 0 && str[i][dollar_sign(str[i])] != '\0') // remove && str[i][0] != '\''
 		{
-			tmp = detect_dollar_sign(tools, str[i]);
-			free(str[i]);
-			str[i] = tmp;
+			if (x < 0 || str[i][0] == '"' || (str[i][dollar_sign(str[i]) - 2] != '\'' && is_paire(str[i]) % 2 == 0) || is_paire(str[i]) % 2 == 0)
+			{
+				tmp = detect_dollar_sign(tools, str[i]);
+				free(str[i]);
+				str[i] = tmp;
+			}
 		}
-
 		if (ft_strncmp(str[0], "export", ft_strlen(str[0]) - 1) != 0)
 			str[i] = delete_quotes(str[i]);
 		i++;
