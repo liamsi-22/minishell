@@ -19,7 +19,7 @@ extern int	(*builtin_arr(char *str))(t_tools *tools, t_simple_cmds *simple_cmd)
 	{
 		if (str)
 		{
-			if (!ft_strncmp(builtins[i][0], str, ft_strlen((builtins[i][0]))))
+			if (!ft_strncmp(str , builtins[i][0], ft_strlen(str)))
 				return (builtins[i][1]);
 		}
 		i++;
