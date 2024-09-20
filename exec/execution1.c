@@ -165,20 +165,32 @@ int	loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j)
 
 int	question_mark(char **tmp)
 {
-	free(*tmp);
-	*tmp = ft_itoa(g_global.error_num);
-	return (ft_strlen(*tmp) + 1);
+	char	*tmp0;
+	char	*tmp1;
+	tmp1 = ft_itoa(g_global.error_num);
+	tmp0 = *tmp;
+	*tmp = ft_strjoin(*tmp , tmp1);
+	free(tmp0);
+	free(tmp1);
+	return (2);
 }
 
-int	handle_digit_after_dollar(int j, char *str)
+int	handle_digit_after_dollar(int j, char *str, char **tmp)
 {
 	int	i;
+	char *tmp2;
 
 	i = j;
 	if (str[j] == '$')
 	{
 		if (ft_isdigit(str[j + 1]) == 1)
 		{
+			if (str[j + 1] == '0' && !ft_isdigit(str[j + 2]))
+			{
+				tmp2 = ft_strjoin(*tmp , "bash");
+				free(*tmp);
+				*tmp = tmp2;
+			}
 			j += 2;
 		}
 	}
@@ -258,21 +270,25 @@ char	*detect_dollar_sign(t_tools *tools, char *str)
 	char	*tmp3;
 
 	j = 0;
-	tmp = ft_strdup("\0");
+	tmp = ft_strdup("");
 	while (str[j])
 	{
-		j += handle_digit_after_dollar(j, str);
+		j += handle_digit_after_dollar(j, str, &tmp);
 		if (str[j] == '$' && str[j + 1] == '?')
 			j += question_mark(&tmp);
 		else if (str[j] == '$' && (str[j + 1] != ' ' && (str[j + 1] != '"' || str[j + 2] != '\0')) && str[j + 1] != '\0')
 			j += loop_if_dollar_sign(tools, str, &tmp, j);
 		else
-		{
-			tmp2 = char_to_str(str[j++]);
-			tmp3 = ft_strjoin(tmp, tmp2);
-			free(tmp);
-			tmp = tmp3;
-			free(tmp2);
+		{	
+			if (str[j])
+			{
+				tmp2 = char_to_str(str[j]);
+				tmp3 = ft_strjoin(tmp, tmp2);
+				free(tmp);
+				tmp = tmp3;
+				free(tmp2);
+				j++;
+			}
 		}
 	}
 	return (tmp);
@@ -341,23 +357,40 @@ int	check_redirections(t_simple_cmds *cmd)
 	return (EXIT_SUCCESS);
 }
 
+char	*delete_quotes2(char *str, char c)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+		{
+			j = 0;
+			while (str[i + j] == c)
+				j++;
+			ft_strlcpy(&str[i], &str[i + j], strlen(str) - i);
+		}
+		i++;
+	}
+	return (str);
+}
+
 int	ft_heredoc(t_tools *tools, t_lexer *heredoc, char *file_name)
 {
 	bool	quotes;
 	int		sl;
 
 	sl = EXIT_SUCCESS;
-	if ((heredoc->word[0] == '\"'
-			&& heredoc->word[ft_strlen(heredoc->word) - 1] == '\"')
-		|| (heredoc->word[0] == '\''
-
-		
-			&& heredoc->word[ft_strlen(heredoc->word) - 1] == '\''))
+	if ((heredoc->word[0] == '\"' && heredoc->word[ft_strlen(heredoc->word) - 1] == '\"')
+		|| (heredoc->word[0] == '\'' && heredoc->word[ft_strlen(heredoc->word) - 1] == '\''))
 		quotes = true;
 	else
 		quotes = false;
-	delete_quotes(heredoc->word);
-	delete_quotes(heredoc->word);
+	delete_quotes2(heredoc->word, '\'');
+	delete_quotes2(heredoc->word, '"');
 	g_global.stop_heredoc = 0;
 	g_global.in_heredoc = 1;
 	sl = create_heredoc(heredoc, quotes, tools, file_name);
@@ -395,7 +428,6 @@ int	is_paire(char *str)
 	}
 	return (x);
 }
-
 char	*expander_str(t_tools *tools, char *str)
 {
 	char	*tmp;
@@ -427,7 +459,7 @@ char	**expander(t_tools *tools, char **str)
 		int x = dollar_sign(str[i]) - 2;
 		if (dollar_sign(str[i]) != 0 && str[i][dollar_sign(str[i])] != '\0') // remove && str[i][0] != '\''
 		{
-			if (x < 0 || str[i][0] == '"' || (str[i][dollar_sign(str[i]) - 2] != '\'' && is_paire(str[i]) % 2 == 0) || is_paire(str[i]) % 2 == 0)
+			if (x < 0 || (str[i][0] == '"' && is_paire(str[i]) % 2 == 0) || (str[i][dollar_sign(str[i]) - 2] == '\'' && is_paire(str[i]) % 2 == 0) || is_paire(str[i]) % 2 == 0)
 			{
 				tmp = detect_dollar_sign(tools, str[i]);
 				free(str[i]);

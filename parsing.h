@@ -80,6 +80,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 char *ft_strtrim(const char *s);
 char *ft_strncpy(char *dest, char *src, int n);
+int	ft_strcmp(const char *s1, const char *s2, size_t n);
 
 
 void	ft_putendl_fd(char *s, int fd);
@@ -155,7 +156,7 @@ int	check_append_outfile(t_lexer *redirections);
 char	*char_to_str(char c);
 int	loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j);
 int	question_mark(char **tmp);
-int	handle_digit_after_dollar(int j, char *str);
+int	handle_digit_after_dollar(int j, char *str, char **tmp);
 int	handle_infile(char *file);
 int	handle_outfile(t_lexer *redirection);
 int	create_heredoc(t_lexer *heredoc, bool quotes, t_tools *tools, char *file_name);
