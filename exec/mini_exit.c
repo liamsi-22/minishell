@@ -42,17 +42,17 @@ void	ft_simple_cmdsclear(t_simple_cmds **lst)
 }
 void	free_tools(t_tools *tools)
 {
-	// if (tools->paths)
+	if (tools->paths)
 	free_arr(tools->paths);
-	// if (tools->env)
+	if (tools->env)
 	free_arr(tools->env);
-	// if (tools->args)
+	if (tools->args)
 	free(tools->args);
-	// if (tools->simple_cmds)
+	if (tools->simple_cmds)
 	ft_simple_cmdsclear(&tools->simple_cmds);
-	// if (tools->pwd)
+	if (tools->pwd)
 	free(tools->pwd);
-	// if (tools->old_pwd)
+	if (tools->old_pwd)
 	free(tools->old_pwd);
 	if (tools->pipes)
 		free(tools->pid);
