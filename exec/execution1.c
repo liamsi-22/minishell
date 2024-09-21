@@ -74,11 +74,20 @@ char *delete_quotes(char *str) {
     return (str);  // Return the joined result string
 }
 
-int	cmd_not_found(char *str)
+int	cmd_not_found(char *str, int i)
 {
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	ft_putstr_fd(": command not found\n", STDERR_FILENO);
+	if (i == 0)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
+	}
+	else
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putstr_fd(": Not a directory\n", STDERR_FILENO);
+	}
 	return (127);
 }
 
@@ -114,6 +123,7 @@ size_t	equal_sign(char *str)
 	}
 	return (0);
 }
+
 int	check_append_outfile(t_lexer *redirections)
 {
 	int	fd;
@@ -273,22 +283,21 @@ char	*detect_dollar_sign(t_tools *tools, char *str)
 	tmp = ft_strdup("");
 	while (str[j])
 	{
-		j += handle_digit_after_dollar(j, str, &tmp);
-		if (str[j] == '$' && str[j + 1] == '?')
+		if (str[j] == '$' && ft_isdigit(str[j + 1]))
+			j += handle_digit_after_dollar(j, str, &tmp);
+		else if (str[j] == '$' && str[j + 1] == '?')
 			j += question_mark(&tmp);
 		else if (str[j] == '$' && (str[j + 1] != ' ' && (str[j + 1] != '"' || str[j + 2] != '\0')) && str[j + 1] != '\0')
 			j += loop_if_dollar_sign(tools, str, &tmp, j);
 		else
 		{	
-			if (str[j])
-			{
+
 				tmp2 = char_to_str(str[j]);
 				tmp3 = ft_strjoin(tmp, tmp2);
 				free(tmp);
 				tmp = tmp3;
 				free(tmp2);
 				j++;
-			}
 		}
 	}
 	return (tmp);
@@ -315,9 +324,11 @@ int	find_cmd(t_simple_cmds *cmd, t_tools *tools)
 
 	i = 0;
 	// cmd->str = resplit_str(cmd->str);
+	if (cmd->str[0][0] == '/' && cmd->str[0][ft_strlen(cmd->str[0]) - 1] ==  '/')
+		return (cmd_not_found(cmd->str[0], 1));
 	if (!access(cmd->str[0], F_OK))
 		execve(cmd->str[0], cmd->str, tools->env);
-	while (tools->paths[i])
+	while (tools->paths[i] && cmd->str[0][0] != '/')
 	{
 		mycmd = ft_strjoin(tools->paths[i], cmd->str[0]);
 		if (!access(mycmd, F_OK))
@@ -325,7 +336,7 @@ int	find_cmd(t_simple_cmds *cmd, t_tools *tools)
 		free(mycmd);
 		i++;
 	}
-	return (cmd_not_found(cmd->str[0]));
+	return (cmd_not_found(cmd->str[0], 0));
 }
 
 int	check_redirections(t_simple_cmds *cmd)
@@ -476,7 +487,7 @@ char	**expander(t_tools *tools, char **str)
 void	handle_cmd(t_simple_cmds *cmd, t_tools *tools)
 {
 	int	exit_code;
-
+	
 	exit_code = 0;
 	if (cmd->redirections)
 		if (check_redirections(cmd))
@@ -527,8 +538,7 @@ t_simple_cmds	*call_expander(t_tools *tools, t_simple_cmds *cmd)
 	while (cmd->redirections)
 	{
 		if (cmd->redirections->token != LESS_LESS)
-			cmd->redirections->word
-				= expander_str(tools, cmd->redirections->word);
+			cmd->redirections->word = expander_str(tools, cmd->redirections->word);
 		cmd->redirections = cmd->redirections->next;
 	}
 	cmd->redirections = start;
@@ -539,6 +549,7 @@ void	single_cmd(t_simple_cmds *cmd, t_tools *tools)
 {
 	int	pid;
 	int	status;
+
 
 	tools->simple_cmds = call_expander(tools, tools->simple_cmds);
 	if (cmd->builtin == mini_cd || cmd->builtin == mini_exit
