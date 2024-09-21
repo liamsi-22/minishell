@@ -150,7 +150,7 @@ char	*expander_str(t_tools *tools, char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_itoa(int n);
 int	ft_atoi(const char *str);
-int	cmd_not_found(char *str);
+int	cmd_not_found(char *str, int i);
 int	after_dol_lenght(char *str, int j);
 int	check_append_outfile(t_lexer *redirections);
 char	*char_to_str(char c);
