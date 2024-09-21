@@ -54,7 +54,9 @@ t_simple_cmds	*creat_newcmd(char **str,
 	new_cmd->hd_file_name = NULL;
 	new_cmd->num_redirections = num_redirections;
 	if (redirections)
-	new_cmd->redirections = redirections;
+		new_cmd->redirections = redirections;
+	else
+		new_cmd->redirections = NULL;
 	new_cmd->next = NULL;
 	new_cmd->prev = NULL;
 	return (new_cmd);

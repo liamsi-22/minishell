@@ -76,7 +76,15 @@ char *delete_quotes(char *str) {
 
 int	cmd_not_found(char *str, int i)
 {
-	if (i == 0)
+	if (i == 1)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putstr_fd(": Is a directory\n", STDERR_FILENO);
+		return (126);
+
+	}
+	else if (i == 0)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
@@ -86,8 +94,9 @@ int	cmd_not_found(char *str, int i)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putstr_fd(": Not a directory\n", STDERR_FILENO);
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
 	}
+
 	return (127);
 }
 
@@ -324,8 +333,10 @@ int	find_cmd(t_simple_cmds *cmd, t_tools *tools)
 
 	i = 0;
 	// cmd->str = resplit_str(cmd->str);
-	if (cmd->str[0][0] == '/' && cmd->str[0][ft_strlen(cmd->str[0]) - 1] ==  '/')
+	if (!access(cmd->str[0], F_OK) && cmd->str[0][ft_strlen(cmd->str[0]) - 1] ==  '/')
 		return (cmd_not_found(cmd->str[0], 1));
+	else if (cmd->str[0][0] == '/' && access(cmd->str[0], F_OK))
+		return (cmd_not_found(cmd->str[0], 2));
 	if (!access(cmd->str[0], F_OK))
 		execve(cmd->str[0], cmd->str, tools->env);
 	while (tools->paths[i] && cmd->str[0][0] != '/')
