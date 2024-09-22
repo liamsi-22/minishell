@@ -527,22 +527,22 @@ char	**expander(t_tools *tools, char **str)
 						j++;
 					}
 					free(p);
-					if (ft_strlen(str[i]) > 0 && ft_strcmp(str[0], "export") != 0)
-						str[i] = delete_quotes(str[i]);
+					// if (ft_strcmp(str[0], "export") != 0)
+					// 	str[i] = delete_quotes(str[i]);
 					i--;
 				}
 				else
 				{
 					free(str[i]);
 					str[i] = tmp;
-					if (ft_strcmp(str[0], "export") != 0)
-						str[i] = delete_quotes(str[i]);
+					// if (ft_strcmp(str[0], "export") != 0)
+					// 	str[i] = delete_quotes(str[i]);
 				}
 
 			}
 		}
-		// if (ft_strcmp(str[0], "export") != 0)
-		// 	str[i] = delete_quotes(str[i]);
+		if (ft_strcmp(str[0], "export") != 0)
+			str[i] = delete_quotes(str[i]);
 		i++;
 	}
 	return (str);
