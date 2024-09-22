@@ -176,7 +176,7 @@ int	executor(t_tools *tools);
 int	ft_fork(t_tools *tools, int end[2], int fd_in, t_simple_cmds *cmd);
 int	check_fd_heredoc(t_tools *tools, int end[2], t_simple_cmds *cmd);
 int	pipe_wait(int *pid, int amount);
-t_simple_cmds	*ft_simple_cmdsfirst(t_simple_cmds *map);
+// t_simple_cmds	*ft_simple_cmdsfirst(t_simple_cmds *map);
 void	dup_cmd(t_simple_cmds *cmd, t_tools *tools, int end[2], int fd_in);
 
 #endif

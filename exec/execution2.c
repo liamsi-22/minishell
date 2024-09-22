@@ -15,20 +15,20 @@ void	dup_cmd(t_simple_cmds *cmd, t_tools *tools, int end[2], int fd_in)
 	handle_cmd(cmd, tools);
 }
 
-t_simple_cmds	*ft_simple_cmdsfirst(t_simple_cmds *map)
-{
-	int	i;
+// t_simple_cmds	*ft_simple_cmdsfirst(t_simple_cmds *map)
+// {
+// 	int	i;
 
-	i = 0;
-	if (!map)
-		return (NULL);
-	while (map->prev != NULL)
-	{
-		map = map->prev;
-		i++;
-	}
-	return (map);
-}
+// 	i = 0;
+// 	if (!map)
+// 		return (NULL);
+// 	while (map->prev != NULL)
+// 	{
+// 		map = map->prev;
+// 		i++;
+// 	}
+// 	return (map);
+// }
 
 int	pipe_wait(int *pid, int amount)
 {

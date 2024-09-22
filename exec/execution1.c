@@ -333,9 +333,9 @@ int	find_cmd(t_simple_cmds *cmd, t_tools *tools)
 
 	i = 0;
 	// cmd->str = resplit_str(cmd->str);
-	if (!ft_strcmp(cmd->str[0],tools->pwd))
-		return (cmd_not_found(cmd->str[0], 1));
-	if (!access(cmd->str[0], F_OK) && cmd->str[0][ft_strlen(cmd->str[0]) - 1] ==  '/')
+	// if (!ft_strcmp(cmd->str[0],tools->pwd))
+	// 	return (cmd_not_found(cmd->str[0], 1));
+	if (!ft_strcmp(cmd->str[0],tools->pwd) || (!access(cmd->str[0], F_OK) && cmd->str[0][ft_strlen(cmd->str[0]) - 1] ==  '/'))
 		return (cmd_not_found(cmd->str[0], 1));
 	else if (cmd->str[0][0] == '/' && access(cmd->str[0], F_OK))
 		return (cmd_not_found(cmd->str[0], 2));
@@ -361,6 +361,7 @@ int	check_redirections(t_simple_cmds *cmd)
 	{
 		if (cmd->redirections->token == LESS)
 		{
+
 			if (handle_infile(cmd->redirections->word))
 				return (EXIT_FAILURE);
 		}
@@ -503,8 +504,10 @@ void	handle_cmd(t_simple_cmds *cmd, t_tools *tools)
 	
 	exit_code = 0;
 	if (cmd->redirections)
-		if (check_redirections(cmd))
+
+		if (check_redirections(cmd) || (!check_redirections(cmd) && !cmd->str[0]))
 			exit(1);
+
 	if (cmd->builtin != NULL)
 	{
 		exit_code = cmd->builtin(tools, cmd);
