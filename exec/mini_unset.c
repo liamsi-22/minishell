@@ -22,7 +22,7 @@ char	**whileloop_del_var(char **arr, char **rtn, char *str)
 		}	
 		i++;
 	}
-	//rtn[j] = NULL;
+	rtn[j] = NULL;
 	return (rtn);
 }
 
@@ -32,6 +32,7 @@ char	**del_var(char **arr, char *str)
 	size_t	i;
 
 	i = 0;
+
 	while (arr[i] != NULL)
 		i++;
 	rtn = ft_calloc(sizeof(char *), i + 1);
@@ -48,8 +49,8 @@ int	unset_error(t_simple_cmds *simple_cmd)
 	i = 0;
 	if (!simple_cmd->str[1])
 	{
-		ft_putendl_fd("minishell: unset: not enough arguments", STDERR_FILENO);
-		return (EXIT_FAILURE);
+		// ft_putendl_fd("minishell: unset: not enough arguments", STDERR_FILENO);
+		return (EXIT_SUCCESS);
 	}
 	while (simple_cmd->str[1][i])
 	{
@@ -74,13 +75,17 @@ int	mini_unset(t_tools *tools, t_simple_cmds *simple_cmd)
 {
 	char	**tmp;
 
+	tmp = NULL;
 	if (unset_error(simple_cmd) == 1)
 		return (EXIT_FAILURE);
 	else
 	{
-		tmp = del_var(tools->env, simple_cmd->str[1]);
-		free_arr(tools->env);
-		tools->env = tmp;
+		if (simple_cmd->str[1])
+		{
+			tmp = del_var(tools->env, simple_cmd->str[1]);
+			free_arr(tools->env);
+			tools->env = tmp;
+		}
 	}
 	return (EXIT_SUCCESS);
 }

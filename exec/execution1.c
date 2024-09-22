@@ -23,7 +23,7 @@ char *delete_quotes(char *str) {
     char *final_str = ft_strdup("");
     char cc = '\0';  // Initialize cc to avoid undefined behavior
 
-    while (str[i])
+    while (str && str[i])
 	{
 		if (str[i] != '\'' && str[i] != '"')
 		{
@@ -330,11 +330,37 @@ int	find_cmd(t_simple_cmds *cmd, t_tools *tools)
 {
 	int		i;
 	char	*mycmd;
+	// char *p;
+	// int j;
 
-	i = 0;
+	// i = 0;
+	// printf("__%s_\n", cmd->str[0]);
+	// printf("__%s_\n", cmd->str[1]);
+	// while (cmd->str[i])
+	// {
+	// 	if (!cmd->str[i][0])
+	// 	{
+	// 		j = i;
+	// 		p = cmd->str[j];
+	// 		while (cmd->str[j])
+	// 		{
+	// 			cmd->str[j] = cmd->str[j + 1];
+	// 			j++;
+	// 		}
+	// 		free(p);
+	// 		i--;
+	// 	}
+	// 	i++;
+	// }
+
+	// printf("__%s__\n", cmd->str[0]);
+	// printf("__%s__\n", cmd->str[1]);
+	// printf("__%s__\n", cmd->str[2]);
+	
 	// cmd->str = resplit_str(cmd->str);
 	// if (!ft_strcmp(cmd->str[0],tools->pwd))
 	// 	return (cmd_not_found(cmd->str[0], 1));
+	i = 0;
 	if (!ft_strcmp(cmd->str[0],tools->pwd) || (!access(cmd->str[0], F_OK) && cmd->str[0][ft_strlen(cmd->str[0]) - 1] ==  '/'))
 		return (cmd_not_found(cmd->str[0], 1));
 	else if (cmd->str[0][0] == '/' && access(cmd->str[0], F_OK))
@@ -476,10 +502,13 @@ char	**expander(t_tools *tools, char **str)
 {
 	int		i;
 	char	*tmp;
+	int j;
+	char *p;
+	int x;
 
 	i = 0;
 	tmp = NULL;
-	while (str[i] != NULL)
+	while (str[i])
 	{
 		int x = dollar_sign(str[i]) - 2;
 		if (dollar_sign(str[i]) != 0 && str[i][dollar_sign(str[i])] != '\0') // remove && str[i][0] != '\''
@@ -487,12 +516,33 @@ char	**expander(t_tools *tools, char **str)
 			if (x < 0 || (str[i][0] == '"' && is_paire(str[i]) % 2 == 0) || (str[i][dollar_sign(str[i]) - 2] == '\'' && is_paire(str[i]) % 2 == 0) || is_paire(str[i]) % 2 == 0)
 			{
 				tmp = detect_dollar_sign(tools, str[i]);
-				free(str[i]);
-				str[i] = tmp;
+				if (ft_strlen(tmp) == 0)
+				{
+					free(tmp);
+					j = i;
+					p = str[j];
+					while (str[j])
+					{
+						str[j] = str[j + 1];
+						j++;
+					}
+					free(p);
+					if (ft_strlen(str[i]) > 0 && ft_strcmp(str[0], "export") != 0)
+						str[i] = delete_quotes(str[i]);
+					i--;
+				}
+				else
+				{
+					free(str[i]);
+					str[i] = tmp;
+					if (ft_strcmp(str[0], "export") != 0)
+						str[i] = delete_quotes(str[i]);
+				}
+
 			}
 		}
-		if (ft_strncmp(str[0], "export", ft_strlen(str[0]) - 1) != 0)
-			str[i] = delete_quotes(str[i]);
+		// if (ft_strcmp(str[0], "export") != 0)
+		// 	str[i] = delete_quotes(str[i]);
 		i++;
 	}
 	return (str);
@@ -513,7 +563,7 @@ void	handle_cmd(t_simple_cmds *cmd, t_tools *tools)
 		exit_code = cmd->builtin(tools, cmd);
 		exit(exit_code);
 	}
-	else if (cmd->str[0] && cmd->str[0][0] != '\0') // added cmd->str[0] &&
+	else if (cmd->str[0]) // added cmd->str[0] &&     temporarly removed && cmd->str[0][0] != '\0'
 		exit_code = find_cmd(cmd, tools);
 	exit(exit_code);
 }
