@@ -35,6 +35,7 @@ int	pipe_wait(int *pid, int amount)
 	int	i;
 	int	status;
 
+	status = 0;
 	i = 0;
 	while (i < amount)
 	{
@@ -83,7 +84,9 @@ int	executor(t_tools *tools)
 {
 	int		end[2];
 	int		fd_in;
-
+	t_simple_cmds *tmp;
+	
+	tmp = tools->simple_cmds;
 	fd_in = STDIN_FILENO;
 	while (tools->simple_cmds)
 	{
@@ -102,6 +105,6 @@ int	executor(t_tools *tools)
 			break ;
 	}
 	pipe_wait(tools->pid, tools->pipes);
-	tools->simple_cmds = ft_simple_cmdsfirst(tools->simple_cmds);
+	tools->simple_cmds = tmp;
 	return (0);
 }

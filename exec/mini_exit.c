@@ -31,6 +31,8 @@ void	ft_simple_cmdsclear(t_simple_cmds **lst)
 		tmp = (*lst)->next;
 		redirections_tmp = (*lst)->redirections;
 		ft_lexerclear(&redirections_tmp);
+		// printf("__%s__\n", (*lst)->str[0]);
+
 		if ((*lst)->str)
 			free_arr((*lst)->str);
 		if ((*lst)->hd_file_name)
@@ -43,17 +45,19 @@ void	ft_simple_cmdsclear(t_simple_cmds **lst)
 void	free_tools(t_tools *tools)
 {
 	if (tools->paths)
-	free_arr(tools->paths);
+		free_arr(tools->paths);
 	if (tools->env)
-	free_arr(tools->env);
+		free_arr(tools->env);
 	if (tools->args)
-	free(tools->args);
+		free(tools->args);
+
 	if (tools->simple_cmds)
-	ft_simple_cmdsclear(&tools->simple_cmds);
+		ft_simple_cmdsclear(&tools->simple_cmds);
+	
 	if (tools->pwd)
-	free(tools->pwd);
+		free(tools->pwd);
 	if (tools->old_pwd)
-	free(tools->old_pwd);
+		free(tools->old_pwd);
 	if (tools->pipes)
 		free(tools->pid);
 }

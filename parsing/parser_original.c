@@ -2,7 +2,7 @@
 
 int	parser(t_tools *tools)
 {
-	t_simple_cmds	*node;
+	t_simple_cmds	*node = NULL;
 	t_parser_tools	parser_tool;
 
 	tools->simple_cmds = NULL;
@@ -19,7 +19,10 @@ int	parser(t_tools *tools)
 		parser_tool = init_parser_tools(tools->lexer_list, tools);
 		node = init_cmd(&parser_tool);
 		if (!node)
+		{
+			clear_cmd(&tools->simple_cmds);
 			parser_error(0, tools, parser_tool.lexer_list);
+		}
 		if (!tools->simple_cmds)
 			tools->simple_cmds = node;
 		else

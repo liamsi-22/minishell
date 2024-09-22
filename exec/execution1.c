@@ -333,7 +333,6 @@ int	find_cmd(t_simple_cmds *cmd, t_tools *tools)
 
 	i = 0;
 	// cmd->str = resplit_str(cmd->str);
-
 	if (!ft_strcmp(cmd->str[0],tools->pwd))
 		return (cmd_not_found(cmd->str[0], 1));
 	if (!access(cmd->str[0], F_OK) && cmd->str[0][ft_strlen(cmd->str[0]) - 1] ==  '/')
@@ -564,7 +563,7 @@ void	single_cmd(t_simple_cmds *cmd, t_tools *tools)
 	int	pid;
 	int	status;
 
-
+	
 	tools->simple_cmds = call_expander(tools, tools->simple_cmds);
 	if (cmd->builtin == mini_cd || cmd->builtin == mini_exit
 		|| cmd->builtin == mini_export || cmd->builtin == mini_unset)
@@ -581,6 +580,7 @@ void	single_cmd(t_simple_cmds *cmd, t_tools *tools)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		g_global.error_num = WEXITSTATUS(status);
+	// clear_cmd(&tools->simple_cmds);
 }
 
 int	prepare_executor(t_tools *tools)

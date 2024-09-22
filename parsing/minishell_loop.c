@@ -11,7 +11,8 @@ void	clear_cmd(t_simple_cmds **lst)
 	{
 		tmp = (*lst)->next;
 		redirect_tmp = (*lst)->redirections;
-		lexer_clear(&redirect_tmp);
+		if (redirect_tmp)
+			lexer_clear(&redirect_tmp);
 		if ((*lst)->str)
 			free_arr((*lst)->str);
 		if ((*lst)->hd_file_name)
