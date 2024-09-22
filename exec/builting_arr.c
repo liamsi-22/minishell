@@ -3,6 +3,8 @@
 
 extern int	(*builtin_arr(char *str))(t_tools *tools, t_simple_cmds *simple_cmd)
 {
+	int			i;
+
 	static void	*builtins[7][2] = {
 	{"echo", mini_echo},
 	{"cd", mini_cd},
@@ -12,8 +14,6 @@ extern int	(*builtin_arr(char *str))(t_tools *tools, t_simple_cmds *simple_cmd)
 	{"env", mini_env},
 	{"exit", mini_exit}
 	};
-	int			i;
-
 	i = 0;
 	while (i < 7)
 	{
@@ -26,4 +26,3 @@ extern int	(*builtin_arr(char *str))(t_tools *tools, t_simple_cmds *simple_cmd)
 	}
 	return (NULL);
 }
-

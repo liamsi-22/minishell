@@ -95,7 +95,8 @@ int	mini_exit(t_tools *tools, t_simple_cmds *simple_cmd)
 {
 	char	**str;
 
-	ft_putendl_fd("exit", STDERR_FILENO);
+	if (tools->pipes == 0)
+		ft_putendl_fd("exit", STDERR_FILENO);
 	if (simple_cmd->str[1] && simple_cmd->str[2])
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
