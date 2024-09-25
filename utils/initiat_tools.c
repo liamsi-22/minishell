@@ -12,7 +12,7 @@ char	*find_path(char **envp)
 			return (ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5));
 		i++;
 	}
-	return (ft_strdup("\0"));
+	return (ft_strdup(""));
 }
 
 int	init_path(t_tools *tools)
@@ -21,14 +21,13 @@ int	init_path(t_tools *tools)
 	int		i;
 	char	*tmp;
 
+	i = 0;
 	env_path = find_path(tools->env);
 	tools->paths = ft_split(env_path, ':');
 	free(env_path);
-	i = 0;
 	while (tools->paths[i])
 	{
-		if (ft_strncmp(&tools->paths[i][ft_strlen(tools->paths[i]) - 1],
-			"/", 1) != 0)
+		if (tools->paths[i][ft_strlen(tools->paths[i]) - 1] != '/')
 		{
 			tmp = ft_strjoin(tools->paths[i], "/");
 			free(tools->paths[i]);

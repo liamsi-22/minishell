@@ -19,7 +19,8 @@ char	**ft_arrdup(char **arr)
 	i = 0;
 	while (arr[i] != NULL)
 		i++;
-	array2 = ft_calloc(sizeof(char *), i + 1);
+	// array2 = ft_calloc(sizeof(char *), i + 1);
+	array2 = malloc(sizeof(char *) * (i + 1));
 	if (!array2)
 		return (NULL);
 	i = 0;
@@ -33,5 +34,6 @@ char	**ft_arrdup(char **arr)
 		}
 		i++;
 	}
+	array2[i] = NULL;
 	return (array2);
 }

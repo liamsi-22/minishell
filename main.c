@@ -5,6 +5,9 @@ int	find_pwd(t_tools *tools)
 	int	i;
 
 	i = 0;
+
+	tools->pwd = NULL;
+	tools->old_pwd = NULL;
 	while (tools->env[i])
 	{
 		if (!ft_strncmp(tools->env[i], "PWD=", 4))

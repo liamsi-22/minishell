@@ -24,9 +24,9 @@ int	specific_path(t_tools *tools, char *str)
 	free(tmp);
 	if (ret != 0)
 	{
-		str = ft_substr(str, 0, ft_strlen(str) - 1);
+		// str = ft_substr(str, 0, ft_strlen(str) - 1);
 		ft_putstr_fd(str, STDERR_FILENO);
-		free(str);
+		// free(str);
 		ft_putendl_fd(" not set", STDERR_FILENO);
 	}
 	return (ret);
@@ -38,7 +38,7 @@ void	add_path_to_env(t_tools *tools)
 	char	*tmp;
 
 	i = 0;
-	while (tools->env[i])
+	while (tools->env && tools->env[i])
 	{
 		if (!ft_strncmp(tools->env[i], "PWD=", 4))
 		{

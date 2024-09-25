@@ -356,17 +356,18 @@ int	find_cmd(t_simple_cmds *cmd, t_tools *tools)
 	// printf("__%s__\n", cmd->str[0]);
 	// printf("__%s__\n", cmd->str[1]);
 	// printf("__%s__\n", cmd->str[2]);
-	
+
 	// cmd->str = resplit_str(cmd->str);
-	// if (!ft_strcmp(cmd->str[0],tools->pwd))
+	// if (tools->pwd && !ft_strcmp(cmd->str[0],tools->pwd))
 	// 	return (cmd_not_found(cmd->str[0], 1));
-	i = 0;
-	if (!ft_strcmp(cmd->str[0],tools->pwd) || (!access(cmd->str[0], F_OK) && cmd->str[0][ft_strlen(cmd->str[0]) - 1] ==  '/'))
+	if ((tools->pwd && !ft_strcmp(cmd->str[0],tools->pwd)) ||
+		(!access(cmd->str[0], F_OK) && cmd->str[0][ft_strlen(cmd->str[0]) - 1] ==  '/'))
 		return (cmd_not_found(cmd->str[0], 1));
 	else if (cmd->str[0][0] == '/' && access(cmd->str[0], F_OK))
 		return (cmd_not_found(cmd->str[0], 2));
 	if (!access(cmd->str[0], F_OK))
 		execve(cmd->str[0], cmd->str, tools->env);
+	i = 0;
 	while (tools->paths[i] && cmd->str[0][0] != '/')
 	{
 		mycmd = ft_strjoin(tools->paths[i], cmd->str[0]);

@@ -20,22 +20,17 @@ void change_path(t_tools *tools)
     char *tmp;
 
     tmp = ft_strdup(tools->pwd);
-    if (tmp == NULL)
-    {
-        // Handle error: strdup failed
-        return;
-    }
+    // if (tmp == NULL)
+    //     return;
 
-    free(tools->old_pwd);
+	if (tools->old_pwd)
+    	free(tools->old_pwd);
     tools->old_pwd = tmp;
-
-    free(tools->pwd);
+	if (tools->pwd)
+    	free(tools->pwd);
     tools->pwd = getcwd(NULL, 0);
-    if (tools->pwd == NULL)
-    {
-        // Handle error: getcwd failed
+    if (!tools->pwd)
         tools->pwd = ft_strdup(tools->old_pwd); // Revert to old path if getcwd fails
-    }
 }
 
 
