@@ -8,24 +8,32 @@ int	export_error(char *c)
 	ft_putstr_fd("minishell: export: ", STDERR_FILENO);
 	if (c)
 	{
-		ft_putchar_fd('\'', STDERR_FILENO);
+		ft_putchar_fd('`', STDERR_FILENO);
 		ft_putstr_fd(c, STDERR_FILENO);
-		ft_putstr_fd("\': is ", STDERR_FILENO);
+		// ft_putstr_fd("\': is ", STDERR_FILENO);
 	}
-	ft_putendl_fd("not a valid identifier", STDERR_FILENO);
+	ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
 	return (EXIT_FAILURE);
 }
 
 char *delete_quotes(char *str)
 {
-    int i = 0;
-    int j = 0;
+    int i;
+    int j;
     char *sub;
-    char *final_str = ft_strdup("");
-    char cc = '\0';  // Initialize cc to avoid undefined behavior
-
-    while (str && str[i])
+    char *final_str;
+    char cc;
+	
+	
+	if (!str)
+		return (NULL);
+	cc = '\0';  // Initialize cc to avoid undefined behavior
+	final_str = ft_strdup("");
+	i = 0;
+	j = 0;
+    while (str[i])
 	{
+
 		if (str[i] != '\'' && str[i] != '"')
 		{
 			j = i;
@@ -481,7 +489,6 @@ char	**expander(t_tools *tools, char **str)
 	char *p;
 	int x;
 	
-
 	i = 0;
 	tmp = NULL;
 	while (str[i])
@@ -493,15 +500,16 @@ char	**expander(t_tools *tools, char **str)
 			if (x < 0 || (str[i][0] == '"' && is_paire(str[i]) % 2 == 0) || (str[i][dollar_sign(str[i]) - 2] == '\'' && is_paire(str[i]) % 2 == 0) || is_paire(str[i]) % 2 == 0)
 			{
 				tmp = detect_dollar_sign(tools, str[i]);
-				if (ft_strlen(tmp) == 0)
+				if (tmp[0] == '\0')
 				{
+					p = str[i];
 					j = i;
-					p = str[j];
-					while (str[j])
+					while (str[j + 1])
 					{
 						str[j] = str[j + 1];
-						j++;
+							j++;
 					}
+					str[j] = NULL;
 					free(tmp);
 					free(p);
 					y++;
@@ -513,12 +521,13 @@ char	**expander(t_tools *tools, char **str)
 				}
 			}
 		}
-		// if (ft_strcmp(str[0], "export") != 0)
-		str[i] = delete_quotes(str[i]);
+		if (ft_strcmp(str[0], "export") != 0)
+			str[i] = delete_quotes(str[i]);
 		if (y != 0)
 			i--;
 		i++;
 	}
+
 	return (str);
 }
 
@@ -537,7 +546,7 @@ void	handle_cmd(t_simple_cmds *cmd, t_tools *tools)
 		exit_code = cmd->builtin(tools, cmd);
 		exit(exit_code);
 	}
-	else if (cmd->str[0]) // added cmd->str[0] &&     temporarly removed && cmd->str[0][0] != '\0'
+	else if (cmd->str[0] && cmd->str[0][0] != '\0') // added cmd->str[0] &&     temporarly removed && cmd->str[0][0] != '\0'
 		exit_code = find_cmd(cmd, tools);
 	exit(exit_code);
 }

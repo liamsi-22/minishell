@@ -96,6 +96,8 @@ int	mini_export(t_tools *tools, t_simple_cmds *simple_cmd)
 	i = 1;
 	if (!simple_cmd->str[1] || simple_cmd->str[1][0] == '\0')
 		mini_env(tools, simple_cmd);
+	if (simple_cmd->str[2])
+		return (EXIT_SUCCESS);
 	else
 	{
 		while (simple_cmd->str[i])
@@ -110,6 +112,8 @@ int	mini_export(t_tools *tools, t_simple_cmds *simple_cmd)
 					tools->env = tmp;
 				}
 			}
+			else
+				return (EXIT_FAILURE);
 			i++;
 		}
 	}

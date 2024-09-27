@@ -87,6 +87,7 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 
+char	*delete_quotes2(char *str, char c);
 int	init_path(t_tools *tools);
 int	find_pwd(t_tools *tools);
 int	init_tools(t_tools *tools);
