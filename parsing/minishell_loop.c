@@ -41,10 +41,9 @@ int minishell_loop(t_tools *tools)
     char *tmp;
 
     tools->args = readline(READLINE_MSG);
-	if (tools->args[0] == '\0')
-		return (reset_tools(tools));
-    add_history(tools->args);
     tmp = ft_strtrim(tools->args);
+	if (tmp && tmp[0] != '\0')
+    	add_history(tools->args);
     free(tools->args);
     tools->args = tmp;
     if (!tools->args)
@@ -52,9 +51,8 @@ int minishell_loop(t_tools *tools)
 		ft_putendl_fd("exit", STDOUT_FILENO);
 		exit(0);
 	}
-    // if (tools->args[0] == '\0')
-	// 	return (reset_tools(tools));
-    // add_history(tools->args);
+    if (tools->args[0] == '\0')
+		return (reset_tools(tools));
     if (!handle_quotes(tools->args))
 		return (ft_error(2, tools));
     if (!init_lexer(tools))

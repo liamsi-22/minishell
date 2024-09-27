@@ -66,13 +66,13 @@ int	is_str_digit(char *str)
 {
 	int	i;
 
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
+	if (str[0])
+		if (!ft_isdigit(str[0]) && str[0] != '+' && str[0] != '-')
 			return (0);
-		i++;
-	}
+	i = 1;
+	while (str[i])
+		if (!ft_isdigit(str[i++]))
+			return (0);
 	return (1);
 }
 
@@ -89,7 +89,7 @@ void	determine_exit_code(char **str)
 		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 		ft_putstr_fd(str[1], STDERR_FILENO);
 		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
-		exit_code = 255;
+		exit_code = 2;
 	}
 	free_arr(str);
 	exit(exit_code);

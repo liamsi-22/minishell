@@ -16,7 +16,8 @@ int	export_error(char *c)
 	return (EXIT_FAILURE);
 }
 
-char *delete_quotes(char *str) {
+char *delete_quotes(char *str)
+{
     int i = 0;
     int j = 0;
     char *sub;
@@ -73,6 +74,7 @@ char *delete_quotes(char *str) {
 	str = final_str;
     return (str);  // Return the joined result string
 }
+
 
 int	cmd_not_found(char *str, int i)
 {
@@ -330,36 +332,8 @@ int	find_cmd(t_simple_cmds *cmd, t_tools *tools)
 {
 	int		i;
 	char	*mycmd;
-	// char *p;
-	// int j;
-
-	// i = 0;
-	// printf("__%s_\n", cmd->str[0]);
-	// printf("__%s_\n", cmd->str[1]);
-	// while (cmd->str[i])
-	// {
-	// 	if (!cmd->str[i][0])
-	// 	{
-	// 		j = i;
-	// 		p = cmd->str[j];
-	// 		while (cmd->str[j])
-	// 		{
-	// 			cmd->str[j] = cmd->str[j + 1];
-	// 			j++;
-	// 		}
-	// 		free(p);
-	// 		i--;
-	// 	}
-	// 	i++;
-	// }
-
-	// printf("__%s__\n", cmd->str[0]);
-	// printf("__%s__\n", cmd->str[1]);
-	// printf("__%s__\n", cmd->str[2]);
-
+	
 	// cmd->str = resplit_str(cmd->str);
-	// if (tools->pwd && !ft_strcmp(cmd->str[0],tools->pwd))
-	// 	return (cmd_not_found(cmd->str[0], 1));
 	if ((tools->pwd && !ft_strcmp(cmd->str[0],tools->pwd)) ||
 		(!access(cmd->str[0], F_OK) && cmd->str[0][ft_strlen(cmd->str[0]) - 1] ==  '/'))
 		return (cmd_not_found(cmd->str[0], 1));
@@ -506,20 +480,21 @@ char	**expander(t_tools *tools, char **str)
 	int j;
 	char *p;
 	int x;
+	
 
 	i = 0;
 	tmp = NULL;
 	while (str[i])
 	{
+		int y = 0;
 		int x = dollar_sign(str[i]) - 2;
-		if (dollar_sign(str[i]) != 0 && str[i][dollar_sign(str[i])] != '\0') // remove && str[i][0] != '\''
+		if (dollar_sign(str[i]) != 0 && str[i][dollar_sign(str[i])] != '\0')
 		{
 			if (x < 0 || (str[i][0] == '"' && is_paire(str[i]) % 2 == 0) || (str[i][dollar_sign(str[i]) - 2] == '\'' && is_paire(str[i]) % 2 == 0) || is_paire(str[i]) % 2 == 0)
 			{
 				tmp = detect_dollar_sign(tools, str[i]);
 				if (ft_strlen(tmp) == 0)
 				{
-					free(tmp);
 					j = i;
 					p = str[j];
 					while (str[j])
@@ -527,23 +502,21 @@ char	**expander(t_tools *tools, char **str)
 						str[j] = str[j + 1];
 						j++;
 					}
+					free(tmp);
 					free(p);
-					// if (ft_strcmp(str[0], "export") != 0)
-					// 	str[i] = delete_quotes(str[i]);
-					i--;
+					y++;
 				}
 				else
 				{
 					free(str[i]);
 					str[i] = tmp;
-					// if (ft_strcmp(str[0], "export") != 0)
-					// 	str[i] = delete_quotes(str[i]);
 				}
-
 			}
 		}
-		if (ft_strcmp(str[0], "export") != 0)
-			str[i] = delete_quotes(str[i]);
+		// if (ft_strcmp(str[0], "export") != 0)
+		str[i] = delete_quotes(str[i]);
+		if (y != 0)
+			i--;
 		i++;
 	}
 	return (str);

@@ -60,9 +60,15 @@ int	mini_cd(t_tools *tools, t_simple_cmds *simple_cmd)
 {
 	int		ret;
 
+	if (simple_cmd->str[1] && simple_cmd->str[2])
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd("cd: too many arguments", STDERR_FILENO);
+		return(EXIT_FAILURE);
+	}
 	if (!simple_cmd->str[1])
 		ret = specific_path(tools, "HOME=");
-	else if (ft_strncmp(simple_cmd->str[1], "-", 1) == 0 )
+	else if (ft_strncmp(simple_cmd->str[1], "-", 1) == 0)
 		ret = specific_path(tools, "OLDPWD=");
 	else
 	{
