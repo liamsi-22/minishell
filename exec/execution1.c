@@ -521,7 +521,7 @@ char	**expander(t_tools *tools, char **str)
 				}
 			}
 		}
-		if (ft_strcmp(str[0], "export") != 0)
+		// if (ft_strcmp(str[0], "export") != 0)
 			str[i] = delete_quotes(str[i]);
 		if (y != 0)
 			i--;

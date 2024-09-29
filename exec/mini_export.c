@@ -4,12 +4,9 @@
 int	variable_exist(t_tools *tools, char *str)
 {
 	int	i;
+	char *tmp;
 
 	i = 0;
-	if (str[equal_sign(str)] == '\"')
-		delete_quotes(str);
-	if (str[equal_sign(str)] == '\'')
-		delete_quotes(str);
 	while (tools->env[i])
 	{
 		if (ft_strncmp(tools->env[i],
@@ -23,7 +20,6 @@ int	variable_exist(t_tools *tools, char *str)
 	}
 	return (0);
 }
-
 int	check_parameter(char *str)
 {
 	int	i;
@@ -31,61 +27,53 @@ int	check_parameter(char *str)
 	i = 0;
 	if (ft_isdigit(str[0]))
 		return (export_error(str));
-	if (equal_sign(str) == 0)
-		return (EXIT_FAILURE);
-	if (str[0] == '=')
-		return (export_error(str));
-	while (str[i] != '=')
+	while (str[i] && str[i] != '=')
 	{
 		if (check_valid_identifier(str[i]))
 			return (export_error(str));
 		i++;
 	}
+	if (str[0] == '=')
+		return (export_error(str));
 	return (EXIT_SUCCESS);
 }
 
-char	**whileloop_add_var(char **arr, char **rtn, char *str)
+char	**whileloop_add_var(char **env, char **new_env, char *str)
 {
 	int	i;
 
 	i = 0;
-	while (arr[i] != NULL)
+	while (env[i] != NULL)
 	{
-		if (arr[i + 1] == NULL)
+		if (env[i + 1] == NULL)
 		{
-			rtn[i] = ft_strdup(str);
-			rtn[i + 1] = ft_strdup(arr[i]);
+			new_env[i] = ft_strdup(str);
+			new_env[i + 1] = ft_strdup(env[i]);
 		}
 		else
-			rtn[i] = ft_strdup(arr[i]);
-		if (rtn[i] == NULL)
-		{
-			free_arr(rtn);
-			return (rtn);
-		}
+			new_env[i] = ft_strdup(env[i]);
+		if (new_env[i] == NULL)
+			return (new_env);
 		i++;
 	}
-	return (rtn);
+	return (new_env);
 }
 
-char	**add_var(char **arr, char *str)
+char	**add_var(char **env, char *str)
 {
-	char	**rtn;
+	char	**new_env;
 	size_t	i;
+	char	*tmp;
 
 	i = 0;
-	if (str[equal_sign(str)] == '\"')
-		delete_quotes(str);
-	if (str[equal_sign(str)] == '\'')
-		delete_quotes(str);
-	while (arr[i] != NULL)
+	while (env[i] != NULL)
 		i++;
-	rtn = ft_calloc(sizeof(char *), i + 2);
-	if (!rtn)
+	new_env = ft_calloc(sizeof(char *), i + 2);
+	if (!new_env)
 		return (NULL);
-	i = 0;
-	whileloop_add_var(arr, rtn, str);
-	return (rtn);
+	// i = 0;
+	new_env = whileloop_add_var(env, new_env, str);
+	return (new_env);
 }
 
 int	mini_export(t_tools *tools, t_simple_cmds *simple_cmd)
@@ -96,8 +84,6 @@ int	mini_export(t_tools *tools, t_simple_cmds *simple_cmd)
 	i = 1;
 	if (!simple_cmd->str[1] || simple_cmd->str[1][0] == '\0')
 		mini_env(tools, simple_cmd);
-	if (simple_cmd->str[2])
-		return (EXIT_SUCCESS);
 	else
 	{
 		while (simple_cmd->str[i])
@@ -112,10 +98,11 @@ int	mini_export(t_tools *tools, t_simple_cmds *simple_cmd)
 					tools->env = tmp;
 				}
 			}
-			else
+			else if (check_parameter(simple_cmd->str[i]) != 0)
 				return (EXIT_FAILURE);
 			i++;
 		}
+
 	}
 	return (EXIT_SUCCESS);
 }

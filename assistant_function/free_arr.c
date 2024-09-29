@@ -6,6 +6,8 @@ void	free_arr(char **arr)
 
 	i = 0;
 
+    if (!arr)
+        return;
 	while (arr[i])
 	{
 		// printf("__%s__\n", arr[i]);
