@@ -1,10 +1,10 @@
 #include "../parsing.h"
 
-int	mini_env(t_tools *tools, t_simple_cmds *simple_cmd)
+int mini_env(t_tools *tools, t_simple_cmds *simple_cmd)
 {
-	int		i;
+	int	i;
 
-	(void) simple_cmd;
+	(void)simple_cmd;
 	i = 0;
 	while (tools->env[i])
 	{

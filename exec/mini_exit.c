@@ -31,8 +31,6 @@ void	ft_simple_cmdsclear(t_simple_cmds **lst)
 		tmp = (*lst)->next;
 		redirections_tmp = (*lst)->redirections;
 		ft_lexerclear(&redirections_tmp);
-		// printf("__%s__\n", (*lst)->str[0]);
-
 		if ((*lst)->str)
 			free_arr((*lst)->str);
 		if ((*lst)->hd_file_name)
