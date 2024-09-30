@@ -1,8 +1,7 @@
 #include "../parsing.h"
 #include "../global_header.h"
 
-
-void	dup_cmd(t_simple_cmds *cmd, t_tools *tools, int end[2], int fd_in)
+void dup_cmd(t_simple_cmds *cmd, t_tools *tools, int end[2], int fd_in)
 {
 	if (cmd->prev && dup2(fd_in, STDIN_FILENO) < 0)
 		ft_error(4, tools);
@@ -15,25 +14,10 @@ void	dup_cmd(t_simple_cmds *cmd, t_tools *tools, int end[2], int fd_in)
 	handle_cmd(cmd, tools);
 }
 
-// t_simple_cmds	*ft_simple_cmdsfirst(t_simple_cmds *map)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (!map)
-// 		return (NULL);
-// 	while (map->prev != NULL)
-// 	{
-// 		map = map->prev;
-// 		i++;
-// 	}
-// 	return (map);
-// }
-
-int	pipe_wait(int *pid, int amount)
+int pipe_wait(int *pid, int amount)
 {
-	int	i;
-	int	status;
+	int i;
+	int status;
 
 	status = 0;
 	i = 0;
@@ -48,9 +32,9 @@ int	pipe_wait(int *pid, int amount)
 	return (EXIT_SUCCESS);
 }
 
-int	check_fd_heredoc(t_tools *tools, int end[2], t_simple_cmds *cmd)
+int check_fd_heredoc(t_tools *tools, int end[2], t_simple_cmds *cmd)
 {
-	int	fd_in;
+	int fd_in;
 
 	if (tools->heredoc)
 	{
@@ -62,9 +46,9 @@ int	check_fd_heredoc(t_tools *tools, int end[2], t_simple_cmds *cmd)
 	return (fd_in);
 }
 
-int	ft_fork(t_tools *tools, int end[2], int fd_in, t_simple_cmds *cmd)
+int ft_fork(t_tools *tools, int end[2], int fd_in, t_simple_cmds *cmd)
 {
-	static int	i = 0;
+	static int i = 0;
 
 	if (tools->reset == true)
 	{
@@ -80,12 +64,12 @@ int	ft_fork(t_tools *tools, int end[2], int fd_in, t_simple_cmds *cmd)
 	return (EXIT_SUCCESS);
 }
 
-int	executor(t_tools *tools)
+int executor(t_tools *tools)
 {
-	int		end[2];
-	int		fd_in;
+	int end[2];
+	int fd_in;
 	t_simple_cmds *tmp;
-	
+
 	tmp = tools->simple_cmds;
 	fd_in = STDIN_FILENO;
 	while (tools->simple_cmds)
@@ -93,7 +77,7 @@ int	executor(t_tools *tools)
 		tools->simple_cmds = call_expander(tools, tools->simple_cmds);
 		if (tools->simple_cmds->next)
 			pipe(end);
-		send_heredoc(tools, tools->simple_cmds);
+		handle_heredoc(tools, tools->simple_cmds);
 		ft_fork(tools, end, fd_in, tools->simple_cmds);
 		close(end[1]);
 		if (tools->simple_cmds->prev)
@@ -102,7 +86,7 @@ int	executor(t_tools *tools)
 		if (tools->simple_cmds->next)
 			tools->simple_cmds = tools->simple_cmds->next;
 		else
-			break ;
+			break;
 	}
 	pipe_wait(tools->pid, tools->pipes);
 	tools->simple_cmds = tmp;

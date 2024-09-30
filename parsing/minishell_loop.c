@@ -59,7 +59,7 @@ int minishell_loop(t_tools *tools)
 		return (ft_error(1, tools));
 		
     parser(tools);
-	prepare_executor(tools);
+	executor(tools);
 	reset_tools(tools);
     return (1);
 }

@@ -3,14 +3,13 @@
 
 t_heredoc g_global = {0, 0, 0, 0}; // Define and initialize the global variable
 
-int	export_error(char *c)
+int export_error(char *c)
 {
 	ft_putstr_fd("minishell: export: ", STDERR_FILENO);
 	if (c)
 	{
 		ft_putchar_fd('`', STDERR_FILENO);
 		ft_putstr_fd(c, STDERR_FILENO);
-		// ft_putstr_fd("\': is ", STDERR_FILENO);
 	}
 	ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
 	return (EXIT_FAILURE);
@@ -18,20 +17,19 @@ int	export_error(char *c)
 
 char *delete_quotes(char *str)
 {
-    int i;
-    int j;
-    char *sub;
-    char *final_str;
-    char cc;
-	
-	
+	int i;
+	int j;
+	char *sub;
+	char *final_str;
+	char sep;
+
 	if (!str)
 		return (NULL);
-	cc = '\0';  // Initialize cc to avoid undefined behavior
+	sep = '\0';
 	final_str = ft_strdup("");
 	i = 0;
 	j = 0;
-    while (str[i])
+	while (str[i])
 	{
 
 		if (str[i] != '\'' && str[i] != '"')
@@ -39,52 +37,42 @@ char *delete_quotes(char *str)
 			j = i;
 			while (str[i] && str[i] != '\'' && str[i] != '"')
 				i++;
-			// Allocate memory for sub and copy the substring
 			sub = malloc(i - j + 1);
 			if (!sub)
 				return NULL;
 			ft_strncpy(sub, &str[j], i - j);
-			sub[i - j] = '\0';  // Null-terminate the substring
-
-			// Join the current substring with the final result string
+			sub[i - j] = '\0';
 			char *temp = final_str;
 			final_str = ft_strjoin(final_str, sub);
-			free(temp);  // Free the old final_str
-			free(sub);  // Free the current substring
+			free(temp);
+			free(sub);
 		}
-		else 
+		else
 		{
-			cc = str[i];  // Store the quote character
-			i++;  // Move past the opening quote
-
+			sep = str[i];
+			i++;
 			j = i;
-			while (str[i] && str[i] != cc)
+			while (str[i] && str[i] != sep)
 				i++;
-			// Allocate memory for sub and copy the substring
 			sub = malloc(i - j + 1);
 			if (!sub)
 				return NULL;
 			ft_strncpy(sub, &str[j], i - j);
-			sub[i - j] = '\0';  // Null-terminate the substring
-
-			// Join the current substring with the final result string
+			sub[i - j] = '\0';
 			char *temp = final_str;
 			final_str = ft_strjoin(final_str, sub);
-			free(temp);  // Free the old final_str
-			free(sub);  // Free the current substring
-
-			// If we encounter the closing quote, skip it
-			if (str[i] == cc && str[i])
+			free(temp);
+			free(sub);
+			if (str[i] == sep && str[i])
 				i++;
 		}
-    }
+	}
 	free(str);
 	str = final_str;
-    return (str);  // Return the joined result string
+	return (str);
 }
 
-
-int	cmd_not_found(char *str, int i)
+int cmd_not_found(char *str, int i)
 {
 	if (i == 1)
 	{
@@ -92,7 +80,6 @@ int	cmd_not_found(char *str, int i)
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putstr_fd(": Is a directory\n", STDERR_FILENO);
 		return (126);
-
 	}
 	else if (i == 0)
 	{
@@ -110,28 +97,26 @@ int	cmd_not_found(char *str, int i)
 	return (127);
 }
 
-int	ft_isdigit(int c)
+int ft_isdigit(int c)
 {
 	if (c > 47 && c < 58)
 		return (1);
 	return (0);
 }
 
-int	after_dol_lenght(char *str, int j)
+int after_dol_lenght(char *str, int j)
 {
-	int	i;
+	int i;
 
 	i = j + 1;
-	while (str[i] != '\0' && str[i] != '$' && str[i] != ' '
-		&& str[i] != '\"' && str[i] != '\'' && str[i] != '=' && str[i] != '-'
-		&& str[i] != ':')
+	while (str[i] != '\0' && str[i] != '$' && str[i] != ' ' && str[i] != '\"' && str[i] != '\'' && str[i] != '=' && str[i] != '-' && str[i] != ':')
 		i++;
 	return (i);
 }
 
-size_t	equal_sign(char *str)
+size_t equal_sign(char *str)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (str[i])
@@ -143,70 +128,71 @@ size_t	equal_sign(char *str)
 	return (0);
 }
 
-int	check_append_outfile(t_lexer *redirections)
+int check_append_outfile(t_lexer *redirections)
 {
-	int	fd;
+	int fd;
 
 	if (redirections->token == GREAT_GREAT)
 		fd = open(redirections->word,
-				O_CREAT | O_RDWR | O_APPEND, 0644);
+				  O_CREAT | O_RDWR | O_APPEND, 0644);
 	else
 		fd = open(redirections->word,
-				O_CREAT | O_RDWR | O_TRUNC, 0644);
+				  O_CREAT | O_RDWR | O_TRUNC, 0644);
 	return (fd);
 }
 
-char	*char_to_str(char c)
+char *char_to_str(char c)
 {
-	char	*str;
+	char *str;
 
 	str = ft_calloc(sizeof(char), 2);
 	str[0] = c;
 	return (str);
 }
 
-int	loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j)
+int loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j)
 {
-	int		k;
-	int		ret;
-	char	*tmp2;
-	char	*tmp3;
+	int i;
+	int x;
+	char *tmp2;
+	char *tmp3;
 
-	k = 0;
-	ret = 0;
-	while (tools->env[k])
+	i = 0;
+	x = 0;
+	while (tools->env[i])
 	{
-		if (ft_strncmp(str + j + 1, tools->env[k], equal_sign(tools->env[k]) - 1) == 0 && after_dol_lenght(str, j) - j == (int)equal_sign(tools->env[k]))
+		if (ft_strncmp(str + j + 1, tools->env[i], equal_sign(tools->env[i]) - 1) == 0 && after_dol_lenght(str, j) - j == (int)equal_sign(tools->env[i]))
 		{
-			tmp2 = ft_strdup(tools->env[k] + equal_sign(tools->env[k]));
+			tmp2 = ft_strdup(tools->env[i] + equal_sign(tools->env[i]));
 			tmp3 = ft_strjoin(*tmp, tmp2);
 			free(*tmp);
 			*tmp = tmp3;
 			free(tmp2);
-			ret = equal_sign(tools->env[k]);
+			x = equal_sign(tools->env[i]);
 		}
-		k++;
+		i++;
 	}
-	if (ret == 0)
-		ret = after_dol_lenght(str, j) - j;
-	return (ret);
+	if (x == 0)
+		x = after_dol_lenght(str, j) - j;
+	return (x);
 }
 
-int	question_mark(char **tmp)
+int question_mark(char **tmp)
 {
-	char	*tmp0;
-	char	*tmp1;
+	char *tmp1;
+	char *tmp2;
+
 	tmp1 = ft_itoa(g_global.error_num);
-	tmp0 = *tmp;
-	*tmp = ft_strjoin(*tmp , tmp1);
-	free(tmp0);
+	tmp2 = *tmp;
+	*tmp = ft_strjoin(*tmp, tmp1);
 	free(tmp1);
+	free(tmp2);
 	return (2);
 }
 
-int	handle_digit_after_dollar(int j, char *str, char **tmp)
+int handle_digit(int j, char *str, char **tmp)
 {
-	int	i;
+	int i;
 	char *tmp2;
 
 	i = j;
@@ -216,7 +202,7 @@ int	handle_digit_after_dollar(int j, char *str, char **tmp)
 		{
 			if (str[j + 1] == '0' && !ft_isdigit(str[j + 2]))
 			{
-				tmp2 = ft_strjoin(*tmp , "bash");
+				tmp2 = ft_strjoin(*tmp, "bash");
 				free(*tmp);
 				*tmp = tmp2;
 			}
@@ -226,15 +212,15 @@ int	handle_digit_after_dollar(int j, char *str, char **tmp)
 	return (j - i);
 }
 
-int	handle_infile(char *file)
+int handle_infile(char *file)
 {
-	int	fd;
+	int fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
 		ft_putstr_fd("minishell: infile: No such file or directory\n",
-			STDERR_FILENO);
+					 STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	if (fd > 0 && dup2(fd, STDIN_FILENO) < 0)
@@ -247,9 +233,9 @@ int	handle_infile(char *file)
 	return (EXIT_SUCCESS);
 }
 
-int	handle_outfile(t_lexer *redirection)
+int handle_outfile(t_lexer *redirection)
 {
-	int	fd;
+	int fd;
 
 	fd = check_append_outfile(redirection);
 	if (fd < 0)
@@ -267,18 +253,17 @@ int	handle_outfile(t_lexer *redirection)
 	return (EXIT_SUCCESS);
 }
 
-int	create_heredoc(t_lexer *heredoc, bool quotes, t_tools *tools, char *file_name)
+int create_heredoc(t_lexer *heredoc, bool quotes, t_tools *tools, char *file_name)
 {
-	int		fd;
-	char	*line;
+	int fd;
+	char *line;
 
 	fd = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	line = readline(HEREDOC_MSG);
-	while (line && ft_strncmp(heredoc->word, line, ft_strlen(heredoc->word))
-		&& !g_global.stop_heredoc)
+	while (line && ft_strncmp(heredoc->word, line, ft_strlen(heredoc->word)) && !g_global.stop_heredoc)
 	{
 		if (quotes == false)
-			line = expander_str(tools, line);
+			line = expand_str(tools, line);
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
 		free(line);
@@ -291,40 +276,38 @@ int	create_heredoc(t_lexer *heredoc, bool quotes, t_tools *tools, char *file_nam
 	return (EXIT_SUCCESS);
 }
 
-char	*detect_dollar_sign(t_tools *tools, char *str)
+char *detect_dollar_sign(t_tools *tools, char *str)
 {
-	int		j;
-	char	*tmp;
-	char	*tmp2;
-	char	*tmp3;
+	int j;
+	char *tmp;
+	char *tmp2;
+	char *tmp3;
 
 	j = 0;
 	tmp = ft_strdup("");
 	while (str[j])
 	{
 		if (str[j] == '$' && ft_isdigit(str[j + 1]))
-			j += handle_digit_after_dollar(j, str, &tmp);
+			j += handle_digit(j, str, &tmp);
 		else if (str[j] == '$' && str[j + 1] == '?')
 			j += question_mark(&tmp);
-		else if (str[j] == '$' && (str[j + 1] != ' ' && (str[j + 1] != '"' || str[j + 2] != '\0')) && str[j + 1] != '\0')
+		else if (str[j] == '$' && (str[j + 1] != ' ' && (str[j + 1] != '"' || str[j + 2])) && str[j + 1])
 			j += loop_if_dollar_sign(tools, str, &tmp, j);
 		else
-		{	
-
-				tmp2 = char_to_str(str[j]);
-				tmp3 = ft_strjoin(tmp, tmp2);
-				free(tmp);
-				tmp = tmp3;
-				free(tmp2);
-				j++;
+		{
+			tmp2 = char_to_str(str[j++]);
+			tmp3 = ft_strjoin(tmp, tmp2);
+			free(tmp);
+			tmp = tmp3;
+			free(tmp2);
 		}
 	}
 	return (tmp);
 }
 
-size_t	dollar_sign(char *str)
+size_t dollar_sign(char *str)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (str[i])
@@ -336,14 +319,13 @@ size_t	dollar_sign(char *str)
 	return (0);
 }
 
-int	find_cmd(t_simple_cmds *cmd, t_tools *tools)
+int find_cmd(t_simple_cmds *cmd, t_tools *tools)
 {
-	int		i;
-	char	*mycmd;
-	
-	// cmd->str = resplit_str(cmd->str);
-	if ((tools->pwd && !ft_strcmp(cmd->str[0],tools->pwd)) ||
-		(!access(cmd->str[0], F_OK) && cmd->str[0][ft_strlen(cmd->str[0]) - 1] ==  '/'))
+	int i;
+	char *mycmd;
+
+	if ((tools->pwd && !ft_strcmp(cmd->str[0], tools->pwd)) ||
+		(!access(cmd->str[0], F_OK) && cmd->str[0][ft_strlen(cmd->str[0]) - 1] == '/'))
 		return (cmd_not_found(cmd->str[0], 1));
 	else if (cmd->str[0][0] == '/' && access(cmd->str[0], F_OK))
 		return (cmd_not_found(cmd->str[0], 2));
@@ -361,9 +343,9 @@ int	find_cmd(t_simple_cmds *cmd, t_tools *tools)
 	return (cmd_not_found(cmd->str[0], 0));
 }
 
-int	check_redirections(t_simple_cmds *cmd)
+int check_redirections(t_simple_cmds *cmd)
 {
-	t_lexer	*start;
+	t_lexer *start;
 
 	start = cmd->redirections;
 	while (cmd->redirections)
@@ -374,8 +356,7 @@ int	check_redirections(t_simple_cmds *cmd)
 			if (handle_infile(cmd->redirections->word))
 				return (EXIT_FAILURE);
 		}
-		else if (cmd->redirections->token == GREAT
-			|| cmd->redirections->token == GREAT_GREAT)
+		else if (cmd->redirections->token == GREAT || cmd->redirections->token == GREAT_GREAT)
 		{
 			if (handle_outfile(cmd->redirections))
 				return (EXIT_FAILURE);
@@ -391,10 +372,10 @@ int	check_redirections(t_simple_cmds *cmd)
 	return (EXIT_SUCCESS);
 }
 
-char	*delete_quotes2(char *str, char c)
+char *delete_quotes2(char *str, char c)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	j = 0;
@@ -412,14 +393,13 @@ char	*delete_quotes2(char *str, char c)
 	return (str);
 }
 
-int	ft_heredoc(t_tools *tools, t_lexer *heredoc, char *file_name)
+int ft_heredoc(t_tools *tools, t_lexer *heredoc, char *file_name)
 {
-	bool	quotes;
-	int		sl;
+	bool quotes;
+	int x;
 
-	sl = EXIT_SUCCESS;
-	if ((heredoc->word[0] == '\"' && heredoc->word[ft_strlen(heredoc->word) - 1] == '\"')
-		|| (heredoc->word[0] == '\'' && heredoc->word[ft_strlen(heredoc->word) - 1] == '\''))
+	x = EXIT_SUCCESS;
+	if ((heredoc->word[0] == '\"' && heredoc->word[ft_strlen(heredoc->word) - 1] == '\"') || (heredoc->word[0] == '\'' && heredoc->word[ft_strlen(heredoc->word) - 1] == '\''))
 		quotes = true;
 	else
 		quotes = false;
@@ -427,17 +407,17 @@ int	ft_heredoc(t_tools *tools, t_lexer *heredoc, char *file_name)
 	delete_quotes2(heredoc->word, '"');
 	g_global.stop_heredoc = 0;
 	g_global.in_heredoc = 1;
-	sl = create_heredoc(heredoc, quotes, tools, file_name);
+	x = create_heredoc(heredoc, quotes, tools, file_name);
 	g_global.in_heredoc = 0;
 	tools->heredoc = true;
-	return (sl);
+	return (x);
 }
 
-char	*generate_heredoc_filename(void)
+char *generate_heredoc_filename(void)
 {
-	static int	i = 0;
-	char		*num;
-	char		*file_name;
+	static int i = 0;
+	char *num;
+	char *file_name;
 
 	num = ft_itoa(i++);
 	file_name = ft_strjoin(".tmp_heredoc_file_", num);
@@ -445,10 +425,10 @@ char	*generate_heredoc_filename(void)
 	return (file_name);
 }
 
-int	is_paire(char *str)
+int is_paire(char *str)
 {
-	int	i;
-	int	x;
+	int i;
+	int x;
 
 	i = 0;
 	x = 0;
@@ -462,9 +442,9 @@ int	is_paire(char *str)
 	}
 	return (x);
 }
-char	*expander_str(t_tools *tools, char *str)
+char *expand_str(t_tools *tools, char *str)
 {
-	char	*tmp;
+	char *tmp;
 
 	tmp = NULL;
 	int x = dollar_sign(str) - 2;
@@ -481,20 +461,21 @@ char	*expander_str(t_tools *tools, char *str)
 	return (str);
 }
 
-char	**expander(t_tools *tools, char **str)
+char **expander(t_tools *tools, char **str)
 {
-	int		i;
-	char	*tmp;
+	int i;
 	int j;
-	char *p;
+	int y;
 	int x;
-	
+	char *tmp;
+	char *p;
+
 	i = 0;
 	tmp = NULL;
 	while (str[i])
 	{
-		int y = 0;
-		int x = dollar_sign(str[i]) - 2;
+		y = 0;
+		x = dollar_sign(str[i]) - 2;
 		if (dollar_sign(str[i]) != 0 && str[i][dollar_sign(str[i])] != '\0')
 		{
 			if (x < 0 || (str[i][0] == '"' && is_paire(str[i]) % 2 == 0) || (str[i][dollar_sign(str[i]) - 2] == '\'' && is_paire(str[i]) % 2 == 0) || is_paire(str[i]) % 2 == 0)
@@ -507,7 +488,7 @@ char	**expander(t_tools *tools, char **str)
 					while (str[j + 1])
 					{
 						str[j] = str[j + 1];
-							j++;
+						j++;
 					}
 					str[j] = NULL;
 					free(tmp);
@@ -521,8 +502,7 @@ char	**expander(t_tools *tools, char **str)
 				}
 			}
 		}
-		// if (ft_strcmp(str[0], "export") != 0)
-			str[i] = delete_quotes(str[i]);
+		str[i] = delete_quotes(str[i]);
 		if (y != 0)
 			i--;
 		i++;
@@ -531,10 +511,10 @@ char	**expander(t_tools *tools, char **str)
 	return (str);
 }
 
-void	handle_cmd(t_simple_cmds *cmd, t_tools *tools)
+void handle_cmd(t_simple_cmds *cmd, t_tools *tools)
 {
-	int	exit_code;
-	
+	int exit_code;
+
 	exit_code = 0;
 	if (cmd->redirections)
 
@@ -546,27 +526,27 @@ void	handle_cmd(t_simple_cmds *cmd, t_tools *tools)
 		exit_code = cmd->builtin(tools, cmd);
 		exit(exit_code);
 	}
-	else if (cmd->str[0] && cmd->str[0][0] != '\0') // added cmd->str[0] &&     temporarly removed && cmd->str[0][0] != '\0'
+	else if (cmd->str[0] && cmd->str[0][0] != '\0')
 		exit_code = find_cmd(cmd, tools);
 	exit(exit_code);
 }
 
-int	send_heredoc(t_tools *tools, t_simple_cmds *cmd)
+int handle_heredoc(t_tools *tools, t_simple_cmds *cmd)
 {
-	t_lexer	*start;
-	int		sl;
+	t_lexer *start;
+	int x;
 
 	start = cmd->redirections;
-	sl = EXIT_SUCCESS;
+	x = EXIT_SUCCESS;
 	while (cmd->redirections)
-	{	
+	{
 		if (cmd->redirections->token == LESS_LESS)
 		{
 			if (cmd->hd_file_name)
 				free(cmd->hd_file_name);
 			cmd->hd_file_name = generate_heredoc_filename();
-			sl = ft_heredoc(tools, cmd->redirections, cmd->hd_file_name);
-			if (sl)
+			x = ft_heredoc(tools, cmd->redirections, cmd->hd_file_name);
+			if (x)
 			{
 				g_global.error_num = 1;
 				return (reset_tools(tools));
@@ -578,36 +558,34 @@ int	send_heredoc(t_tools *tools, t_simple_cmds *cmd)
 	return (EXIT_SUCCESS);
 }
 
-t_simple_cmds	*call_expander(t_tools *tools, t_simple_cmds *cmd)
+t_simple_cmds *call_expander(t_tools *tools, t_simple_cmds *cmd)
 {
-	t_lexer	*start;
+	t_lexer *start;
 
 	cmd->str = expander(tools, cmd->str);
 	start = cmd->redirections;
 	while (cmd->redirections)
 	{
 		if (cmd->redirections->token != LESS_LESS)
-			cmd->redirections->word = expander_str(tools, cmd->redirections->word);
+			cmd->redirections->word = expand_str(tools, cmd->redirections->word);
 		cmd->redirections = cmd->redirections->next;
 	}
 	cmd->redirections = start;
 	return (cmd);
 }
 
-void	single_cmd(t_simple_cmds *cmd, t_tools *tools)
+void single_cmd(t_simple_cmds *cmd, t_tools *tools)
 {
-	int	pid;
-	int	status;
+	int pid;
+	int status;
 
-	
 	tools->simple_cmds = call_expander(tools, tools->simple_cmds);
-	if (cmd->builtin == mini_cd || cmd->builtin == mini_exit
-		|| cmd->builtin == mini_export || cmd->builtin == mini_unset)
+	if (cmd->builtin == mini_cd || cmd->builtin == mini_exit || cmd->builtin == mini_export || cmd->builtin == mini_unset)
 	{
 		g_global.error_num = cmd->builtin(tools, cmd);
-		return ;
+		return;
 	}
-	send_heredoc(tools, cmd);
+	handle_heredoc(tools, cmd);
 	pid = fork();
 	if (pid < 0)
 		ft_error(5, tools);
@@ -616,12 +594,11 @@ void	single_cmd(t_simple_cmds *cmd, t_tools *tools)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		g_global.error_num = WEXITSTATUS(status);
-	// clear_cmd(&tools->simple_cmds);
 }
 
-int	prepare_executor(t_tools *tools)
+int executor(t_tools *tools)
 {
-	//signal(SIGQUIT, sigquit_handler);
+	// signal(SIGQUIT, sigquit_handler);
 	g_global.in_cmd = 1;
 	if (tools->pipes == 0)
 		single_cmd(tools->simple_cmds, tools);

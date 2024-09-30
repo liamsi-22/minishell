@@ -38,27 +38,6 @@ int	check_parameter(char *str)
 	return (EXIT_SUCCESS);
 }
 
-// char	**whileloop_add_var(char **env, char **new_env, char *str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (env[i] != NULL)
-// 	{
-// 		if (env[i + 1] == NULL)
-// 		{
-// 			new_env[i] = ft_strdup(str);
-// 			new_env[i + 1] = ft_strdup(env[i]);
-// 		}
-// 		else
-// 			new_env[i] = ft_strdup(env[i]);
-// 		if (new_env[i] == NULL)
-// 			return (new_env);
-// 		i++;
-// 	}
-// 	return (new_env);
-// }
-
 char	**whileloop_add_var(char **env, char **new_env, char *str)
 {
 	int	i;
@@ -85,7 +64,6 @@ char	**add_var(char **env, char *str)
 	new_env = ft_calloc(sizeof(char *), i + 2);
 	if (!new_env)
 		return (NULL);
-	// i = 0;
 	new_env = whileloop_add_var(env, new_env, str);
 	return (new_env);
 }
@@ -102,8 +80,7 @@ int	mini_export(t_tools *tools, t_simple_cmds *simple_cmd)
 	{
 		while (simple_cmd->str[i])
 		{
-			if (check_parameter(simple_cmd->str[i]) == 0
-				&& variable_exist(tools, simple_cmd->str[i]) == 0)
+			if (check_parameter(simple_cmd->str[i]) == 0 && variable_exist(tools, simple_cmd->str[i]) == 0)
 			{
 				if (simple_cmd->str[i] && equal_sign(simple_cmd->str[i]) != 0)
 				{

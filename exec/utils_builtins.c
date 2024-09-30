@@ -1,42 +1,24 @@
 
 #include "../parsing.h"
 
-// void	change_path(t_tools *tools)
-// {
-// 	char	*tmp;
-
-// 	if (tools->pwd)
-// 	{
-// 		tmp = ft_strdup(tools->pwd);
-// 		free(tools->old_pwd);
-// 		tools->old_pwd = tmp;
-// 		free(tools->pwd);
-// 	}
-// 	tools->pwd = getcwd(NULL, 0);
-// }
-
 void change_path(t_tools *tools)
 {
-    char *tmp;
+	char *tmp;
 
-    tmp = ft_strdup(tools->pwd);
-    // if (tmp == NULL)
-    //     return;
-
+	tmp = ft_strdup(tools->pwd);
 	if (tools->old_pwd)
-    	free(tools->old_pwd);
-    tools->old_pwd = tmp;
+		free(tools->old_pwd);
+	tools->old_pwd = tmp;
 	if (tools->pwd)
-    	free(tools->pwd);
-    tools->pwd = getcwd(NULL, 0);
-    if (!tools->pwd)
-        tools->pwd = ft_strdup(tools->old_pwd); // Revert to old path if getcwd fails
+		free(tools->pwd);
+	tools->pwd = getcwd(NULL, 0);
+	if (!tools->pwd)
+		tools->pwd = ft_strdup(tools->old_pwd);
 }
 
-
-char	*delete_quotes_value(char *str)
+char *delete_quotes_value(char *str)
 {
-	char	**split_quotes;
+	char **split_quotes;
 
 	split_quotes = ft_split(str, '"');
 	if (!split_quotes[1])
@@ -50,12 +32,7 @@ char	*delete_quotes_value(char *str)
 	return (str);
 }
 
-int	check_valid_identifier(char c)
+int check_valid_identifier(char c)
 {
-	return (c == '|' || c == '<' || c == '>' || c == '[' || c == ']'
-		|| c == '\'' || c == '\"' || c == ' ' || c == ',' || c == '.'
-		|| c == ':' || c == '/' || c == '{' || c == '}' || c == '+'
-		|| c == '^' || c == '%' || c == '#' || c == '@' || c == '!'
-		|| c == '~'
-		|| c == '=' || c == '-' || c == '?' || c == '&' || c == '*');
+	return (c == '|' || c == '<' || c == '>' || c == '[' || c == ']' || c == '\'' || c == '\"' || c == ' ' || c == ',' || c == '.' || c == ':' || c == '/' || c == '{' || c == '}' || c == '+' || c == '^' || c == '%' || c == '#' || c == '@' || c == '!' || c == '~' || c == '=' || c == '-' || c == '?' || c == '&' || c == '*');
 }

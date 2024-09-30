@@ -24,9 +24,7 @@ int	specific_path(t_tools *tools, char *str)
 	free(tmp);
 	if (ret != 0)
 	{
-		// str = ft_substr(str, 0, ft_strlen(str) - 1);
 		ft_putstr_fd(str, STDERR_FILENO);
-		// free(str);
 		ft_putendl_fd(" not set", STDERR_FILENO);
 	}
 	return (ret);
