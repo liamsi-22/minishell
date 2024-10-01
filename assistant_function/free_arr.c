@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_arr.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/01 16:56:54 by iel-fagh          #+#    #+#             */
+/*   Updated: 2024/10/01 16:56:55 by iel-fagh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../parsing.h"
 
 void	free_arr(char **arr)
@@ -10,24 +22,8 @@ void	free_arr(char **arr)
         return;
 	while (arr[i])
 	{
-		// printf("__%s__\n", arr[i]);
-		// char *s = arr[i + 1];
 		free(arr[i]);
 		i++;
-		// arr[i] = s;
 	}
 	free(arr);
 }
-
-// void free_arr(char **arr)
-// {
-//     if (!arr) {
-//         return;  // If the arr is NULL, there's nothing to free.
-//     }
-    
-//     for (int i = 0; arr[i] != NULL; i++) {
-//         free(arr[i]);  // Free each individual string.
-//     }
-    
-//     free(arr);  // Finally, free the arr itself.
-// }

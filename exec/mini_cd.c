@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mini_cd.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/01 16:57:54 by iel-fagh          #+#    #+#             */
+/*   Updated: 2024/10/01 16:57:55 by iel-fagh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../parsing.h"
 
 char	*find_path_ret(char *str, t_tools *tools)
@@ -66,8 +78,6 @@ int	mini_cd(t_tools *tools, t_simple_cmds *simple_cmd)
 	}
 	if (!simple_cmd->str[1])
 		ret = specific_path(tools, "HOME=");
-	else if (ft_strncmp(simple_cmd->str[1], "-", 1) == 0)
-		ret = specific_path(tools, "OLDPWD=");
 	else
 	{
 		ret = chdir(simple_cmd->str[1]);

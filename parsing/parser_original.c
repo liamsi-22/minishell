@@ -1,15 +1,20 @@
 #include "../parsing.h"
 
-int	parser(t_tools *tools)
+int check_first_pipe(t_tools *tools)
 {
-	t_simple_cmds	*node = NULL;
-	t_parser_tools	parser_tool;
-
-	tools->simple_cmds = NULL;
 	count_pipes(tools->lexer_list, tools);
 	if (tools->lexer_list->token == PIPE)
-		return (doubl_token_error(tools, tools->lexer_list,
-				tools->lexer_list->token));
+		return (doubl_token_error(tools, tools->lexer_list, tools->lexer_list->token));
+	return (EXIT_SUCCESS);
+}
+
+int	parser(t_tools *tools)
+{
+	t_simple_cmds	*node;
+	t_parser_tools	parser_tool;
+
+	node = NULL;
+	check_first_pipe(tools);
 	while (tools->lexer_list)
 	{
 		if (tools->lexer_list && tools->lexer_list->token == PIPE)

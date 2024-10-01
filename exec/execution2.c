@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/01 16:57:51 by iel-fagh          #+#    #+#             */
+/*   Updated: 2024/10/01 16:57:59 by iel-fagh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../parsing.h"
 #include "../global_header.h"
 
@@ -64,7 +76,7 @@ int ft_fork(t_tools *tools, int end[2], int fd_in, t_simple_cmds *cmd)
 	return (EXIT_SUCCESS);
 }
 
-int executor(t_tools *tools)
+int multiple_cmd(t_tools *tools)
 {
 	int end[2];
 	int fd_in;
