@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:57:48 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/01 16:57:49 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/01 20:42:25 by abakhcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -462,8 +462,7 @@ char *expand_str(t_tools *tools, char *str)
 	int x = dollar_sign(str) - 2;
 	if (dollar_sign(str) != 0 && str[dollar_sign(str)] != '\0')
 	{
-		if (x < 0 || str[0] == '"' || str[dollar_sign(str) - 2] != '\''
-			&& is_paire(str) % 2 == 0)
+		if (x < 0 || str[0] == '"' || (str[dollar_sign(str) - 2] != '\'' && is_paire(str) % 2 == 0))
 		{
 			tmp = detect_dollar_sign(tools, str);
 			free(str);

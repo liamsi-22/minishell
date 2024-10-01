@@ -11,6 +11,6 @@ typedef struct s_heredoc
 
 extern	t_heredoc g_global;
 
-int		(*builtin_arr(char *str))(t_tools *tools, t_simple_cmds *simple_cmd);
+extern int		(*builtin_arr(char *str))(t_tools *tools, t_simple_cmds *simple_cmd);
 
 #endif
