@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mini_exit.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/01 16:58:08 by iel-fagh          #+#    #+#             */
+/*   Updated: 2024/10/01 16:58:09 by iel-fagh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../parsing.h"
 // #include <signal.h>
@@ -40,6 +52,7 @@ void	ft_simple_cmdsclear(t_simple_cmds **lst)
 	}
 	*lst = NULL;
 }
+
 void	free_tools(t_tools *tools)
 {
 	if (tools->paths)

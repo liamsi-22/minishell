@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mini_export.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/01 16:58:10 by iel-fagh          #+#    #+#             */
+/*   Updated: 2024/10/01 16:58:11 by iel-fagh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../parsing.h"
 
@@ -49,6 +61,7 @@ char	**whileloop_add_var(char **env, char **new_env, char *str)
 		i++;
 	}
 	new_env[i] = ft_strdup(str);
+	free_arr(env);
 	return (new_env);
 }
 
@@ -80,12 +93,12 @@ int	mini_export(t_tools *tools, t_simple_cmds *simple_cmd)
 	{
 		while (simple_cmd->str[i])
 		{
-			if (check_parameter(simple_cmd->str[i]) == 0 && variable_exist(tools, simple_cmd->str[i]) == 0)
+			if (!check_parameter(simple_cmd->str[i])
+				&& !variable_exist(tools, simple_cmd->str[i]))
 			{
 				if (simple_cmd->str[i] && equal_sign(simple_cmd->str[i]) != 0)
 				{
 					tmp = add_var(tools->env, simple_cmd->str[i]);
-					free_arr(tools->env);
 					tools->env = tmp;
 				}
 			}
@@ -93,7 +106,7 @@ int	mini_export(t_tools *tools, t_simple_cmds *simple_cmd)
 				return (EXIT_FAILURE);
 			i++;
 		}
-
 	}
 	return (EXIT_SUCCESS);
 }
+

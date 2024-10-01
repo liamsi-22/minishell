@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/01 16:57:22 by iel-fagh          #+#    #+#             */
+/*   Updated: 2024/10/01 16:57:23 by iel-fagh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../parsing.h"
 
 char	*ft_strdup(const char *s1)
@@ -7,7 +19,7 @@ char	*ft_strdup(const char *s1)
 	size_t	i;
 
 	i = 0;
-	if (!s1) // Add null check for the source string
+	if (!s1)
 		return (NULL);
 	size = ft_strlen(s1);
 	s2 = (char *)malloc((size + 1) * sizeof(char));
