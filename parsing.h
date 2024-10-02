@@ -216,7 +216,7 @@ void print_lines(int i, char **str, int out);
 int mini_echo(t_tools *tools, t_simple_cmds *simple_cmd);
 int mini_env(t_tools *tools, t_simple_cmds *simple_cmd);
 void	ft_lexerclear(t_lexer **lst);
-void	ft_simple_cmdsclear(t_simple_cmds **lst);
+// void	ft_simple_cmdsclear(t_simple_cmds **lst);
 void	free_tools(t_tools *tools);
 int	is_str_digit(char *str);
 void	determine_exit_code(char **str);

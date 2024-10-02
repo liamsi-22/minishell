@@ -57,7 +57,6 @@ int minishell_loop(t_tools *tools)
 		return (ft_error(2, tools));
     if (!init_lexer(tools))
 		return (ft_error(1, tools));
-		
     parser(tools);
 	executor(tools);
 	reset_tools(tools);

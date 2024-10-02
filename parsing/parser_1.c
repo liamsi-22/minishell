@@ -67,19 +67,3 @@ void	lexer_clear(t_lexer **lst)
 	}
 	*lst = NULL;
 }
-
-void	add_cmdback(t_simple_cmds **lst, t_simple_cmds *new)
-{
-	t_simple_cmds	*tmp;
-
-	tmp = *lst;
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = new;
-	new->prev = tmp;
-}

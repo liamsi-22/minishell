@@ -1,5 +1,20 @@
 #include "../parsing.h"
-#include "../global_header.h"
+
+int	count_args(t_lexer *lexer_list)
+{
+	t_lexer	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = lexer_list;
+	while (tmp && tmp->token != PIPE)
+	{
+		if (tmp->i >= 0)
+			i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
 
 int	add_newredirection(t_lexer *tmp, t_parser_tools *parser_tools)
 {
@@ -39,27 +54,15 @@ void	handle_redirections(t_parser_tools *parser_tools)
 	handle_redirections(parser_tools);
 }
 
-t_simple_cmds	*creat_newcmd(char **str,
-	int num_redirections, t_lexer *redirections)
+t_parser_tools	init_parser_tools(t_lexer *lexer_list, t_tools *tools)
 {
-	t_simple_cmds	*new_cmd;
+	t_parser_tools	parser_tool;
 
-	new_cmd = (t_simple_cmds *)malloc(sizeof(t_simple_cmds));
-	if (!new_cmd)
-		return (0);
-	if (str)
-		new_cmd->str = str;
-	if (*str)
-	new_cmd->builtin = builtin_arr(str[0]);
-	new_cmd->hd_file_name = NULL;
-	new_cmd->num_redirections = num_redirections;
-	if (redirections)
-		new_cmd->redirections = redirections;
-	else
-		new_cmd->redirections = NULL;
-	new_cmd->next = NULL;
-	new_cmd->prev = NULL;
-	return (new_cmd);
+	parser_tool.lexer_list = lexer_list;
+	parser_tool.redirections = NULL;
+	parser_tool.num_redirections = 0;
+	parser_tool.tools = tools;
+	return (parser_tool);
 }
 
 t_simple_cmds	*init_cmd(t_parser_tools *parser_tools)
@@ -88,15 +91,4 @@ t_simple_cmds	*init_cmd(t_parser_tools *parser_tools)
 	}
 	return (creat_newcmd(str,
 			parser_tools->num_redirections, parser_tools->redirections));
-}
-
-t_parser_tools	init_parser_tools(t_lexer *lexer_list, t_tools *tools)
-{
-	t_parser_tools	parser_tool;
-
-	parser_tool.lexer_list = lexer_list;
-	parser_tool.redirections = NULL;
-	parser_tool.num_redirections = 0;
-	parser_tool.tools = tools;
-	return (parser_tool);
 }

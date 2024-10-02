@@ -6,10 +6,9 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:58:10 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/01 16:58:11 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/02 23:29:21 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../parsing.h"
 
@@ -32,6 +31,7 @@ int	variable_exist(t_tools *tools, char *str)
 	}
 	return (0);
 }
+
 int	check_parameter(char *str)
 {
 	int	i;
@@ -109,4 +109,3 @@ int	mini_export(t_tools *tools, t_simple_cmds *simple_cmd)
 	}
 	return (EXIT_SUCCESS);
 }
-
