@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:31:56 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/10/03 14:31:57 by abakhcha         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:51:47 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ typedef struct s_simple_cmds
 	struct s_simple_cmds	*next;
 	struct s_simple_cmds	*prev;
 }							t_simple_cmds;
+
+
+int (*builtin_arr(char *str))(t_tools *tools, t_simple_cmds *simple_cmd);
 
 char						*find_path(char **envp);
 char						**ft_arrdup(char **arr);
@@ -199,7 +202,6 @@ void						print_lines(int i, char **str, int out);
 int							mini_echo(t_tools *tools,
 								t_simple_cmds *simple_cmd);
 int							mini_env(t_tools *tools, t_simple_cmds *simple_cmd);
-void						ft_lexerclear(t_lexer **lst);
 void						free_tools(t_tools *tools);
 int							is_str_digit(char *str);
 void						determine_exit_code(char **str);

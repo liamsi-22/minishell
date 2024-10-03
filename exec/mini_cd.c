@@ -6,11 +6,26 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:57:54 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/01 16:57:55 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:58:14 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parsing.h"
+
+void change_path(t_tools *tools)
+{
+	char *tmp;
+
+	tmp = ft_strdup(tools->pwd);
+	if (tools->old_pwd)
+		free(tools->old_pwd);
+	tools->old_pwd = tmp;
+	if (tools->pwd)
+		free(tools->pwd);
+	tools->pwd = getcwd(NULL, 0);
+	if (!tools->pwd)
+		tools->pwd = ft_strdup(tools->old_pwd);
+}
 
 char	*find_path_ret(char *str, t_tools *tools)
 {

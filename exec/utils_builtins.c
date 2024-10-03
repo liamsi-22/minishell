@@ -6,27 +6,12 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:58:18 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/01 16:58:19 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:58:09 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../parsing.h"
-
-void change_path(t_tools *tools)
-{
-	char *tmp;
-
-	tmp = ft_strdup(tools->pwd);
-	if (tools->old_pwd)
-		free(tools->old_pwd);
-	tools->old_pwd = tmp;
-	if (tools->pwd)
-		free(tools->pwd);
-	tools->pwd = getcwd(NULL, 0);
-	if (!tools->pwd)
-		tools->pwd = ft_strdup(tools->old_pwd);
-}
 
 char *delete_quotes_value(char *str)
 {

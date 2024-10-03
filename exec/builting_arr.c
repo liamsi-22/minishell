@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "../parsing.h"
-#include "../global_header.h"
+// #include "../global_header.h"
 
-extern int (*builtin_arr(char *str))(t_tools *tools, t_simple_cmds *simple_cmd)
+int (*builtin_arr(char *str))(t_tools *tools, t_simple_cmds *simple_cmd)
 {
 	int i;
 
