@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:58:10 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/03 15:20:33 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:05:13 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	variable_exist(t_tools *tools, char *str)
 {
 	int	i;
-	char *tmp;
 
 	i = 0;
 	while (tools->env[i])
@@ -69,7 +68,6 @@ char	**add_var(char **env, char *str)
 {
 	char	**new_env;
 	size_t	i;
-	char	*tmp;
 
 	i = 0;
 	while (env[i] != NULL)
