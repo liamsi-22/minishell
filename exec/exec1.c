@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution1.c                                       :+:      :+:    :+:   */
+/*   exec1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:57:48 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/02 22:27:54 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:40:26 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,8 @@ void handle_cmd(t_simple_cmds *cmd, t_tools *tools)
 
 	exit_code = 0;
 	if (cmd->redirections)
-
 		if (check_redirections(cmd) || (!check_redirections(cmd) && !cmd->str[0]))
 			exit(1);
-
 	if (cmd->builtin != NULL)
 	{
 		exit_code = cmd->builtin(tools, cmd);
@@ -55,7 +53,6 @@ int handle_heredoc(t_tools *tools, t_simple_cmds *cmd)
 {
 	t_lexer *start;
 	int x;
-
 
 	start = cmd->redirections;
 	x = EXIT_SUCCESS;

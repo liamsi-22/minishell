@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution7.c                                       :+:      :+:    :+:   */
+/*   exec7.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 22:26:00 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/02 22:26:23 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:03:08 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,57 +25,67 @@ int export_error(char *c)
 	return (EXIT_FAILURE);
 }
 
+int	helper_function1(char *str, char **final_str, int i)
+{
+	int j;
+	char *tmp;
+	char *sub;
+
+	j = i;
+	while (str[i] && str[i] != '\'' && str[i] != '"')
+		i++;
+	sub = malloc(i - j + 1);
+	if (!sub)
+		return 0;
+	ft_strncpy(sub, &str[j], i - j);
+	sub[i - j] = '\0';
+	tmp = *final_str;
+	*final_str = ft_strjoin(*final_str, sub);
+	free(tmp);
+	free(sub);
+	return (i);
+}
+int	helper_function2(char *str, char **final_str, int i)
+{
+	int		j;
+	char	sep;
+	char	*sub;
+	char	*tmp;
+
+	sep = str[i];
+	i++;
+	j = i;
+	while (str[i] && str[i] != sep)
+		i++;
+	sub = malloc(i - j + 1);
+	if (!sub)
+		return 0;
+	ft_strncpy(sub, &str[j], i - j);
+	sub[i - j] = '\0';
+	tmp = *final_str;
+	*final_str = ft_strjoin(*final_str, sub);
+	free(tmp);
+	free(sub);
+	if (str[i] == sep && str[i])
+		i++;
+	return (i);
+}
+
 char *delete_quotes(char *str)
 {
 	int i;
-	int j;
-	char *sub;
 	char *final_str;
-	char sep;
 
 	if (!str)
 		return (NULL);
-	sep = '\0';
 	final_str = ft_strdup("");
 	i = 0;
-	j = 0;
 	while (str[i])
 	{
-
 		if (str[i] != '\'' && str[i] != '"')
-		{
-			j = i;
-			while (str[i] && str[i] != '\'' && str[i] != '"')
-				i++;
-			sub = malloc(i - j + 1);
-			if (!sub)
-				return NULL;
-			ft_strncpy(sub, &str[j], i - j);
-			sub[i - j] = '\0';
-			char *temp = final_str;
-			final_str = ft_strjoin(final_str, sub);
-			free(temp);
-			free(sub);
-		}
+			i += helper_function1(str, &final_str, i);
 		else
-		{
-			sep = str[i];
-			i++;
-			j = i;
-			while (str[i] && str[i] != sep)
-				i++;
-			sub = malloc(i - j + 1);
-			if (!sub)
-				return NULL;
-			ft_strncpy(sub, &str[j], i - j);
-			sub[i - j] = '\0';
-			char *temp = final_str;
-			final_str = ft_strjoin(final_str, sub);
-			free(temp);
-			free(sub);
-			if (str[i] == sep && str[i])
-				i++;
-		}
+			i += helper_function2(str, &final_str, i);
 	}
 	free(str);
 	str = final_str;
@@ -114,7 +124,7 @@ int ft_isdigit(int c)
 	return (0);
 }
 
-int after_dol_lenght(char *str, int j)
+int after_dol(char *str, int j)
 {
 	int i;
 

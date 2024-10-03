@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:58:10 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/02 23:29:21 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:20:33 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	variable_exist(t_tools *tools, char *str)
 	while (tools->env[i])
 	{
 		if (ft_strncmp(tools->env[i],
-				str, equal_sign(tools->env[i])) == 0)
+				str, equal_sgn(tools->env[i])) == 0)
 		{
 			free(tools->env[i]);
 			tools->env[i] = ft_strdup(str);
@@ -96,7 +96,7 @@ int	mini_export(t_tools *tools, t_simple_cmds *simple_cmd)
 			if (!check_parameter(simple_cmd->str[i])
 				&& !variable_exist(tools, simple_cmd->str[i]))
 			{
-				if (simple_cmd->str[i] && equal_sign(simple_cmd->str[i]) != 0)
+				if (simple_cmd->str[i] && equal_sgn(simple_cmd->str[i]) != 0)
 				{
 					tmp = add_var(tools->env, simple_cmd->str[i]);
 					tools->env = tmp;

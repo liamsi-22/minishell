@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:58:15 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/01 16:58:16 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:20:33 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char **whileloop_del_var(char **arr, char **rtn, char *str)
 	j = 0;
 	while (arr[i] != NULL)
 	{
-		if (!(ft_strncmp(arr[i], str, equal_sign(arr[i]) - 1) == 0 && str[equal_sign(arr[i]) - 1] == '\0' && arr[i][ft_strlen(str)] == '='))
+		if (!(ft_strncmp(arr[i], str, equal_sgn(arr[i]) - 1) == 0 && str[equal_sgn(arr[i]) - 1] == '\0' && arr[i][ft_strlen(str)] == '='))
 		{
 			rtn[j] = ft_strdup(arr[i]);
 			if (rtn[j] == NULL)
@@ -71,7 +71,7 @@ int unset_error(t_simple_cmds *simple_cmd)
 			return (EXIT_FAILURE);
 		}
 	}
-	if (equal_sign(simple_cmd->str[1]) != 0)
+	if (equal_sgn(simple_cmd->str[1]) != 0)
 	{
 		ft_putendl_fd("minishell: unset: not a valid identifier",
 					  STDERR_FILENO);

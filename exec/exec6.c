@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution6.c                                       :+:      :+:    :+:   */
+/*   exec6.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 22:25:20 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/02 22:26:33 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:20:33 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../parsing.h"
 #include "../global_header.h"
 
-size_t equal_sign(char *str)
+size_t equal_sgn(char *str)
 {
 	size_t i;
 
@@ -61,19 +61,20 @@ int loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j)
 	x = 0;
 	while (tools->env[i])
 	{
-		if (ft_strncmp(str + j + 1, tools->env[i], equal_sign(tools->env[i]) - 1) == 0 && after_dol_lenght(str, j) - j == (int)equal_sign(tools->env[i]))
+		if (ft_strncmp(str + j + 1, tools->env[i], equal_sgn(tools->env[i]) - 1)
+			== 0 && after_dol(str, j) - j == (int)equal_sgn(tools->env[i]))
 		{
-			tmp2 = ft_strdup(tools->env[i] + equal_sign(tools->env[i]));
+			tmp2 = ft_strdup(tools->env[i] + equal_sgn(tools->env[i]));
 			tmp3 = ft_strjoin(*tmp, tmp2);
 			free(*tmp);
 			*tmp = tmp3;
 			free(tmp2);
-			x = equal_sign(tools->env[i]);
+			x = equal_sgn(tools->env[i]);
 		}
 		i++;
 	}
 	if (x == 0)
-		x = after_dol_lenght(str, j) - j;
+		x = after_dol(str, j) - j;
 	return (x);
 }
 
