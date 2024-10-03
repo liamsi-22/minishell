@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 22:24:44 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/03 15:10:41 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/03 21:39:44 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char *detect_dollar_sign(t_tools *tools, char *str)
 			j += handle_digit(j, str, &tmp);
 		else if (str[j] == '$' && str[j + 1] == '?')
 			j += question_mark(&tmp);
-		else if (str[j] == '$' && str[j + 1] && str[j + 1] != ' ')
+		else if (str[j] == '$' && str[j + 1] && str[j + 1] != 32 && str[j + 1] != '"')
 			j += loop_if_dollar_sign(tools, str, &tmp, j);
 		else
 		{

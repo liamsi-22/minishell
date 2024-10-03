@@ -6,70 +6,12 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 22:26:00 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/03 16:03:08 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/03 21:28:44 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parsing.h"
 #include "../global_header.h"
-
-int export_error(char *c)
-{
-	ft_putstr_fd("minishell: export: ", STDERR_FILENO);
-	if (c)
-	{
-		ft_putchar_fd('`', STDERR_FILENO);
-		ft_putstr_fd(c, STDERR_FILENO);
-	}
-	ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
-	return (EXIT_FAILURE);
-}
-
-int	helper_function1(char *str, char **final_str, int i)
-{
-	int j;
-	char *tmp;
-	char *sub;
-
-	j = i;
-	while (str[i] && str[i] != '\'' && str[i] != '"')
-		i++;
-	sub = malloc(i - j + 1);
-	if (!sub)
-		return 0;
-	ft_strncpy(sub, &str[j], i - j);
-	sub[i - j] = '\0';
-	tmp = *final_str;
-	*final_str = ft_strjoin(*final_str, sub);
-	free(tmp);
-	free(sub);
-	return (i);
-}
-int	helper_function2(char *str, char **final_str, int i)
-{
-	int		j;
-	char	sep;
-	char	*sub;
-	char	*tmp;
-
-	sep = str[i];
-	i++;
-	j = i;
-	while (str[i] && str[i] != sep)
-		i++;
-	sub = malloc(i - j + 1);
-	if (!sub)
-		return 0;
-	ft_strncpy(sub, &str[j], i - j);
-	sub[i - j] = '\0';
-	tmp = *final_str;
-	*final_str = ft_strjoin(*final_str, sub);
-	free(tmp);
-	free(sub);
-	if (str[i] == sep && str[i])
-		i++;
-	return (i);
-}
 
 char *delete_quotes(char *str)
 {
@@ -83,9 +25,9 @@ char *delete_quotes(char *str)
 	while (str[i])
 	{
 		if (str[i] != '\'' && str[i] != '"')
-			i += helper_function1(str, &final_str, i);
+			i = splite_function1(str, &final_str, i);
 		else
-			i += helper_function2(str, &final_str, i);
+			i = splite_function2(str, &final_str, i);
 	}
 	free(str);
 	str = final_str;
