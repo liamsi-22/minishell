@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 16:58:40 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/02 22:27:58 by iel-fagh         ###   ########.fr       */
+/*   Created: 2024/10/03 14:10:01 by abakhcha          #+#    #+#             */
+/*   Updated: 2024/10/03 14:10:15 by abakhcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	find_pwd(t_tools *tools)
 	int	i;
 
 	i = 0;
-
 	tools->pwd = NULL;
 	tools->old_pwd = NULL;
 	while (tools->env[i])

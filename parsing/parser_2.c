@@ -1,3 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+        
+	+:+     */
+/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+      
+	+#+        */
+/*                                                +#+#+#+#+#+  
+	+#+           */
+/*   Created: 2024/10/03 14:16:17 by abakhcha          #+#    #+#             */
+/*   Updated: 2024/10/03 14:16:17 by abakhcha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../parsing.h"
 
 int	count_args(t_lexer *lexer_list)
@@ -46,10 +61,9 @@ void	handle_redirections(t_parser_tools *parser_tools)
 	if (!tmp->next)
 		parser_error(0, parser_tools->tools, parser_tools->lexer_list);
 	if (tmp->next->token)
-		doubl_token_error(parser_tools->tools,
-			parser_tools->lexer_list, tmp->next->token);
-	if ((tmp->token >= GREAT
-			&& tmp->token <= LESS_LESS))
+		doubl_token_error(parser_tools->tools, parser_tools->lexer_list,
+			tmp->next->token);
+	if ((tmp->token >= GREAT && tmp->token <= LESS_LESS))
 		add_newredirection(tmp, parser_tools);
 	handle_redirections(parser_tools);
 }
@@ -89,6 +103,6 @@ t_simple_cmds	*init_cmd(t_parser_tools *parser_tools)
 		}
 		num_args--;
 	}
-	return (creat_newcmd(str,
-			parser_tools->num_redirections, parser_tools->redirections));
+	return (creat_newcmd(str, parser_tools->num_redirections,
+			parser_tools->redirections));
 }

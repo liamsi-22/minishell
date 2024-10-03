@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_original.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/03 14:19:37 by abakhcha          #+#    #+#             */
+/*   Updated: 2024/10/03 14:19:37 by abakhcha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../parsing.h"
 
 void	count_pipes(t_lexer *lexer_list, t_tools *tools)
@@ -14,11 +26,12 @@ void	count_pipes(t_lexer *lexer_list, t_tools *tools)
 	}
 }
 
-int check_first_pipe(t_tools *tools)
+int	check_first_pipe(t_tools *tools)
 {
 	count_pipes(tools->lexer_list, tools);
 	if (tools->lexer_list->token == PIPE)
-		return (doubl_token_error(tools, tools->lexer_list, tools->lexer_list->token));
+		return (doubl_token_error(tools, tools->lexer_list,
+				tools->lexer_list->token));
 	return (EXIT_SUCCESS);
 }
 

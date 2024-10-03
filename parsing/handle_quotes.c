@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_quotes.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/03 14:12:16 by abakhcha          #+#    #+#             */
+/*   Updated: 2024/10/03 14:12:17 by abakhcha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../parsing.h"
 
-int find_matching_quote(char *line, int i, int *num_del, int del)
+int	find_matching_quote(char *line, int i, int *num_del, int del)
 {
-	int j;
+	int	j;
 
 	j = i + 1;
 	*num_del += 1;
@@ -14,10 +26,10 @@ int find_matching_quote(char *line, int i, int *num_del, int del)
 	return (j - i);
 }
 
-int avoiding_25line(char *line, int *sgl_quote, int *dbl_quote)
+int	avoiding_25line(char *line, int *sgl_quote, int *dbl_quote)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = -1;
 	while (line[++i])
@@ -40,16 +52,17 @@ int avoiding_25line(char *line, int *sgl_quote, int *dbl_quote)
 	return (1);
 }
 
-int handle_quotes(char *line)
+int	handle_quotes(char *line)
 {
-	int sgl_quote;
-	int dbl_quote;
+	int	sgl_quote;
+	int	dbl_quote;
 
 	sgl_quote = 0;
 	dbl_quote = 0;
 	if (!avoiding_25line(line, &sgl_quote, &dbl_quote))
 		return (0);
-	if ((dbl_quote > 0 && dbl_quote % 2 != 0) || (sgl_quote > 0 && sgl_quote % 2 != 0))
+	if ((dbl_quote > 0 && dbl_quote % 2 != 0) || (sgl_quote > 0 && sgl_quote
+			% 2 != 0))
 		return (0);
 	return (1);
 }

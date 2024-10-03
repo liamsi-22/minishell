@@ -1,9 +1,21 @@
-#include "../parsing.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initiat_tools.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/03 14:28:12 by abakhcha          #+#    #+#             */
+/*   Updated: 2024/10/03 14:28:13 by abakhcha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../global_header.h"
+#include "../parsing.h"
 
 char	*find_path(char **envp)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (envp[i])
@@ -51,6 +63,6 @@ int	init_tools(t_tools *tools)
 	g_heredoc.in_cmd = 0;
 	g_heredoc.in_heredoc = 0;
 	init_path(tools);
-    // init_signals();
+	// init_signals();
 	return (1);
 }

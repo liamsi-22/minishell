@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_arr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:56:54 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/01 16:56:55 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:23:22 by abakhcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ void	free_arr(char **arr)
 	int	i;
 
 	i = 0;
-
-    if (!arr)
-        return;
+	if (!arr)
+		return ;
 	while (arr[i])
 	{
 		free(arr[i]);

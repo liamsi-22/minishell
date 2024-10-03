@@ -1,5 +1,17 @@
-#include "../parsing.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   creat_nodes.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/03 14:11:08 by abakhcha          #+#    #+#             */
+/*   Updated: 2024/10/03 14:11:09 by abakhcha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../global_header.h"
+#include "../parsing.h"
 
 t_lexer	*lexer_new(char *str, int token)
 {
@@ -44,7 +56,8 @@ int	add_lexer_node(char *str, t_tokens token, t_lexer **lexer_list)
 	return (1);
 }
 
-t_simple_cmds	*creat_newcmd(char **str, int num_redirections, t_lexer *redirections)
+t_simple_cmds	*creat_newcmd(char **str, int num_redirections,
+		t_lexer *redirections)
 {
 	t_simple_cmds	*new_cmd;
 
@@ -54,7 +67,7 @@ t_simple_cmds	*creat_newcmd(char **str, int num_redirections, t_lexer *redirecti
 	if (str)
 		new_cmd->str = str;
 	if (*str)
-	new_cmd->builtin = builtin_arr(str[0]);
+		new_cmd->builtin = builtin_arr(str[0]);
 	new_cmd->hd_file_name = NULL;
 	new_cmd->num_redirections = num_redirections;
 	if (redirections)

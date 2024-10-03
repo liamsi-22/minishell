@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell_loop.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/03 14:14:46 by abakhcha          #+#    #+#             */
+/*   Updated: 2024/10/03 14:14:47 by abakhcha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../parsing.h"
 
 void	clear_cmd(t_simple_cmds **lst)
@@ -36,29 +48,29 @@ int	reset_tools(t_tools *tools)
 	return (1);
 }
 
-int minishell_loop(t_tools *tools)
+int	minishell_loop(t_tools *tools)
 {
-    char *tmp;
+	char	*tmp;
 
-    tools->args = readline(READLINE_MSG);
-    tmp = ft_strtrim(tools->args);
+	tools->args = readline(READLINE_MSG);
+	tmp = ft_strtrim(tools->args);
 	if (tmp && tmp[0] != '\0')
-    	add_history(tools->args);
-    free(tools->args);
-    tools->args = tmp;
-    if (!tools->args)
+		add_history(tools->args);
+	free(tools->args);
+	tools->args = tmp;
+	if (!tools->args)
 	{
 		ft_putendl_fd("exit", STDOUT_FILENO);
 		exit(0);
 	}
-    if (tools->args[0] == '\0')
+	if (tools->args[0] == '\0')
 		return (reset_tools(tools));
-    if (!handle_quotes(tools->args))
+	if (!handle_quotes(tools->args))
 		return (ft_error(2, tools));
-    if (!init_lexer(tools))
+	if (!init_lexer(tools))
 		return (ft_error(1, tools));
-    parser(tools);
+	parser(tools);
 	executor(tools);
 	reset_tools(tools);
-    return (1);
+	return (1);
 }

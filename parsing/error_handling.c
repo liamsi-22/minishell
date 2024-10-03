@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/03 14:11:47 by abakhcha          #+#    #+#             */
+/*   Updated: 2024/10/03 14:11:48 by abakhcha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../parsing.h"
 
 int	ft_error(int error, t_tools *tools)
@@ -42,8 +54,7 @@ int	pipe_error(t_tools *tools)
 	}
 	if (tools->lexer_list && tools->lexer_list->token == PIPE)
 	{
-		doubl_token_error(tools, tools->lexer_list,
-			tools->lexer_list->token);
+		doubl_token_error(tools, tools->lexer_list, tools->lexer_list->token);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
