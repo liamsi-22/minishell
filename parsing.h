@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 21:08:21 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/03 21:30:08 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:08:12 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,17 @@ char						*ft_substr(char const *s, unsigned int start,
 								size_t len);
 int							ft_strncmp(const char *s1, const char *s2,
 								size_t n);
+int							ft_atoi(const char *str);
 char						*ft_strtrim(const char *s);
 char						*ft_strncpy(char *dest, char *src, int n);
 int							ft_strcmp(const char *s1, const char *s2);
 void						ft_putendl_fd(char *s, int fd);
 void						ft_putstr_fd(char *s, int fd);
 void						ft_putchar_fd(char c, int fd);
+char						*ft_itoa(int n);
+void						ft_putnbr_fd(int n, int fd);
+size_t						ft_strlcpy(char *dst, const char *src,
+								size_t dstsize);
 
 // parser functions
 
@@ -146,6 +151,7 @@ t_simple_cmds				*init_cmd(t_parser_tools *parser_tools);
 void						handle_redirections(t_parser_tools *parser_tools);
 int							count_args(t_lexer *lexer_list);
 void						*ft_calloc(size_t count, size_t size);
+int							ft_isdigit(int c);
 t_simple_cmds				*creat_newcmd(char **str, int num_redirections,
 								t_lexer *redirections);
 int							add_newredirection(t_lexer *tmp,
@@ -158,7 +164,6 @@ int							splite_function2(char *str, char **final_str, int i);
 int							export_error(char *c);
 char						*delete_quotes(char *str);
 int							cmd_not_found(char *str, int i);
-int							ft_isdigit(int c);
 int							after_dol(char *str, int j);
 size_t						equal_sgn(char *str);
 int							check_append_outfile(t_lexer *redirections);
@@ -226,9 +231,6 @@ int							mini_unset(t_tools *tools,
 void						change_path(t_tools *tools);
 char						*delete_quotes_value(char *str);
 int							check_valid_identifier(char c);
-char						*ft_itoa(int n);
-size_t						ft_strlcpy(char *dst, const char *src,
-								size_t dstsize);
-int							ft_atoi(const char *str);
+void						init_signals(void);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initiat_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:28:12 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/10/03 14:28:13 by abakhcha         ###   ########.fr       */
+/*   Updated: 2024/10/04 21:31:54 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ int	init_tools(t_tools *tools)
 	g_heredoc.in_cmd = 0;
 	g_heredoc.in_heredoc = 0;
 	init_path(tools);
-	// init_signals();
+	init_signals();
 	return (1);
 }
