@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution2.c                                       :+:      :+:    :+:   */
+/*   exec2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:57:51 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/02 22:27:00 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/06 15:57:23 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,10 @@ int check_fd_heredoc(t_tools *tools, int end[2], t_simple_cmds *cmd)
 {
 	int fd_in;
 
-	if (tools->heredoc)
-	{
+	(void)tools;
+	fd_in = 0;
+	if (!cmd->next)
 		close(end[0]);
-		fd_in = open(cmd->hd_file_name, O_RDONLY);
-	}
 	else
 		fd_in = end[0];
 	return (fd_in);
@@ -94,7 +93,7 @@ int multiple_cmd(t_tools *tools)
 		close(end[1]);
 		if (tools->simple_cmds->prev)
 			close(fd_in);
-		fd_in = check_fd_heredoc(tools, end, tools->simple_cmds);
+		fd_in = end[0];
 		if (tools->simple_cmds->next)
 			tools->simple_cmds = tools->simple_cmds->next;
 		else

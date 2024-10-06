@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 21:08:21 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/05 16:08:12 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:43:43 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-# define READLINE_MSG "\033[1;36mminishell\033[34m$ \033[0m"
-# define HEREDOC_MSG "\033[1;34m> \033[0m"
+# define READLINE_MSG "minishell> "
+// "\033[1;36mminishell\033[34m$ \033[0m"
+# define HEREDOC_MSG ">"
+// "\033[1;34m> \033[0m"
 
 typedef enum s_tokens
 {

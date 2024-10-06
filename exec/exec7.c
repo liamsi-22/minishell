@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 22:26:00 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/03 21:28:44 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:25:15 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,19 @@ char *delete_quotes(char *str)
 
 int cmd_not_found(char *str, int i)
 {
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
 	if (i == 1)
 	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putstr_fd(": Is a directory\n", STDERR_FILENO);
 		return (126);
 	}
 	else if (i == 0)
-	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
-	}
+	else if (i == 3)
+		ft_putstr_fd(": permission denied\n", STDERR_FILENO);
 	else
-	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-	}
-
 	return (127);
 }
 

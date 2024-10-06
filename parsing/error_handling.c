@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:11:47 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/10/03 14:11:48 by abakhcha         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:16:46 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,6 @@ int	ft_error(int error, t_tools *tools)
 		ft_putstr_fd("Failed to fork\n", STDERR_FILENO);
 	else if (error == 6)
 		ft_putstr_fd("outfile: Error\n", STDERR_FILENO);
-	else if (error == 7)
-		ft_putstr_fd("infile: No such file or directory\n", STDERR_FILENO);
-	else if (error == 8)
-		ft_putendl_fd("Path does not exist", STDERR_FILENO);
 	reset_tools(tools);
 	return (1);
 }

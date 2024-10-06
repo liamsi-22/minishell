@@ -6,12 +6,15 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 22:24:44 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/03 21:39:44 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:48:31 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parsing.h"
 #include "../global_header.h"
+#include <signal.h>
+
+void	sigquit_handler(int sig);
 
 int handle_digit(int j, char *str, char **tmp)
 {
@@ -42,8 +45,11 @@ int handle_infile(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_putstr_fd("minishell: infile: No such file or directory\n",
-					 STDERR_FILENO);
+		if (!(access(file, F_OK)) && (access(file, W_OK | R_OK)))
+			ft_putstr_fd("minishell:  Permission denied\n", STDERR_FILENO);
+		else
+			ft_putstr_fd("minishell: infile: No such file or directory\n",
+						STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	if (fd > 0 && dup2(fd, STDIN_FILENO) < 0)
@@ -63,7 +69,10 @@ int handle_outfile(t_lexer *redirection)
 	fd = check_append_outfile(redirection);
 	if (fd < 0)
 	{
-		ft_putstr_fd("minishell: outfile: Error\n", STDERR_FILENO);
+		if ((access(redirection->word, W_OK | R_OK)))
+			ft_putstr_fd("minishell:  Permission denied\n", STDERR_FILENO);
+		else
+			ft_putstr_fd("minishell: outfile: Error\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	if (fd > 0 && dup2(fd, STDOUT_FILENO) < 0)
@@ -81,6 +90,7 @@ int create_heredoc(t_lexer *heredoc, bool quotes, t_tools *tools, char *file_nam
 	int fd;
 	char *line;
 
+	signal(SIGQUIT, SIG_IGN);
 	fd = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	line = readline(HEREDOC_MSG);
 	while (line && ft_strncmp(heredoc->word, line, ft_strlen(heredoc->word)) && !g_global.stop_heredoc)

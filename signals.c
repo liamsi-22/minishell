@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 21:24:28 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/04 21:25:13 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/05 21:33:14 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ int	event(void)
 
 void	sigint_handler(int sig)
 {
+	g_global.error_num = 128 + sig;
 	if (!g_global.in_heredoc)
 		ft_putstr_fd("\n", STDERR_FILENO);
-	if (g_global.in_cmd)
+	if (g_global.on_going_cmd)
 	{
 		g_global.stop_heredoc = 1;
 		rl_replace_line("", 0);
@@ -39,8 +40,9 @@ void	sigint_handler(int sig)
 
 void	sigquit_handler(int sig)
 {
-	ft_putstr_fd("Quit: ", STDERR_FILENO);
-	ft_putnbr_fd(sig, STDERR_FILENO);
+	g_global.error_num = 128 + sig;
+	ft_putstr_fd("Quit: (core dumped)", STDERR_FILENO);
+	// ft_putnbr_fd(sig, STDERR_FILENO);
 	ft_putchar_fd('\n', STDERR_FILENO);
 }
 

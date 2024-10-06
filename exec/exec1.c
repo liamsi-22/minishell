@@ -6,12 +6,17 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:57:48 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/03 14:40:26 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:04:27 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parsing.h"
 #include "../global_header.h"
+#include <signal.h>
+
+
+void	sigquit_handler(int sig);
+
 
 t_heredoc g_global = {0, 0, 0, 0};
 
@@ -19,6 +24,7 @@ t_simple_cmds *call_expander(t_tools *tools, t_simple_cmds *cmd)
 {
 	t_lexer *start;
 
+	start = NULL;
 	cmd->str = expander(tools, cmd->str);
 	start = cmd->redirections;
 	while (cmd->redirections)
@@ -81,6 +87,8 @@ void single_cmd(t_simple_cmds *cmd, t_tools *tools)
 	int pid;
 	int status;
 
+	status = 0;
+	pid = 0;
 	tools->simple_cmds = call_expander(tools, tools->simple_cmds);
 	if (cmd->builtin == mini_cd || cmd->builtin == mini_exit || cmd->builtin == mini_export || cmd->builtin == mini_unset)
 	{
@@ -100,17 +108,17 @@ void single_cmd(t_simple_cmds *cmd, t_tools *tools)
 
 int executor(t_tools *tools)
 {
-	// signal(SIGQUIT, sigquit_handler);
-	g_global.in_cmd = 1;
+	signal(SIGQUIT, sigquit_handler);
+	g_global.on_going_cmd = 1;
 	if (tools->pipes == 0)
 		single_cmd(tools->simple_cmds, tools);
 	else
 	{
-		tools->pid = ft_calloc(sizeof(int), tools->pipes + 2);
+		tools->pid = ft_calloc(sizeof(int), tools->pipes + 1);
 		if (!tools->pid)
 			return (ft_error(1, tools));
 		multiple_cmd(tools);
 	}
-	g_global.in_cmd = 0;
+	g_global.on_going_cmd = 0;
 	return (EXIT_SUCCESS);
 }

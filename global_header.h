@@ -17,7 +17,7 @@ typedef struct s_heredoc
 {
 	int	error_num;
 	int	stop_heredoc;
-	int	in_cmd;
+	int	on_going_cmd;
 	int	in_heredoc;
 }	t_heredoc;
 

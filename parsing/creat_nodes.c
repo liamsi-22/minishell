@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_nodes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:11:08 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/10/03 14:11:09 by abakhcha         ###   ########.fr       */
+/*   Updated: 2024/10/06 15:23:54 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ t_simple_cmds	*creat_newcmd(char **str, int num_redirections,
 		return (0);
 	if (str)
 		new_cmd->str = str;
+	new_cmd->builtin = NULL;
 	if (*str)
 		new_cmd->builtin = builtin_arr(str[0]);
 	new_cmd->hd_file_name = NULL;

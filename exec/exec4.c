@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 22:23:02 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/03 14:44:34 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:31:22 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int find_cmd(t_simple_cmds *cmd, t_tools *tools)
 		return (cmd_not_found(cmd->str[0], 1));
 	else if (cmd->str[0][0] == '/' && access(cmd->str[0], F_OK))
 		return (cmd_not_found(cmd->str[0], 2));
+
 	if (!access(cmd->str[0], F_OK))
 		execve(cmd->str[0], cmd->str, tools->env);
 	i = 0;
@@ -44,7 +45,7 @@ int check_redirections(t_simple_cmds *cmd)
 	start = cmd->redirections;
 	while (cmd->redirections)
 	{
-		if (cmd->redirections->token == LESS)
+		if (cmd->redirections->token == LESS || cmd->redirections->token == LESS_LESS)
 		{
 			if (handle_infile(cmd->redirections->word))
 				return (EXIT_FAILURE);
@@ -93,7 +94,8 @@ int ft_heredoc(t_tools *tools, t_lexer *heredoc, char *file_name)
 	int x;
 
 	x = EXIT_SUCCESS;
-	if ((heredoc->word[0] == '\"' && heredoc->word[ft_strlen(heredoc->word) - 1] == '\"') || (heredoc->word[0] == '\'' && heredoc->word[ft_strlen(heredoc->word) - 1] == '\''))
+	if ((heredoc->word[0] == '\"' && heredoc->word[ft_strlen(heredoc->word) - 1] == '\"') 
+		|| (heredoc->word[0] == '\'' && heredoc->word[ft_strlen(heredoc->word) - 1] == '\''))
 		quotes = true;
 	else
 		quotes = false;

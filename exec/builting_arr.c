@@ -36,5 +36,5 @@ int (*builtin_arr(char *str))(t_tools *tools, t_simple_cmds *simple_cmd)
 		}
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
