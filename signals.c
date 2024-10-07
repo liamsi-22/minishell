@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "parsing.h"
-# include "signal.h"
-# include "global_header.h"
+#include "parsing.h"
+#include "signal.h"
+#include "global_header.h"
 
 int	event(void)
 {
@@ -35,14 +35,13 @@ void	sigint_handler(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	(void) sig;
+	(void)sig;
 }
 
 void	sigquit_handler(int sig)
 {
 	g_global.error_num = 128 + sig;
 	ft_putstr_fd("Quit: (core dumped)", STDERR_FILENO);
-	// ft_putnbr_fd(sig, STDERR_FILENO);
 	ft_putchar_fd('\n', STDERR_FILENO);
 }
 

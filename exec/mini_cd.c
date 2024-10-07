@@ -12,9 +12,9 @@
 
 #include "../parsing.h"
 
-void change_path(t_tools *tools)
+void	change_path(t_tools *tools)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = ft_strdup(tools->pwd);
 	if (tools->old_pwd)
@@ -35,7 +35,8 @@ char	*find_path_ret(char *str, t_tools *tools)
 	while (tools->env[i])
 	{
 		if (!ft_strncmp(tools->env[i], str, ft_strlen(str)))
-			return (ft_substr(tools->env[i], ft_strlen(str), ft_strlen(tools->env[i]) - ft_strlen(str)));
+			return (ft_substr(tools->env[i], ft_strlen(str),
+					ft_strlen(tools->env[i]) - ft_strlen(str)));
 		i++;
 	}
 	return (NULL);
@@ -83,13 +84,13 @@ void	add_path_to_env(t_tools *tools)
 
 int	mini_cd(t_tools *tools, t_simple_cmds *simple_cmd)
 {
-	int		ret;
+	int	ret;
 
 	if (simple_cmd->str[1] && simple_cmd->str[2])
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd("cd: too many arguments", STDERR_FILENO);
-		return(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	if (!simple_cmd->str[1])
 		ret = specific_path(tools, "HOME=");

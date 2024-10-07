@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../parsing.h"
-// #include <signal.h>
 
 int	is_str_digit(char *str)
 {

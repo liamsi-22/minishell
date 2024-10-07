@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
 #include "../global_header.h"
+#include "../parsing.h"
 
-int export_error(char *c)
+int	export_error(char *c)
 {
 	ft_putstr_fd("minishell: export: ", STDERR_FILENO);
 	if (c)
@@ -27,16 +27,16 @@ int export_error(char *c)
 
 int	splite_function1(char *str, char **final_str, int i)
 {
-	int j;
-	char *tmp;
-	char *sub;
+	int		j;
+	char	*tmp;
+	char	*sub;
 
 	j = i;
 	while (str[i] && str[i] != '\'' && str[i] != '"')
 		i++;
 	sub = malloc(i - j + 1);
 	if (!sub)
-		return 0;
+		return (0);
 	ft_strncpy(sub, &str[j], i - j);
 	sub[i - j] = '\0';
 	tmp = *final_str;
@@ -60,7 +60,7 @@ int	splite_function2(char *str, char **final_str, int i)
 		i++;
 	sub = malloc(i - j + 1);
 	if (!sub)
-		return 0;
+		return (0);
 	ft_strncpy(sub, &str[j], i - j);
 	sub[i - j] = '\0';
 	tmp = *final_str;

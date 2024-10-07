@@ -10,20 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
 #include "../global_header.h"
+#include "../parsing.h"
 
-int find_cmd(t_simple_cmds *cmd, t_tools *tools)
+int	find_cmd(t_simple_cmds *cmd, t_tools *tools)
 {
-	int i;
-	char *mycmd;
+	int		i;
+	char	*mycmd;
 
-	if ((tools->pwd && !ft_strcmp(cmd->str[0], tools->pwd)) ||
-		(!access(cmd->str[0], F_OK) && cmd->str[0][ft_strlen(cmd->str[0]) - 1] == '/'))
+	if ((tools->pwd && !ft_strcmp(cmd->str[0], tools->pwd))
+		|| (!access(cmd->str[0], F_OK) && cmd->str[0][ft_strlen(cmd->str[0])
+			- 1] == '/'))
 		return (cmd_not_found(cmd->str[0], 1));
 	else if (cmd->str[0][0] == '/' && access(cmd->str[0], F_OK))
 		return (cmd_not_found(cmd->str[0], 2));
-
 	if (!access(cmd->str[0], F_OK))
 		execve(cmd->str[0], cmd->str, tools->env);
 	i = 0;
@@ -38,9 +38,9 @@ int find_cmd(t_simple_cmds *cmd, t_tools *tools)
 	return (cmd_not_found(cmd->str[0], 0));
 }
 
-int check_redirections(t_simple_cmds *cmd)
+int	check_redirections(t_simple_cmds *cmd)
 {
-	t_lexer *start;
+	t_lexer	*start;
 
 	start = cmd->redirections;
 	while (cmd->redirections)
@@ -67,10 +67,10 @@ int check_redirections(t_simple_cmds *cmd)
 	return (EXIT_SUCCESS);
 }
 
-char *delete_quotes2(char *str, char c)
+char	*delete_quotes2(char *str, char c)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -88,14 +88,15 @@ char *delete_quotes2(char *str, char c)
 	return (str);
 }
 
-int ft_heredoc(t_tools *tools, t_lexer *heredoc, char *file_name)
+int	ft_heredoc(t_tools *tools, t_lexer *heredoc, char *file_name)
 {
-	bool quotes;
-	int x;
+	bool	quotes;
+	int		x;
 
 	x = EXIT_SUCCESS;
-	if ((heredoc->word[0] == '\"' && heredoc->word[ft_strlen(heredoc->word) - 1] == '\"') 
-		|| (heredoc->word[0] == '\'' && heredoc->word[ft_strlen(heredoc->word) - 1] == '\''))
+	if ((heredoc->word[0] == '\"' && heredoc->word[ft_strlen(heredoc->word)
+				- 1] == '\"') || (heredoc->word[0] == '\''
+			&& heredoc->word[ft_strlen(heredoc->word) - 1] == '\''))
 		quotes = true;
 	else
 		quotes = false;
@@ -109,11 +110,11 @@ int ft_heredoc(t_tools *tools, t_lexer *heredoc, char *file_name)
 	return (x);
 }
 
-char *generate_heredoc_filename(void)
+char	*generate_heredoc_filename(void)
 {
-	static int i = 0;
-	char *num;
-	char *file_name;
+	static int	i = 0;
+	char		*num;
+	char		*file_name;
 
 	num = ft_itoa(i++);
 	file_name = ft_strjoin(".tmp_heredoc_file_", num);

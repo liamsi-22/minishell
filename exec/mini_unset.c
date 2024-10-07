@@ -10,19 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../parsing.h"
 
-char **whileloop_del_var(char **arr, char **rtn, char *str)
+char	**whileloop_del_var(char **arr, char **rtn, char *str)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
 	while (arr[i] != NULL)
 	{
-		if (!(ft_strncmp(arr[i], str, equal_sgn(arr[i]) - 1) == 0 && str[equal_sgn(arr[i]) - 1] == '\0' && arr[i][ft_strlen(str)] == '='))
+		if (!(ft_strncmp(arr[i], str, equal_sgn(arr[i]) - 1) == 0
+				&& str[equal_sgn(arr[i]) - 1] == '\0'
+				&& arr[i][ft_strlen(str)] == '='))
 		{
 			rtn[j] = ft_strdup(arr[i]);
 			if (rtn[j] == NULL)
@@ -38,13 +39,12 @@ char **whileloop_del_var(char **arr, char **rtn, char *str)
 	return (rtn);
 }
 
-char **del_var(char **arr, char *str)
+char	**del_var(char **arr, char *str)
 {
-	char **rtn;
-	size_t i;
+	char	**rtn;
+	size_t	i;
 
 	i = 0;
-
 	while (arr[i] != NULL)
 		i++;
 	rtn = ft_calloc(sizeof(char *), i + 1);
@@ -54,9 +54,9 @@ char **del_var(char **arr, char *str)
 	return (rtn);
 }
 
-int unset_error(t_simple_cmds *simple_cmd)
+int	unset_error(t_simple_cmds *simple_cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!simple_cmd->str[1])
@@ -74,15 +74,15 @@ int unset_error(t_simple_cmds *simple_cmd)
 	if (equal_sgn(simple_cmd->str[1]) != 0)
 	{
 		ft_putendl_fd("minishell: unset: not a valid identifier",
-					  STDERR_FILENO);
+			STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
 
-int mini_unset(t_tools *tools, t_simple_cmds *simple_cmd)
+int	mini_unset(t_tools *tools, t_simple_cmds *simple_cmd)
 {
-	char **tmp;
+	char	**tmp;
 
 	tmp = NULL;
 	if (unset_error(simple_cmd) == 1)

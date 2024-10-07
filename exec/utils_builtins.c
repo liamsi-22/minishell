@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../parsing.h"
 
-char *delete_quotes_value(char *str)
+char	*delete_quotes_value(char *str)
 {
-	char **split_quotes;
+	char	**split_quotes;
 
 	split_quotes = ft_split(str, '"');
 	if (!split_quotes[1])
@@ -29,7 +28,11 @@ char *delete_quotes_value(char *str)
 	return (str);
 }
 
-int check_valid_identifier(char c)
+int	check_valid_identifier(char c)
 {
-	return (c == '|' || c == '<' || c == '>' || c == '[' || c == ']' || c == '\'' || c == '\"' || c == ' ' || c == ',' || c == '.' || c == ':' || c == '/' || c == '{' || c == '}' || c == '+' || c == '^' || c == '%' || c == '#' || c == '@' || c == '!' || c == '~' || c == '=' || c == '-' || c == '?' || c == '&' || c == '*');
+	return (c == '|' || c == '<' || c == '>' || c == '[' || c == ']'
+		|| c == '\'' || c == '\"' || c == ' ' || c == ',' || c == '.'
+		|| c == ':' || c == '/' || c == '{' || c == '}' || c == '+' || c == '^'
+		|| c == '%' || c == '#' || c == '@' || c == '!' || c == '~' || c == '='
+		|| c == '-' || c == '?' || c == '&' || c == '*');
 }

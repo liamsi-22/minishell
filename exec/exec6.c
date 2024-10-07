@@ -10,13 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "../parsing.h"
 #include "../global_header.h"
+#include "../parsing.h"
 
-size_t equal_sgn(char *str)
+size_t	equal_sgn(char *str)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (str[i])
@@ -28,41 +27,40 @@ size_t equal_sgn(char *str)
 	return (0);
 }
 
-int check_append_outfile(t_lexer *redirections)
+int	check_append_outfile(t_lexer *redirections)
 {
-	int fd;
+	int	fd;
 
 	if (redirections->token == GREAT_GREAT)
-		fd = open(redirections->word,
-				  O_CREAT | O_RDWR | O_APPEND, 0644);
+		fd = open(redirections->word, O_CREAT | O_RDWR | O_APPEND, 0644);
 	else
-		fd = open(redirections->word,
-				  O_CREAT | O_RDWR | O_TRUNC, 0644);
+		fd = open(redirections->word, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	return (fd);
 }
 
-char *char_to_str(char c)
+char	*char_to_str(char c)
 {
-	char *str;
+	char	*str;
 
 	str = ft_calloc(sizeof(char), 2);
 	str[0] = c;
 	return (str);
 }
 
-int loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j)
+int	loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j)
 {
-	int i;
-	int x;
-	char *tmp2;
-	char *tmp3;
+	int		i;
+	int		x;
+	char	*tmp2;
+	char	*tmp3;
 
 	i = 0;
 	x = 0;
 	while (tools->env[i])
 	{
-		if (ft_strncmp(str + j + 1, tools->env[i], equal_sgn(tools->env[i]) - 1)
-			== 0 && after_dol(str, j) - j == (int)equal_sgn(tools->env[i]))
+		if (ft_strncmp(str + j + 1, tools->env[i], equal_sgn(tools->env[i])
+				- 1) == 0 && after_dol(str, j)
+			- j == (int)equal_sgn(tools->env[i]))
 		{
 			tmp2 = ft_strdup(tools->env[i] + equal_sgn(tools->env[i]));
 			tmp3 = ft_strjoin(*tmp, tmp2);
@@ -78,10 +76,10 @@ int loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j)
 	return (x);
 }
 
-int question_mark(char **tmp)
+int	question_mark(char **tmp)
 {
-	char *tmp1;
-	char *tmp2;
+	char	*tmp1;
+	char	*tmp2;
 
 	tmp1 = ft_itoa(g_global.error_num);
 	tmp2 = *tmp;

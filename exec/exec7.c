@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
 #include "../global_header.h"
+#include "../parsing.h"
 
-char *delete_quotes(char *str)
+char	*delete_quotes(char *str)
 {
-	int i;
-	char *final_str;
+	int		i;
+	char	*final_str;
 
 	if (!str)
 		return (NULL);
@@ -34,7 +34,7 @@ char *delete_quotes(char *str)
 	return (str);
 }
 
-int cmd_not_found(char *str, int i)
+int	cmd_not_found(char *str, int i)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
@@ -50,19 +50,20 @@ int cmd_not_found(char *str, int i)
 	return (127);
 }
 
-int ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	if (c > 47 && c < 58)
 		return (1);
 	return (0);
 }
 
-int after_dol(char *str, int j)
+int	after_dol(char *str, int j)
 {
-	int i;
+	int	i;
 
 	i = j + 1;
-	while (str[i] != '\0' && str[i] != '$' && str[i] != ' ' && str[i] != '\"' && str[i] != '\'' && str[i] != '=' && str[i] != '-' && str[i] != ':')
+	while (str[i] != '\0' && str[i] != '$' && str[i] != ' ' && str[i] != '\"'
+		&& str[i] != '\'' && str[i] != '=' && str[i] != '-' && str[i] != ':')
 		i++;
 	return (i);
 }

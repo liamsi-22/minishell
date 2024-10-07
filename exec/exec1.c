@@ -10,19 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
 #include "../global_header.h"
+#include "../parsing.h"
 #include <signal.h>
 
+void			sigquit_handler(int sig);
 
-void	sigquit_handler(int sig);
+t_heredoc		g_global = {0, 0, 0, 0};
 
-
-t_heredoc g_global = {0, 0, 0, 0};
-
-t_simple_cmds *call_expander(t_tools *tools, t_simple_cmds *cmd)
+t_simple_cmds	*call_expander(t_tools *tools, t_simple_cmds *cmd)
 {
-	t_lexer *start;
+	t_lexer	*start;
 
 	start = NULL;
 	cmd->str = expander(tools, cmd->str);
@@ -30,20 +28,22 @@ t_simple_cmds *call_expander(t_tools *tools, t_simple_cmds *cmd)
 	while (cmd->redirections)
 	{
 		if (cmd->redirections->token != LESS_LESS)
-			cmd->redirections->word = expand_str(tools, cmd->redirections->word);
+			cmd->redirections->word = expand_str(tools,
+					cmd->redirections->word);
 		cmd->redirections = cmd->redirections->next;
 	}
 	cmd->redirections = start;
 	return (cmd);
 }
 
-void handle_cmd(t_simple_cmds *cmd, t_tools *tools)
+void	handle_cmd(t_simple_cmds *cmd, t_tools *tools)
 {
-	int exit_code;
+	int	exit_code;
 
 	exit_code = 0;
 	if (cmd->redirections)
-		if (check_redirections(cmd) || (!check_redirections(cmd) && !cmd->str[0]))
+		if (check_redirections(cmd) || (!check_redirections(cmd)
+				&& !cmd->str[0]))
 			exit(1);
 	if (cmd->builtin != NULL)
 	{
@@ -55,10 +55,10 @@ void handle_cmd(t_simple_cmds *cmd, t_tools *tools)
 	exit(exit_code);
 }
 
-int handle_heredoc(t_tools *tools, t_simple_cmds *cmd)
+int	handle_heredoc(t_tools *tools, t_simple_cmds *cmd)
 {
-	t_lexer *start;
-	int x;
+	t_lexer	*start;
+	int		x;
 
 	start = cmd->redirections;
 	x = EXIT_SUCCESS;
@@ -82,18 +82,19 @@ int handle_heredoc(t_tools *tools, t_simple_cmds *cmd)
 	return (EXIT_SUCCESS);
 }
 
-void single_cmd(t_simple_cmds *cmd, t_tools *tools)
+void	single_cmd(t_simple_cmds *cmd, t_tools *tools)
 {
-	int pid;
-	int status;
+	int	pid;
+	int	status;
 
 	status = 0;
 	pid = 0;
 	tools->simple_cmds = call_expander(tools, tools->simple_cmds);
-	if (cmd->builtin == mini_cd || cmd->builtin == mini_exit || cmd->builtin == mini_export || cmd->builtin == mini_unset)
+	if (cmd->builtin == mini_cd || cmd->builtin == mini_exit
+		|| cmd->builtin == mini_export || cmd->builtin == mini_unset)
 	{
 		g_global.error_num = cmd->builtin(tools, cmd);
-		return;
+		return ;
 	}
 	handle_heredoc(tools, cmd);
 	pid = fork();
@@ -106,7 +107,7 @@ void single_cmd(t_simple_cmds *cmd, t_tools *tools)
 		g_global.error_num = WEXITSTATUS(status);
 }
 
-int executor(t_tools *tools)
+int	executor(t_tools *tools)
 {
 	signal(SIGQUIT, sigquit_handler);
 	g_global.on_going_cmd = 1;

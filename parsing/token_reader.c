@@ -62,6 +62,7 @@ int	read_token(char *str, int i, t_lexer **lexer_list)
 int	read_word(int i, char *str, t_lexer **lexer_list)
 {
 	int	j;
+
 	j = 0;
 	while (str[i + j] && !(check_token(str[i + j])))
 	{

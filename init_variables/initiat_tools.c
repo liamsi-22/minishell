@@ -52,8 +52,6 @@ int	init_path(t_tools *tools)
 
 int	init_tools(t_tools *tools)
 {
-	// t_heredoc	g_heredoc;
-	
 	tools->simple_cmds = NULL;
 	tools->lexer_list = NULL;
 	tools->reset = false;
