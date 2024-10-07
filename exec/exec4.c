@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 22:23:02 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/06 18:31:22 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:34:52 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	check_redirections(t_simple_cmds *cmd)
 	start = cmd->redirections;
 	while (cmd->redirections)
 	{
-		if (cmd->redirections->token == LESS || cmd->redirections->token == LESS_LESS)
+		if (cmd->redirections->token == LESS)
 		{
 			if (handle_infile(cmd->redirections->word))
 				return (EXIT_FAILURE);
