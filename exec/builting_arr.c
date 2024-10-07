@@ -38,14 +38,6 @@ int	(*builtin_arr(char *str))(t_tools *tools, t_simple_cmds *simple_cmd)
 			return (builtins[i][1]);
 		i++;
 	}
-	// while (i < 7)
-	// {
-	// 	if (str)
-	// 	{
-	// 		if (!ft_strcmp(str, builtins[i][0]))
-	// 			return (builtins[i][1]);
-	// 	}
-	// 	i++;
-	// }
 	return (0);
 }
+
