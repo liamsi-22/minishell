@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:57:48 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/06 18:04:27 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:53:49 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	handle_cmd(t_simple_cmds *cmd, t_tools *tools)
 	if (cmd->redirections)
 		if (check_redirections(cmd) || (!check_redirections(cmd)
 				&& !cmd->str[0]))
-			exit(1);
+			exit(0);
 	if (cmd->builtin != NULL)
 	{
 		exit_code = cmd->builtin(tools, cmd);
