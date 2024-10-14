@@ -46,13 +46,13 @@ typedef struct s_lexer
 	struct s_lexer			*prv;
 }							t_lexer;
 
-typedef struct s_parser_tools
-{
-	t_lexer					*lexer_list;
-	t_lexer					*redirections;
-	int						num_redirections;
-	struct s_tools			*tools;
-}							t_parser_tools;
+// typedef struct s_parser_tools
+// {
+// 	t_lexer					*lexer_list;
+// 	t_lexer					*redirections;
+// 	int						num_redirections;
+// 	struct s_tools			*tools;
+// }							t_parser_tools;
 
 typedef struct s_tools
 {
@@ -67,6 +67,8 @@ typedef struct s_tools
 	bool					heredoc;
 	bool					reset;
 	int						pipes;
+	t_lexer					*redirections;
+	int						num_redirections;
 }							t_tools;
 
 typedef struct s_simple_cmds
@@ -140,21 +142,16 @@ void						clear_lexer_node(t_lexer **lst, int key);
 void						clear_first_node(t_lexer **lst);
 t_lexer						*cleare_node(t_lexer **lst);
 int							pipe_error(t_tools *tools);
-void						parser_error(int error, t_tools *tools,
-		t_lexer *lexer_list);
-t_parser_tools				init_parser_tools(t_lexer *lexer_list,
-		t_tools *tools);
-void						add_cmdback(t_simple_cmds **lst,
-		t_simple_cmds *new);
-t_simple_cmds				*init_cmd(t_parser_tools *parser_tools);
-void						handle_redirections(t_parser_tools *parser_tools);
+int							add_newredirection(t_lexer *tmp, t_tools *tools);
+void						parser_error(int error, t_tools *tools, t_lexer *lexer_list);
+void						add_cmdback(t_simple_cmds **lst, t_simple_cmds *new);
+t_simple_cmds				*init_cmd(t_tools	*tools);
+void						handle_redirections(t_tools *tools);
 int							count_args(t_lexer *lexer_list);
 void						*ft_calloc(size_t count, size_t size);
 int							ft_isdigit(int c);
-t_simple_cmds				*creat_newcmd(char **str, int num_redirections,
-		t_lexer *redirections);
-int							add_newredirection(t_lexer *tmp,
-		t_parser_tools *parser_tools);
+t_simple_cmds				*creat_newcmd(char **str, int num_redirections, t_lexer *redirections);
+
 
 // executor functions
 

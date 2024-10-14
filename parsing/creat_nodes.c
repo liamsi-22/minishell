@@ -56,7 +56,7 @@ int	add_lexer_node(char *str, t_tokens token, t_lexer **lexer_list)
 	return (1);
 }
 
-t_simple_cmds	*creat_newcmd(char **str, int num_redirections,
+t_simple_cmds	* creat_newcmd(char **str, int num_redirections,
 		t_lexer *redirections)
 {
 	t_simple_cmds	*new_cmd;

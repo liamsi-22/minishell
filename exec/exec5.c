@@ -126,7 +126,7 @@ char	*detect_dollar_sign(t_tools *tools, char *str)
 			j += handle_digit(j, str, &tmp);
 		else if (str[j] == '$' && str[j + 1] == '?')
 			j += question_mark(&tmp);
-		else if (str[j] == '$' && str[j++] && str[j++] != 32 && str[j++] != '"')
+		else if (str[j] == '$' && str[j + 1] && str[j + 1] != 32 && str[j + 1] != '"')
 			j += loop_if_dollar_sign(tools, str, &tmp, j);
 		else
 		{

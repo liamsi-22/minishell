@@ -38,7 +38,6 @@ int	check_first_pipe(t_tools *tools)
 int	parser(t_tools *tools)
 {
 	t_simple_cmds	*node;
-	t_parser_tools	parser_tool;
 
 	node = NULL;
 	check_first_pipe(tools);
@@ -48,18 +47,16 @@ int	parser(t_tools *tools)
 			clear_lexer_node(&tools->lexer_list, tools->lexer_list->i);
 		if (pipe_error(tools))
 			return (EXIT_FAILURE);
-		parser_tool = init_parser_tools(tools->lexer_list, tools);
-		node = init_cmd(&parser_tool);
+		node = init_cmd(tools);
 		if (!node)
 		{
 			clear_cmd(&tools->simple_cmds);
-			parser_error(0, tools, parser_tool.lexer_list);
+			parser_error(0, tools, tools->lexer_list);
 		}
 		if (!tools->simple_cmds)
 			tools->simple_cmds = node;
 		else
 			add_cmdback(&tools->simple_cmds, node);
-		tools->lexer_list = parser_tool.lexer_list;
 	}
 	return (EXIT_SUCCESS);
 }
