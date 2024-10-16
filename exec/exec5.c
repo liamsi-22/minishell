@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 22:24:44 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/07 16:29:07 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/16 00:57:46 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	create_heredoc(t_lexer *heredoc, bool quotes, t_tools *tools,
 	return (EXIT_SUCCESS);
 }
 
-char	*detect_dollar_sign(t_tools *tools, char *str)
+char	*detect_dollar_sign(t_tools *tools, char *s)
 {
 	int		j;
 	char	*tmp;
@@ -120,17 +120,17 @@ char	*detect_dollar_sign(t_tools *tools, char *str)
 
 	j = 0;
 	tmp = ft_strdup("");
-	while (str[j])
+	while (s[j])
 	{
-		if (str[j] == '$' && ft_isdigit(str[j + 1]))
-			j += handle_digit(j, str, &tmp);
-		else if (str[j] == '$' && str[j + 1] == '?')
+		if (s[j] == '$' && ft_isdigit(s[j + 1]))
+			j += handle_digit(j, s, &tmp);
+		else if (s[j] == '$' && s[j + 1] == '?')
 			j += question_mark(&tmp);
-		else if (str[j] == '$' && str[j + 1] && str[j + 1] != 32 && str[j + 1] != '"')
-			j += loop_if_dollar_sign(tools, str, &tmp, j);
+		else if (s[j] == '$' && s[j + 1] && s[j + 1] != 32 && s[j + 1] != '"')
+			j += loop_if_dollar_sign(tools, s, &tmp, j);
 		else
 		{
-			tmp2 = char_to_str(str[j++]);
+			tmp2 = char_to_str(s[j++]);
 			tmp3 = ft_strjoin(tmp, tmp2);
 			free(tmp);
 			tmp = tmp3;

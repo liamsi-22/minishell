@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 21:08:21 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/05 18:43:43 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/16 00:58:34 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,6 @@ typedef struct s_lexer
 	struct s_lexer			*prv;
 }							t_lexer;
 
-// typedef struct s_parser_tools
-// {
-// 	t_lexer					*lexer_list;
-// 	t_lexer					*redirections;
-// 	int						num_redirections;
-// 	struct s_tools			*tools;
-// }							t_parser_tools;
-
 typedef struct s_tools
 {
 	char					*args;
@@ -68,14 +60,12 @@ typedef struct s_tools
 	bool					reset;
 	int						pipes;
 	t_lexer					*redirections;
-	int						num_redirections;
 }							t_tools;
 
 typedef struct s_simple_cmds
 {
 	char					**str;
 	int						(*builtin)(t_tools *, struct s_simple_cmds *);
-	int						num_redirections;
 	char					*hd_file_name;
 	t_lexer					*redirections;
 	struct s_simple_cmds	*next;
@@ -150,8 +140,7 @@ void						handle_redirections(t_tools *tools);
 int							count_args(t_lexer *lexer_list);
 void						*ft_calloc(size_t count, size_t size);
 int							ft_isdigit(int c);
-t_simple_cmds				*creat_newcmd(char **str, int num_redirections, t_lexer *redirections);
-
+t_simple_cmds				*creat_newcmd(char **str, t_lexer *redirections);
 
 // executor functions
 
