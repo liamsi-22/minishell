@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 21:08:21 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/16 00:58:34 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/19 13:34:42 by abakhcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,10 @@ void						clear_first_node(t_lexer **lst);
 t_lexer						*cleare_node(t_lexer **lst);
 int							pipe_error(t_tools *tools);
 int							add_newredirection(t_lexer *tmp, t_tools *tools);
-void						parser_error(int error, t_tools *tools, t_lexer *lexer_list);
-void						add_cmdback(t_simple_cmds **lst, t_simple_cmds *new);
+void						parser_error(int error, t_tools *tools,
+		t_lexer *lexer_list);
+void						add_cmdback(t_simple_cmds **lst,
+		t_simple_cmds *new);
 t_simple_cmds				*init_cmd(t_tools	*tools);
 void						handle_redirections(t_tools *tools);
 int							count_args(t_lexer *lexer_list);
