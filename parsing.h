@@ -102,7 +102,7 @@ size_t						ft_strlcpy(char *dst, const char *src,
 
 char						*delete_quotes2(char *str, char c);
 int							init_path(t_tools *tools);
-int							find_pwd(t_tools *tools);
+int							ft_pwd(t_tools *tools);
 int							init_tools(t_tools *tools);
 int							handle_quotes(char *line);
 int							ft_error(int error, t_tools *tools);
@@ -112,7 +112,7 @@ int							init_lexer(t_tools *tools);
 int							read_token(char *str, int i, t_lexer **lexer_list);
 t_tokens					check_token(int c);
 int							skip_spaces(char *str, int i);
-int							is_whitespace(char c);
+int							is_space(char c);
 int							read_word(int i, char *str, t_lexer **lexer_list);
 int							add_lexer_node(char *str, t_tokens token,
 		t_lexer **lexer_list);
@@ -130,7 +130,7 @@ void						lexer_clear(t_lexer **lst);
 void						clear_cmd(t_simple_cmds **lst);
 void						clear_lexer_node(t_lexer **lst, int key);
 void						clear_first_node(t_lexer **lst);
-t_lexer						*cleare_node(t_lexer **lst);
+t_lexer						*clear_node(t_lexer **lst);
 int							pipe_error(t_tools *tools);
 int							add_newredirection(t_lexer *tmp, t_tools *tools);
 void						parser_error(int error, t_tools *tools,

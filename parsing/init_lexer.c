@@ -68,7 +68,7 @@ int	read_word(int i, char *str, t_lexer **lexer_list)
 	{
 		if (str[i + j] == 34 || str[i + j] == 39)
 			j += skip_quotes(i + j, str, str[i + j]);
-		else if (is_whitespace(str[i + j]))
+		else if (is_space(str[i + j]))
 			break ;
 		else
 			j++;

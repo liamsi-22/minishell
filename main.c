@@ -12,7 +12,7 @@
 
 #include "./parsing.h"
 
-int	find_pwd(t_tools *tools)
+int	ft_pwd(t_tools *tools)
 {
 	int	i;
 
@@ -43,7 +43,7 @@ int	main(int ac, char **av, char **env)
 		exit(0);
 	}
 	tools.env = ft_arrdup(env);
-	find_pwd(&tools);
+	ft_pwd(&tools);
 	init_tools(&tools);
 	minishell_loop(&tools);
 }

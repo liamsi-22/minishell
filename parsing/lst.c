@@ -12,7 +12,7 @@
 
 #include "../parsing.h"
 
-t_lexer	*cleare_node(t_lexer **lst)
+t_lexer	*clear_node(t_lexer **lst)
 {
 	if ((*lst)->word)
 	{
@@ -30,7 +30,7 @@ void	clear_first_node(t_lexer **lst)
 
 	tmp = *lst;
 	*lst = tmp->next;
-	cleare_node(&tmp);
+	clear_node(&tmp);
 	if (*lst)
 		(*lst)->prv = NULL;
 }
@@ -59,7 +59,7 @@ void	clear_lexer_node(t_lexer **lst, int key)
 		prv->next = NULL;
 	if (prv->next)
 		prv->next->prv = prv;
-	cleare_node(&node);
+	clear_node(&node);
 	*lst = start;
 }
 

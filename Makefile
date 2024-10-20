@@ -3,8 +3,8 @@ P_DIR = parsing
 A_DIR = assistant_function
 E_DIR = exec
 
-SRC_FILES = main.c $(P_DIR)/creat_nodes.c $(P_DIR)/error_handling.c $(P_DIR)/handle_quotes.c $(P_DIR)/minishell_loop.c \
-			$(P_DIR)/parser_1.c $(P_DIR)/parser_2.c $(P_DIR)/parser_original.c $(P_DIR)/token_reader.c $(P_DIR)/token_reader2.c \
+SRC_FILES = main.c $(P_DIR)/creat_newcmd.c $(P_DIR)/error_handling.c $(P_DIR)/handle_quotes.c $(P_DIR)/minishell_loop.c \
+			$(P_DIR)/init_commande.c $(P_DIR)/init_lexer.c $(P_DIR)/lst.c $(P_DIR)/parser.c $(P_DIR)/skip_quotes.c \
 			$(E_DIR)/builting_arr.c $(E_DIR)/exec1.c $(E_DIR)/exec2.c $(E_DIR)/exec3.c $(E_DIR)/exec4.c $(E_DIR)/exec5.c $(E_DIR)/exec6.c \
 			$(E_DIR)/exec7.c $(E_DIR)/exec8.c $(E_DIR)/mini_cd.c $(E_DIR)/mini_echo.c $(E_DIR)/mini_env.c $(E_DIR)/mini_exit.c \
 			$(E_DIR)/mini_export.c $(E_DIR)/mini_pwd.c $(E_DIR)/mini_unset.c $(E_DIR)/utils_builtins.c $(A_DIR)/free_arr.c $(A_DIR)/ft_putnbr_fd.c \
