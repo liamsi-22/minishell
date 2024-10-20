@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 22:24:44 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/16 00:57:46 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/20 18:27:10 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	handle_digit(int j, char *str, char **tmp)
 		{
 			if (str[j + 1] == '0' && !ft_isdigit(str[j + 2]))
 			{
-				tmp2 = ft_strjoin(*tmp, "bash");
+				tmp2 = ft_strjoin(*tmp, "minishell");
 				free(*tmp);
 				*tmp = tmp2;
 			}
@@ -94,8 +94,7 @@ int	create_heredoc(t_lexer *heredoc, bool quotes, t_tools *tools,
 	signal(SIGQUIT, SIG_IGN);
 	fd = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	line = readline(HEREDOC_MSG);
-	while (line && ft_strncmp(heredoc->word, line, ft_strlen(heredoc->word))
-		&& !g_global.stop_heredoc)
+	while (line && ft_strcmp(heredoc->word, line) && !g_global.stop_heredoc)
 	{
 		if (quotes == false)
 			line = expand_str(tools, line);

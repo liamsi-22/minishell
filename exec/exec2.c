@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:57:51 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/20 15:13:43 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/20 18:21:26 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,11 @@ int	pipe_wait(int *pid, int amount)
 
 	status = 0;
 	i = 0;
-	while (i < amount)
+	while (i <= amount)
 	{
 		waitpid(pid[i], &status, 0);
 		i++;
 	}
-	waitpid(pid[i], &status, 0);
 	if (WIFEXITED(status))
 		g_global.error_num = WEXITSTATUS(status);
 	return (EXIT_SUCCESS);
