@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 21:08:21 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/19 13:34:42 by abakhcha         ###   ########.fr       */
+/*   Updated: 2024/10/20 15:51:39 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct s_tools
 	char					*old_pwd;
 	char					**paths;
 	int						*pid;
-	bool					heredoc;
 	bool					reset;
 	int						pipes;
 	t_lexer					*redirections;

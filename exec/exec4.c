@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 22:23:02 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/07 16:34:52 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/20 15:51:34 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ int	ft_heredoc(t_tools *tools, t_lexer *heredoc, char *file_name)
 	g_global.in_heredoc = 1;
 	x = create_heredoc(heredoc, quotes, tools, file_name);
 	g_global.in_heredoc = 0;
-	tools->heredoc = true;
 	return (x);
 }
 
