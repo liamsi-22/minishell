@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:57:48 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/08 15:53:49 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/20 13:54:39 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,7 @@ void	handle_cmd(t_simple_cmds *cmd, t_tools *tools)
 		if (check_redirections(cmd) || (!check_redirections(cmd)
 				&& !cmd->str[0]))
 			exit(0);
-	if (cmd->builtin != NULL)
-	{
-		exit_code = cmd->builtin(tools, cmd);
-		exit(exit_code);
-	}
-	else if (cmd->str[0] && cmd->str[0][0] != '\0')
+	if (cmd->str[0] && cmd->str[0][0] != '\0')
 		exit_code = find_cmd(cmd, tools);
 	exit(exit_code);
 }
@@ -91,7 +86,9 @@ void	single_cmd(t_simple_cmds *cmd, t_tools *tools)
 	pid = 0;
 	tools->simple_cmds = call_expander(tools, tools->simple_cmds);
 	if (cmd->builtin == mini_cd || cmd->builtin == mini_exit
-		|| cmd->builtin == mini_export || cmd->builtin == mini_unset)
+		|| cmd->builtin == mini_export || cmd->builtin == mini_unset
+		|| cmd->builtin == mini_echo ||  cmd->builtin == mini_env
+		|| cmd->builtin == mini_pwd)
 	{
 		g_global.error_num = cmd->builtin(tools, cmd);
 		return ;

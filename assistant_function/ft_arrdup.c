@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_arrdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:56:59 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/03 14:23:31 by abakhcha         ###   ########.fr       */
+/*   Updated: 2024/10/20 13:54:05 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	**ft_arrdup(char **arr)
 		if (array2[i] == NULL)
 		{
 			free_arr(array2);
-			return (array2);
+			return (NULL);
 		}
 		i++;
 	}
