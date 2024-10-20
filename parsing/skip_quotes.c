@@ -1,21 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_reader2.c                                    :+:      :+:    :+:   */
+/*   skip_quotes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:20:30 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/10/03 14:20:31 by abakhcha         ###   ########.fr       */
+/*   Updated: 2024/10/20 15:25:23 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parsing.h"
-
-int	is_space(char c)
-{
-	return (c == ' ' || (c > 8 && c < 14));
-}
 
 int	skip_spaces(char *str, int i)
 {
