@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 22:26:00 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/20 18:54:10 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/21 12:17:45 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ int	after_dol(char *str, int j)
 	int	i;
 
 	i = j + 1;
-	while (str[i] != '\0' && str[i] != '$' && str[i] != ' ' && str[i] != '\"'
-		&& str[i] != '\'' && str[i] != '/' && str[i] != '.' && str[i] != '='
-		&& str[i] != '-' && str[i] != ':')
+	while ((str[i] >= '0' && str[i] <= '9') || (str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_')
 		i++;
 	return (i);
 }

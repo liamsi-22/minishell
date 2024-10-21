@@ -6,11 +6,12 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:58:08 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/02 23:52:03 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:49:04 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parsing.h"
+#include "../global_header.h"
 
 int	is_str_digit(char *str)
 {
@@ -31,7 +32,7 @@ void	determine_exit_code(char **str)
 	int	exit_code;
 
 	if (!str[1])
-		exit_code = 0;
+		exit_code = g_global.error_num;
 	else if (is_str_digit(str[1]))
 		exit_code = ft_atoi(str[1]);
 	else

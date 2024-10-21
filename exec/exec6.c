@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 22:25:20 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/20 18:32:15 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/21 12:20:18 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j)
 	{
 		if (ft_strncmp(str + j + 1, tools->env[i], equal_sgn(tools->env[i])
 				- 1) == 0 && after_dol(str, j)
-			- j == (int)equal_sgn(tools->env[i]))
+		 	- j == (int)equal_sgn(tools->env[i]))
 		{
 			tmp2 = ft_strdup(tools->env[i] + equal_sgn(tools->env[i]));
 			tmp3 = ft_strjoin(*tmp, tmp2);
