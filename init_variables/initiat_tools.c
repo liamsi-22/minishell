@@ -54,7 +54,6 @@ int	init_tools(t_tools *tools)
 {
 	tools->simple_cmds = NULL;
 	tools->lexer_list = NULL;
-	// tools->reset = false;
 	tools->pid = NULL;
 	g_global.stop_heredoc = 0;
 	g_global.on_going_cmd = 0;

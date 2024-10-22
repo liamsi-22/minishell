@@ -62,7 +62,10 @@ int	after_dol(char *str, int j)
 	int	i;
 
 	i = j + 1;
-	while ((str[i] >= '0' && str[i] <= '9') || (str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_')
+	while ((str[i] >= '0' && str[i] <= '9')
+		|| (str[i] >= 'a' && str[i] <= 'z')
+		|| (str[i] >= 'A' && str[i] <= 'Z')
+		|| str[i] == '_')
 		i++;
 	return (i);
 }

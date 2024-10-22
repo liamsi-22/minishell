@@ -60,7 +60,7 @@ int	loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j)
 	{
 		if (ft_strncmp(str + j + 1, tools->env[i], equal_sgn(tools->env[i])
 				- 1) == 0 && after_dol(str, j)
-		 	- j == (int)equal_sgn(tools->env[i]))
+			- j == (int)equal_sgn(tools->env[i]))
 		{
 			tmp2 = ft_strdup(tools->env[i] + equal_sgn(tools->env[i]));
 			tmp3 = ft_strjoin(*tmp, tmp2);
