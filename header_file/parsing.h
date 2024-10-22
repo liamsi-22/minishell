@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 21:08:21 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/22 09:36:08 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:14:11 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_lexer
 	int						i;
 
 	struct s_lexer			*next;
-	struct s_lexer			*prv;
 }							t_lexer;
 
 typedef struct s_tools
