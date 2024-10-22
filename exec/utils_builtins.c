@@ -6,11 +6,11 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:58:18 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/03 20:58:09 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:03:14 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../header_file/execution.h"
 
 char	*delete_quotes_value(char *str)
 {

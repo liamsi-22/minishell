@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../header_file/parsing.h"
 
 static void	dup_fill(char *str, int index, long int x)
 {

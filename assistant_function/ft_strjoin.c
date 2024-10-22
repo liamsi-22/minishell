@@ -6,11 +6,11 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:57:25 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/01 16:57:26 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:01:07 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../header_file/parsing.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

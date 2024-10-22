@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../header_file/parsing.h"
 
 void	count_pipes(t_lexer *lexer_list, t_tools *tools)
 {

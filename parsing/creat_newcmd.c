@@ -6,12 +6,12 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:11:08 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/10/22 09:31:03 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:03:59 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../global_header.h"
-#include "../parsing.h"
+#include "../header_file/global_header.h"
+#include "../header_file/parsing.h"
 
 t_lexer	*lexer_new(char *str, int token)
 {

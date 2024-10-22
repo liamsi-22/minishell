@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../header_file/parsing.h"
 
 int	count_args(t_lexer *lexer_list)
 {
@@ -75,7 +75,7 @@ t_simple_cmds	*init_cmd(t_tools	*tools)
 	tools->redirections = NULL;
 	handle_redirections(tools);
 	num_args = count_args(tools->lexer_list);
-	str = ft_calloc(num_args + 1, sizeof(char *));
+	str = malloc((num_args + 1) * sizeof(char *));
 	if (!str)
 		parser_error(1, tools, tools->lexer_list);
 	tmp = tools->lexer_list;
@@ -89,5 +89,6 @@ t_simple_cmds	*init_cmd(t_tools	*tools)
 		}
 		num_args--;
 	}
+	str[i] = NULL;
 	return (creat_newcmd(str, tools->redirections));
 }

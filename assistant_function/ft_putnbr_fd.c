@@ -6,11 +6,11 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 21:29:00 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/04 21:29:09 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:01:07 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../header_file/parsing.h"
 
 void	ft_putnbr_fd(int n, int fd)
 {

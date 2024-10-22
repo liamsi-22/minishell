@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:10:01 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/10/03 14:10:15 by abakhcha         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:04:25 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./parsing.h"
+#include "header_file/parsing.h"
 
 int	ft_pwd(t_tools *tools)
 {

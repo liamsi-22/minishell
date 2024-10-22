@@ -6,11 +6,11 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:11:47 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/10/06 18:16:46 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:01:07 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../header_file/parsing.h"
 
 int	ft_error(int error, t_tools *tools)
 {

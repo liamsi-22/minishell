@@ -6,13 +6,12 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 21:24:28 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/21 23:16:17 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:06:09 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
-#include "signal.h"
-#include "global_header.h"
+#include "header_file/execution.h"
+#include "header_file/global_header.h"
 
 int	event(void)
 {

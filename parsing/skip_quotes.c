@@ -6,11 +6,11 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:20:30 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/10/20 15:25:23 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:01:07 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../header_file/parsing.h"
 
 int	skip_spaces(char *str, int i)
 {

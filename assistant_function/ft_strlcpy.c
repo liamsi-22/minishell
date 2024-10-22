@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../header_file/parsing.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {

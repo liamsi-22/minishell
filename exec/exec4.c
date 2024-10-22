@@ -6,12 +6,12 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 22:23:02 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/20 15:51:34 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:03:59 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../global_header.h"
-#include "../parsing.h"
+#include "../header_file/global_header.h"
+#include "../header_file/execution.h"
 
 int	find_cmd(t_simple_cmds *cmd, t_tools *tools)
 {

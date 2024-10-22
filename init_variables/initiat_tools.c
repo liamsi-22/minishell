@@ -6,12 +6,12 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:28:12 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/10/20 15:49:00 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:03:59 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../global_header.h"
-#include "../parsing.h"
+#include "../header_file/global_header.h"
+#include "../header_file/execution.h"
 
 char	*find_path(char **envp)
 {

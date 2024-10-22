@@ -10,7 +10,7 @@ SRC_FILES = main.c $(P_DIR)/creat_newcmd.c $(P_DIR)/error_handling.c $(P_DIR)/ha
 			$(E_DIR)/mini_export.c $(E_DIR)/mini_pwd.c $(E_DIR)/mini_unset.c $(E_DIR)/utils_builtins.c $(A_DIR)/free_arr.c $(A_DIR)/ft_putnbr_fd.c \
 			$(A_DIR)/ft_arrdup.c $(A_DIR)/ft_atoi.c $(A_DIR)/ft_bzero.c $(A_DIR)/ft_itoa.c $(A_DIR)/ft_putendl_fd.c $(A_DIR)/ft_splite.c \
 			$(A_DIR)/ft_strcmp.c $(A_DIR)/ft_strdup.c $(A_DIR)/ft_strjoin.c $(A_DIR)/ft_strlcpy.c $(A_DIR)/ft_strlen.c $(A_DIR)/ft_strncmp.c \
-			$(A_DIR)/ft_strncpy.c $(A_DIR)/ft_strtrim.c $(A_DIR)/ft_substr.c init_variables/initiat_tools.c signals.c
+			$(A_DIR)/ft_strncpy.c $(A_DIR)/ft_strtrim.c $(A_DIR)/ft_substr.c init_variables/initiat_tools.c signals.c $(A_DIR)/ft_calloc.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

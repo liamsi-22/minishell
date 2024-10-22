@@ -6,22 +6,11 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:56:59 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/20 13:54:05 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:40:16 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	int	*ret;
-
-	ret = malloc(count * size);
-	if (!ret)
-		return (0);
-	ft_bzero(ret, count * size);
-	return (ret);
-}
+#include "../header_file/parsing.h"
 
 char	**ft_arrdup(char **arr)
 {

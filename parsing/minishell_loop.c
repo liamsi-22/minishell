@@ -6,11 +6,12 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:14:46 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/10/20 15:13:35 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:03:14 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../header_file/parsing.h"
+#include "../header_file/execution.h"
 
 void	clear_cmd(t_simple_cmds **lst)
 {

@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 16:57:22 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/22 10:01:07 by iel-fagh         ###   ########.fr       */
+/*   Created: 2024/10/22 10:40:06 by iel-fagh          #+#    #+#             */
+/*   Updated: 2024/10/22 10:40:30 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../header_file/parsing.h"
 
-char	*ft_strdup(const char *s1)
+void	*ft_calloc(size_t count, size_t size)
 {
-	char	*s2;
-	size_t	size;
-	size_t	i;
+	int	*ret;
 
-	i = 0;
-	if (!s1)
-		return (NULL);
-	size = ft_strlen(s1);
-	s2 = (char *)malloc((size + 1) * sizeof(char));
-	if (!s2)
+	ret = malloc(count * size);
+	if (!ret)
 		return (0);
-	while (i < size)
-	{
-		s2[i] = s1[i];
-		i++;
-	}
-	s2[i] = '\0';
-	return (s2);
+	ft_bzero(ret, count * size);
+	return (ret);
 }

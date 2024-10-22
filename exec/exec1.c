@@ -6,12 +6,12 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:57:48 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/21 22:52:03 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:03:59 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../global_header.h"
-#include "../parsing.h"
+#include "../header_file/global_header.h"
+#include "../header_file/execution.h"
 #include <signal.h>
 
 void			sigquit_handler(int sig);

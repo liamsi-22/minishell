@@ -6,11 +6,11 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:58:10 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/03 22:05:13 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:03:14 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../header_file/execution.h"
 
 int	variable_exist(t_tools *tools, char *str)
 {
