@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:28:12 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/10/22 10:03:59 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:35:38 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	init_tools(t_tools *tools)
 {
 	tools->simple_cmds = NULL;
 	tools->lexer_list = NULL;
-	tools->reset = false;
+	// tools->reset = false;
 	tools->pid = NULL;
 	g_global.stop_heredoc = 0;
 	g_global.on_going_cmd = 0;
