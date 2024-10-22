@@ -6,7 +6,7 @@
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 21:24:28 by iel-fagh          #+#    #+#             */
-/*   Updated: 2024/10/05 21:33:14 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/21 23:16:17 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	sigint_handler(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	(void)sig;
 }
 
 void	sigquit_handler(int sig)

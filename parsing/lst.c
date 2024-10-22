@@ -31,35 +31,31 @@ void	clear_first_node(t_lexer **lst)
 	tmp = *lst;
 	*lst = tmp->next;
 	clear_node(&tmp);
-	if (*lst)
-		(*lst)->prv = NULL;
 }
 
 void	clear_lexer_node(t_lexer **lst, int key)
 {
-	t_lexer	*node;
-	t_lexer	*prv;
+	t_lexer	*tmp;
+	t_lexer	*tmp1;
 	t_lexer	*start;
 
 	start = *lst;
-	node = start;
+	tmp1 = start;
 	if ((*lst)->i == key)
 	{
 		clear_first_node(lst);
 		return ;
 	}
-	while (node && node->i != key)
+	while (tmp1 && tmp1->i != key)
 	{
-		prv = node;
-		node = node->next;
+		tmp = tmp1;
+		tmp1 = tmp1->next;
 	}
-	if (node)
-		prv->next = node->next;
+	if (tmp1)
+		tmp->next = tmp1->next;
 	else
-		prv->next = NULL;
-	if (prv->next)
-		prv->next->prv = prv;
-	clear_node(&node);
+		tmp->next = NULL;
+	clear_node(&tmp1);
 	*lst = start;
 }
 

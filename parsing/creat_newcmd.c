@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_nodes.c                                      :+:      :+:    :+:   */
+/*   creat_newcmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iel-fagh <iel-fagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:11:08 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/10/16 00:55:46 by iel-fagh         ###   ########.fr       */
+/*   Updated: 2024/10/22 09:31:03 by iel-fagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_lexer	*lexer_new(char *str, int token)
 	new_lexer_node->token = token;
 	new_lexer_node->i = i++;
 	new_lexer_node->next = NULL;
-	new_lexer_node->prv = NULL;
 	return (new_lexer_node);
 }
 
@@ -42,7 +41,6 @@ void	lexer_addback(t_lexer **lst, t_lexer *new)
 	while (tmp->next != NULL)
 		tmp = tmp->next;
 	tmp->next = new;
-	new->prv = tmp;
 }
 
 int	add_lexer_node(char *str, t_tokens token, t_lexer **lexer_list)
