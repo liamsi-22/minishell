@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header_file/parsing.h"
+#include "../header_file/execution.h"
+#include "../header_file/global_header.h"
 
 int	ft_error(int error, t_tools *tools)
 {
@@ -23,14 +24,10 @@ int	ft_error(int error, t_tools *tools)
 	else if (error == 2)
 		ft_putstr_fd("syntax error: unable to locate closing quotation\n",
 			STDERR_FILENO);
-	else if (error == 3)
-		ft_putstr_fd("Parser problem\n", STDERR_FILENO);
 	else if (error == 4)
 		ft_putstr_fd("Failed to create pipe\n", STDERR_FILENO);
 	else if (error == 5)
 		ft_putstr_fd("Failed to fork\n", STDERR_FILENO);
-	else if (error == 6)
-		ft_putstr_fd("outfile: Error\n", STDERR_FILENO);
 	reset_tools(tools);
 	return (1);
 }
@@ -58,6 +55,7 @@ int	pipe_error(t_tools *tools)
 
 int	doubl_token_error(t_tools *tools, t_lexer *lexer_list, t_tokens token)
 {
+	g_global.error_num = 2;
 	ft_putstr_fd("minishell: syntax error near unexpected token ",
 		STDERR_FILENO);
 	if (token == GREAT)
