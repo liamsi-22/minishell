@@ -17,8 +17,11 @@ int	ft_error(int error, t_tools *tools)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	if (error == 0)
+	{
+		g_global.error_num = 2;
 		ft_putstr_fd("syntax error near unexpected token 'newline'\n",
 			STDERR_FILENO);
+	}
 	else if (error == 1)
 		ft_putstr_fd("memory error: unable to assign memory\n", STDERR_FILENO);
 	else if (error == 2)
