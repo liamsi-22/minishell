@@ -85,22 +85,22 @@ int	mini_export(t_tools *tools, t_simple_cmds *simple_cmd)
 
 	i = 1;
 	if (!simple_cmd->str[1] || simple_cmd->str[1][0] == '\0')
-		mini_env(tools, simple_cmd);
+		mini_export_env(tools, simple_cmd);
 	else
 	{
 		while (simple_cmd->str[i])
 		{
-			if (!check_parameter(simple_cmd->str[i]) && !variable_exist(tools,
+			if (check_parameter(simple_cmd->str[i]) != 0)
+				return (EXIT_FAILURE);
+			else if (!check_parameter(simple_cmd->str[i]) && !variable_exist(tools,
 					simple_cmd->str[i]))
 			{
-				if (simple_cmd->str[i] && equal_sgn(simple_cmd->str[i]) != 0)
+				if (simple_cmd->str[i])
 				{
 					tmp = add_var(tools->env, simple_cmd->str[i]);
 					tools->env = tmp;
 				}
 			}
-			else if (check_parameter(simple_cmd->str[i]) != 0)
-				return (EXIT_FAILURE);
 			i++;
 		}
 	}

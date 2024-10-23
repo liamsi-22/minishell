@@ -17,7 +17,7 @@ int	find_cmd(t_simple_cmds *cmd, t_tools *tools)
 {
 	int		i;
 	char	*mycmd;
-
+	
 	if ((tools->pwd && !ft_strcmp(cmd->str[0], tools->pwd))
 		|| (!access(cmd->str[0], F_OK) && cmd->str[0][ft_strlen(cmd->str[0])
 			- 1] == '/'))

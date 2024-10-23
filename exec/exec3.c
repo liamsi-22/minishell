@@ -13,30 +13,38 @@
 #include "../header_file/global_header.h"
 #include "../header_file/execution.h"
 
-int	is_paire(char *str)
+bool handle_double_quotes(char *str, int *i)
 {
-	int	i;
-	int	x;
+    (*i)++;
+    while (str[*i] && str[*i] != '"') {
+        (*i)++;
+    }
+    if (!str[*i]) return false;
+    (*i)++;
+    return true;
+}
 
-	i = 0;
-	x = 0;
-	while (str[i])
-	{
-		if (str[i] == '"')
-		{
-			i++;
-			while (str[i] && str[i] != '"')
-				i++;
-			if (str[i] == '"')
-				i++;
-		}
-		if (str[i] == '\'')
-			x++;
-		if (str[i] == '$')
-			break ;
-		i++;
-	}
-	return (x);
+int is_paire(char *str) {
+    int i = 0;
+    int x = 0;
+
+    if (!str) return 0;
+
+    while (str[i]) {
+        if (str[i] == '"') {
+            if (!handle_double_quotes(str, &i)) {
+                break;
+            }
+        } else if (str[i] == '\'') {
+            x++;
+            i++;
+        } else if (str[i] == '$') {
+            break;
+        } else {
+            i++;
+        }
+    }
+    return x;
 }
 
 char	*expand_str(t_tools *tools, char *str)
@@ -84,21 +92,7 @@ int	check_void(char **str, char *tmp, int i)
 	else
 	{
 		free(str[i]);
-		str[i] = tmp;
-	}
-	return (0);
-}
-
-size_t	dollar_sign(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$')
-			return (i + 1);
-		i++;
+		str[i] = ft_strtrim2(tmp);
 	}
 	return (0);
 }
@@ -119,7 +113,7 @@ char	**expander(t_tools *tools, char **str)
 		{
 			if (check < 0 || (str[i][0] == '"' && is_paire(str[i]) % 2 == 0)
 				|| (str[i][dollar_sign(str[i]) - 2] == '\'' && is_paire(str[i])
-					% 2 == 0) || is_paire(str[i]) % 2 == 0)
+					% 2 == 0))
 			{
 				tmp = detect_dollar_sign(tools, str[i]);
 				j = check_void(str, tmp, i);

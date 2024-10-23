@@ -16,28 +16,6 @@
 
 void	sigquit_handler(int sig);
 
-int	handle_digit(int j, char *str, char **tmp)
-{
-	int		i;
-	char	*tmp2;
-
-	i = j;
-	if (str[j] == '$')
-	{
-		if (ft_isdigit(str[j + 1]) == 1)
-		{
-			if (str[j + 1] == '0' && !ft_isdigit(str[j + 2]))
-			{
-				tmp2 = ft_strjoin(*tmp, "minishell");
-				free(*tmp);
-				*tmp = tmp2;
-			}
-			j += 2;
-		}
-	}
-	return (j - i);
-}
-
 int	handle_infile(char *file)
 {
 	int	fd;
@@ -110,12 +88,22 @@ int	create_heredoc(t_lexer *heredoc, bool quotes, t_tools *tools,
 	return (EXIT_SUCCESS);
 }
 
+char *append_char_to_str(char *tmp, char c)
+{    
+	char *tmp2;
+    char *tmp3;
+	
+	tmp2 = char_to_str(c);
+	tmp3 = ft_strjoin(tmp, tmp2);
+    free(tmp);
+    free(tmp2);
+    return (tmp3);
+}
+
 char	*detect_dollar_sign(t_tools *tools, char *s)
 {
 	int		j;
 	char	*tmp;
-	char	*tmp2;
-	char	*tmp3;
 
 	j = 0;
 	tmp = ft_strdup("");
@@ -125,16 +113,10 @@ char	*detect_dollar_sign(t_tools *tools, char *s)
 			j += handle_digit(j, s, &tmp);
 		else if (s[j] == '$' && s[j + 1] == '?')
 			j += question_mark(&tmp);
-		else if (s[j] == '$' && s[j + 1] && s[j + 1] != 32 && s[j + 1] != '"')
+		else if (s[j] == '$' && s[j + 1] && s[j + 1] != 32 && (s[j + 1] != '"' || s[j + 2]))
 			j += loop_if_dollar_sign(tools, s, &tmp, j);
 		else
-		{
-			tmp2 = char_to_str(s[j++]);
-			tmp3 = ft_strjoin(tmp, tmp2);
-			free(tmp);
-			tmp = tmp3;
-			free(tmp2);
-		}
+			tmp = append_char_to_str(tmp,s[j++]);
 	}
 	return (tmp);
 }

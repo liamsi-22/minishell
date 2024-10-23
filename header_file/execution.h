@@ -75,7 +75,6 @@ int							multiple_cmd(t_tools *tools);
 int							mini_cd(t_tools *tools, t_simple_cmds *simple_cmd);
 void						add_path_to_env(t_tools *tools);
 int							specific_path(t_tools *tools, char *str);
-char						*find_path_ret(char *str, t_tools *tools);
 void						print_lines(int i, char **str, int out);
 int							mini_echo(t_tools *tools,
 								t_simple_cmds *simple_cmd);
@@ -103,5 +102,8 @@ void						change_path(t_tools *tools);
 char						*delete_quotes_value(char *str);
 int							check_valid_identifier(char c);
 void						init_signals(void);
+char						*ft_strtrim2(char const *s1);
+int							mini_export_env(t_tools *tools, t_simple_cmds *simple_cmd);
+bool 						handle_double_quotes(char *str, int *i);
 
 #endif

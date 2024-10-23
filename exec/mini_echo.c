@@ -26,10 +26,10 @@ int	mini_echo(t_tools *tools, t_simple_cmds *simple_cmd)
 {
 	int		i;
 	int		j;
-	bool	n_option;
+	bool	option;
 
 	i = 1;
-	n_option = false;
+	option = false;
 	(void)tools;
 	while (simple_cmd->str[i] && simple_cmd->str[i][0] == '-'
 		&& simple_cmd->str[i][1] == 'n')
@@ -38,13 +38,13 @@ int	mini_echo(t_tools *tools, t_simple_cmds *simple_cmd)
 		while (simple_cmd->str[i][j] == 'n')
 			j++;
 		if (simple_cmd->str[i][j] == '\0')
-			n_option = true;
+			option = true;
 		else
 			break ;
 		i++;
 	}
 	print_lines(i, simple_cmd->str, STDOUT_FILENO);
-	if (n_option == false)
+	if (option == false)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (EXIT_SUCCESS);
 }

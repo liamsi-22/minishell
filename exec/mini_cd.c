@@ -27,34 +27,29 @@ void	change_path(t_tools *tools)
 		tools->pwd = ft_strdup(tools->old_pwd);
 }
 
-char	*find_path_ret(char *str, t_tools *tools)
-{
-	int	i;
-
-	i = 0;
-	while (tools->env[i])
-	{
-		if (!ft_strncmp(tools->env[i], str, ft_strlen(str)))
-			return (ft_substr(tools->env[i], ft_strlen(str),
-					ft_strlen(tools->env[i]) - ft_strlen(str)));
-		i++;
-	}
-	return (NULL);
-}
-
 int	specific_path(t_tools *tools, char *str)
 {
 	char	*tmp;
 	int		ret;
+	int i;
 
-	tmp = find_path_ret(str, tools);
+	i = 0;
+	tmp = NULL;
+	while (tools->env[i])
+	{
+		if (!ft_strncmp(tools->env[i], str, ft_strlen(str)))
+			tmp = ft_substr(tools->env[i], ft_strlen(str), ft_strlen(tools->env[i]) - ft_strlen(str));
+		i++;
+	}
+	if (!tmp)
+	{
+		ft_putendl_fd("minishell: cd: HOME not set", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
 	ret = chdir(tmp);
 	free(tmp);
 	if (ret != 0)
-	{
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(" not set", STDERR_FILENO);
-	}
+		ft_putendl_fd("minishell: cd: HOME not set", STDERR_FILENO);
 	return (ret);
 }
 

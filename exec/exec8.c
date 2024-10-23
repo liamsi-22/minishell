@@ -13,6 +13,42 @@
 #include "../header_file/global_header.h"
 #include "../header_file/execution.h"
 
+int	handle_digit(int j, char *str, char **tmp)
+{
+	int		i;
+	char	*tmp2;
+
+	i = j;
+	if (str[j] == '$')
+	{
+		if (ft_isdigit(str[j + 1]) == 1)
+		{
+			if (str[j + 1] == '0' && !ft_isdigit(str[j + 2]))
+			{
+				tmp2 = ft_strjoin(*tmp, "minishell");
+				free(*tmp);
+				*tmp = tmp2;
+			}
+			j += 2;
+		}
+	}
+	return (j - i);
+}
+
+size_t	dollar_sign(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+			return (i + 1);
+		i++;
+	}
+	return (0);
+}
+
 int	export_error(char *c)
 {
 	ft_putstr_fd("minishell: export: ", STDERR_FILENO);
