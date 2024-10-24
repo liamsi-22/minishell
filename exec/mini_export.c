@@ -92,8 +92,8 @@ int	mini_export(t_tools *tools, t_simple_cmds *simple_cmd)
 		{
 			if (check_parameter(simple_cmd->str[i]) != 0)
 				return (EXIT_FAILURE);
-			else if (!check_parameter(simple_cmd->str[i]) && !variable_exist(tools,
-					simple_cmd->str[i]))
+			else if (!check_parameter(simple_cmd->str[i])
+				&& !variable_exist(tools, simple_cmd->str[i]))
 			{
 				if (simple_cmd->str[i])
 				{

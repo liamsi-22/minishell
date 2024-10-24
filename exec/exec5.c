@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header_file/global_header.h"
 #include "../header_file/execution.h"
+#include "../header_file/global_header.h"
 #include <signal.h>
 
 void	sigquit_handler(int sig);
@@ -88,16 +88,16 @@ int	create_heredoc(t_lexer *heredoc, bool quotes, t_tools *tools,
 	return (EXIT_SUCCESS);
 }
 
-char *append_char_to_str(char *tmp, char c)
-{    
-	char *tmp2;
-    char *tmp3;
-	
+char	*append_char_to_str(char *tmp, char c)
+{
+	char	*tmp2;
+	char	*tmp3;
+
 	tmp2 = char_to_str(c);
 	tmp3 = ft_strjoin(tmp, tmp2);
-    free(tmp);
-    free(tmp2);
-    return (tmp3);
+	free(tmp);
+	free(tmp2);
+	return (tmp3);
 }
 
 char	*detect_dollar_sign(t_tools *tools, char *s)
@@ -113,10 +113,11 @@ char	*detect_dollar_sign(t_tools *tools, char *s)
 			j += handle_digit(j, s, &tmp);
 		else if (s[j] == '$' && s[j + 1] == '?')
 			j += question_mark(&tmp);
-		else if (s[j] == '$' && s[j + 1] && s[j + 1] != 32 && (s[j + 1] != '"' || s[j + 2]))
+		else if (s[j] == '$' && s[j + 1] && s[j + 1] != 32 && (s[j + 1] != '"'
+				|| s[j + 2]))
 			j += loop_if_dollar_sign(tools, s, &tmp, j);
 		else
-			tmp = append_char_to_str(tmp,s[j++]);
+			tmp = append_char_to_str(tmp, s[j++]);
 	}
 	return (tmp);
 }

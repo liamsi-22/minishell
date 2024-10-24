@@ -31,14 +31,15 @@ int	specific_path(t_tools *tools, char *str)
 {
 	char	*tmp;
 	int		ret;
-	int i;
+	int		i;
 
 	i = 0;
 	tmp = NULL;
 	while (tools->env[i])
 	{
 		if (!ft_strncmp(tools->env[i], str, ft_strlen(str)))
-			tmp = ft_substr(tools->env[i], ft_strlen(str), ft_strlen(tools->env[i]) - ft_strlen(str));
+			tmp = ft_substr(tools->env[i], ft_strlen(str),
+					ft_strlen(tools->env[i]) - ft_strlen(str));
 		i++;
 	}
 	if (!tmp)

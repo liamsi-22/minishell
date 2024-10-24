@@ -10,41 +10,49 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header_file/global_header.h"
 #include "../header_file/execution.h"
+#include "../header_file/global_header.h"
 
-bool handle_double_quotes(char *str, int *i)
+bool	handle_double_quotes(char *str, int *i)
 {
-    (*i)++;
-    while (str[*i] && str[*i] != '"') {
-        (*i)++;
-    }
-    if (!str[*i]) return false;
-    (*i)++;
-    return true;
+	(*i)++;
+	while (str[*i] && str[*i] != '"')
+	{
+		(*i)++;
+	}
+	if (!str[*i])
+		return (false);
+	(*i)++;
+	return (true);
 }
 
-int is_paire(char *str) {
-    int i = 0;
-    int x = 0;
+int	is_paire(char *str)
+{
+	int	i;
+	int	x;
 
-    if (!str) return 0;
-
-    while (str[i]) {
-        if (str[i] == '"') {
-            if (!handle_double_quotes(str, &i)) {
-                break;
-            }
-        } else if (str[i] == '\'') {
-            x++;
-            i++;
-        } else if (str[i] == '$') {
-            break;
-        } else {
-            i++;
-        }
-    }
-    return x;
+	i = 0;
+	x = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == '"')
+		{
+			if (!handle_double_quotes(str, &i))
+				break ;
+		}
+		else if (str[i] == '\'')
+		{
+			x++;
+			i++;
+		}
+		else if (str[i] == '$')
+			break ;
+		else
+			i++;
+	}
+	return (x);
 }
 
 char	*expand_str(t_tools *tools, char *str)
