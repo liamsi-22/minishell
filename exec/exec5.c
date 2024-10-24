@@ -100,7 +100,6 @@ char	*append_char_to_str(char *tmp, char c)
 	return (tmp3);
 }
 
-
 char	*detect_dollar_sign(t_tools *tools, char *s)
 {
 	int		j;
