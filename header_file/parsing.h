@@ -141,5 +141,5 @@ int							count_args(t_lexer *lexer_list);
 void						*ft_calloc(size_t count, size_t size);
 int							ft_isdigit(int c);
 t_simple_cmds				*creat_newcmd(char **str, t_lexer *redirections);
-
+int							dolar_dolar(char *str, int j);
 #endif

@@ -100,6 +100,7 @@ char	*append_char_to_str(char *tmp, char c)
 	return (tmp3);
 }
 
+
 char	*detect_dollar_sign(t_tools *tools, char *s)
 {
 	int		j;
@@ -111,6 +112,8 @@ char	*detect_dollar_sign(t_tools *tools, char *s)
 	{
 		if (s[j] == '$' && ft_isdigit(s[j + 1]))
 			j += handle_digit(j, s, &tmp);
+		else if (s[j] == '$' && s[j + 1] == '$')
+			j += dolar_dolar(s, j);
 		else if (s[j] == '$' && s[j + 1] == '?')
 			j += question_mark(&tmp);
 		else if (s[j] == '$' && s[j + 1] && s[j + 1] != 32 && (s[j + 1] != '"'

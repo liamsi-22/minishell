@@ -69,3 +69,13 @@ int	after_dol(char *str, int j)
 		i++;
 	return (i);
 }
+
+int	dolar_dolar(char *str, int j)
+{
+	int	i;
+
+	i = j;
+	while (str[i] && str[i] == '$')
+		i++;
+	return (i - j - 1);
+}

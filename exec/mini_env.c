@@ -34,6 +34,8 @@ int	mini_export_env(t_tools *tools, t_simple_cmds *simple_cmd)
 	i = 0;
 	while (tools->env[i])
 	{
+		ft_putstr_fd("declare -x ",
+			STDOUT_FILENO);
 		ft_putendl_fd(tools->env[i], STDOUT_FILENO);
 		i++;
 	}
