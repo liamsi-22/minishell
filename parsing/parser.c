@@ -47,7 +47,7 @@ int	parser(t_tools *tools)
 		if (!node)
 		{
 			clear_cmd(&tools->simple_cmds);
-			parser_error(0, tools, tools->lexer_list);
+			parser_error(1, tools, tools->lexer_list);
 		}
 		if (!tools->simple_cmds)
 			tools->simple_cmds = node;

@@ -76,7 +76,6 @@ int	read_word(int i, char *str, t_lexer **lexer_list)
 	if (!add_lexer_node(ft_substr(str, i, j), 0, lexer_list))
 		return (-1);
 	return (j);
-	return (0);
 }
 
 int	init_lexer(t_tools *tools)

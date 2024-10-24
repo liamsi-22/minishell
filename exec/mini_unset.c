@@ -12,7 +12,7 @@
 
 #include "../header_file/execution.h"
 
-char	**whileloop_del_var(char **arr, char **rtn, char *str)
+char	**whileloop_del_var(char **arr, char **store, char *str)
 {
 	int	i;
 	int	j;
@@ -25,18 +25,18 @@ char	**whileloop_del_var(char **arr, char **rtn, char *str)
 				&& str[equal_sgn(arr[i]) - 1] == '\0'
 				&& arr[i][ft_strlen(str)] == '='))
 		{
-			rtn[j] = ft_strdup(arr[i]);
-			if (rtn[j] == NULL)
+			store[j] = ft_strdup(arr[i]);
+			if (store[j] == NULL)
 			{
-				free_arr(rtn);
-				return (rtn);
+				free_arr(store);
+				return (store);
 			}
 			j++;
 		}
 		i++;
 	}
-	rtn[j] = NULL;
-	return (rtn);
+	store[j] = NULL;
+	return (store);
 }
 
 char	**del_var(char **arr, char *str)
@@ -54,46 +54,21 @@ char	**del_var(char **arr, char *str)
 	return (rtn);
 }
 
-int	unset_error(t_simple_cmds *simple_cmd)
-{
-	int	i;
-
-	i = 0;
-	if (!simple_cmd->str[1])
-		return (EXIT_SUCCESS);
-	while (simple_cmd->str[1][i])
-	{
-		if (simple_cmd->str[1][i++] == '/')
-		{
-			ft_putstr_fd("minishell: unset: `", STDERR_FILENO);
-			ft_putstr_fd(simple_cmd->str[1], STDERR_FILENO);
-			ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
-			return (EXIT_FAILURE);
-		}
-	}
-	if (equal_sgn(simple_cmd->str[1]) != 0)
-	{
-		ft_putendl_fd("minishell: unset: not a valid identifier",
-			STDERR_FILENO);
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}
-
 int	mini_unset(t_tools *tools, t_simple_cmds *simple_cmd)
 {
 	char	**tmp;
+	int		i;
 
 	tmp = NULL;
-	if (unset_error(simple_cmd) == 1)
-		return (EXIT_FAILURE);
-	else
+	if (simple_cmd->str[1])
 	{
-		if (simple_cmd->str[1])
+		i = 1;
+		while (simple_cmd->str[i])
 		{
-			tmp = del_var(tools->env, simple_cmd->str[1]);
+			tmp = del_var(tools->env, simple_cmd->str[i]);
 			free_arr(tools->env);
 			tools->env = tmp;
+			i++;
 		}
 	}
 	return (EXIT_SUCCESS);
