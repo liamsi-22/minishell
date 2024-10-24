@@ -117,7 +117,6 @@ char	**expander(t_tools *tools, char **str)
 		check = dollar_sign(str[i]) - 2;
 		if (dollar_sign(str[i]) != 0 && str[i][dollar_sign(str[i])] != '\0')
 		{
-			printf("\n___[%d]___\n",is_paire(str[i]));
 			if (check < 0 || (str[i][0] == '"' && is_paire(str[i]) % 2 == 0)
 				|| (str[i][dollar_sign(str[i]) - 2] == '\'' && is_paire(str[i])
 					% 2 == 0) || is_paire(str[i]) % 2 == 0 || str[i][0] == '"')
